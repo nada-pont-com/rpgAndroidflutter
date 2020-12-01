@@ -23,6 +23,7 @@ class TelaInicio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Comandos().init();
+
     return Scaffold(
       body: Container(
           alignment: Alignment.center,
