@@ -26,6 +26,7 @@ class _JogoState extends State<Jogo> {
   Widget _body() {
     return FutureBuilder(
       future: _comandos.buscaDados(),
+      // ignore: missing_return
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
