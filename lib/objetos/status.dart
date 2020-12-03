@@ -48,7 +48,7 @@ class Status {
     defM = status["defM"];
     atkM = status["atkM"];
     vit = status["vit"];
-    intl = status["intl"];
+    intl = status["inteli"];
   }
 
   int get getVida => vida;

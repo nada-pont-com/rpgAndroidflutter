@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:inicio/banco/comandos.dart';
 import 'package:inicio/jogo/inicio/continuar.dart';
+import 'package:inicio/jogo/inicio/jogo.dart';
 import 'package:inicio/jogo/inicio/novo_jogo.dart';
 
 void main() {
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
 class TelaInicio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Comandos().init();
+    Comandos().buscaLoad();
 
     return Scaffold(
       body: Container(
@@ -40,7 +42,7 @@ class TelaInicio extends StatelessWidget {
                   color: Colors.blue,
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Continuar()));
+                        MaterialPageRoute(builder: (context) => Jogo()));
                   },
                   textColor: Colors.white,
                 ),
