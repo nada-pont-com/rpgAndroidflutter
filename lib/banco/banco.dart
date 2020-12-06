@@ -1,4 +1,4 @@
-import 'package:inicio/banco/application.dart';
+import 'package:inicio/application.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class Banco {
@@ -24,7 +24,7 @@ abstract class Banco {
       // await _db.execute("DROP TABLE load");
 
       // tablesCriat.forEach((String sql) {
-      //   _db.execute(sql);
+      // _db.execute(sql);
       // });
     }
     return this._db;

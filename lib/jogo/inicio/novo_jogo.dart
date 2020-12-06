@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inicio/banco/application.dart';
+import 'package:inicio/application.dart';
 import 'package:inicio/banco/comandos.dart';
 import 'package:inicio/dados/classes_dados.dart';
 import 'package:inicio/jogo/inicio/jogo.dart';
@@ -190,7 +190,9 @@ class _NovoLoadState extends State<NovoLoad> {
                     _newPerso.setMp = 100;
                     _newPerso.setMpMax = 100;
                     comandos.inserirPerso(_newPerso.toMap());
-                    load = _load.id;
+                    loadId = _load.id;
+                    persos = List<Perso>();
+                    persos.add(_newPerso);
                     Navigator.push(
                         context,
                         MaterialPageRoute(

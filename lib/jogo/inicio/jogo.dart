@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:inicio/application.dart';
 import 'package:inicio/banco/comandos.dart';
+import 'package:inicio/dados/dungeon_dados.dart';
+import 'package:inicio/jogo/dungeon/dungeon.dart';
 import 'package:inicio/jogo/inicio/personagem_menu.dart';
+import 'package:inicio/objetos/dungeon.dart';
 import 'package:inicio/objetos/perso.dart';
 
 class Jogo extends StatefulWidget {
@@ -13,63 +17,111 @@ class Jogo extends StatefulWidget {
 
 class _JogoState extends State<Jogo> {
   List<Perso> _persos = List<Perso>();
+  List<DungeonTable> _dungeons = List<DungeonTable>();
   Comandos _comandos = Comandos();
+  BuildContext _context;
+  int _selectBar = 0, _refDunGuil = 0;
+
   @override
   Widget build(BuildContext context) {
+    _context = context;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: _body(),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.construction),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: "Home",
+            ),
+          ],
+          onTap: (int index) {
+            setState(() {
+              _selectBar = index;
+              _refDunGuil = 0;
+            });
+          },
+          currentIndex: _selectBar,
+          selectedItemColor: Colors.amber,
+        ),
       ),
     );
   }
 
   Widget _body() {
-    return FutureBuilder(
-      future: _comandos.buscaDados(),
+    if (_selectBar == 0) {
+      return _perso();
+    } else {
+      return _dungeonGuild();
+    }
+  }
 
-      // ignore: missing_return
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.none:
-          case ConnectionState.waiting:
-            return Center(child: Text("Carregando"));
-            break;
-          default:
-            if (snapshot.hasError) {
-            } else {
-              _persos = snapshot.data;
-              _persos[0].toMap();
-              return _list();
-            }
-            break;
-        }
-      },
+  Widget _perso() {
+    return Column(
+      children: [
+        Container(
+          child: Row(
+            children: [
+              raisedButtonOfList(
+                "Voltar",
+                () {
+                  Navigator.pop(_context);
+                },
+                color: Colors.grey,
+                textColor: Colors.black,
+              )
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 9,
+          child: FutureBuilder(
+            future: _comandos.buscaDados(),
+
+            // ignore: missing_return
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                case ConnectionState.waiting:
+                  return Center(child: Text("Carregando"));
+                  break;
+                default:
+                  if (snapshot.hasError) {
+                  } else {
+                    _persos = snapshot.data;
+                    _persos[0].toMap();
+                    return _listPerso();
+                  }
+                  break;
+              }
+            },
+          ),
+        )
+      ],
     );
   }
 
-  _list() {
+  _listPerso() {
     return ListView.builder(
       itemCount: _persos.length,
       itemBuilder: (BuildContext context, int index) {
-        return ListTile(
+        return InkWell(
           onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => PersonagemMenu()));
           },
-          title: Container(
+          child: Container(
             child: Column(
               children: [
-                Row(
-                  children: [
-                    _raisedButtonOfList(
-                      "Voltar",
-                      () {},
-                      color: Colors.grey,
-                      textColor: Colors.black,
-                    )
-                  ],
-                ),
                 Row(
                   children: [
                     Container(
@@ -205,18 +257,142 @@ class _JogoState extends State<Jogo> {
     );
   }
 
-  Widget _raisedButtonOfList(
-    String text,
-    Function onPress, {
-    Color color: Colors.blue,
-    Color textColor: Colors.white,
-  }) =>
-      Container(
-        margin: EdgeInsets.all(5),
-        child: RaisedButton(
-            color: color,
-            textColor: textColor,
-            child: Text(text),
-            onPressed: onPress),
-      );
+  Widget _dungeonGuild() {
+    if (_refDunGuil == 0) {
+      return _buttonsGuildDung();
+    } else if (_refDunGuil == 1) {
+      return Text("ola");
+    } else {
+      return _dungeon();
+    }
+  }
+
+  Widget _buttonsGuildDung() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        raisedButtonOfList(
+          "Voltar",
+          () {
+            setState(() {
+              _selectBar = 0;
+            });
+          },
+          color: Colors.grey,
+          textColor: Colors.black,
+        ),
+        Divider(
+          color: Colors.black,
+          height: 10,
+          thickness: 2,
+        ),
+        raisedButtonOfList(
+          "Guilda",
+          () {
+            setState(() {
+              _refDunGuil = 1;
+            });
+          },
+          color: Colors.grey,
+          textColor: Colors.black,
+        ),
+        raisedButtonOfList(
+          "Dungeon",
+          () {
+            setState(() {
+              _refDunGuil = 2;
+            });
+          },
+          color: Colors.grey,
+          textColor: Colors.black,
+        ),
+      ],
+    );
+  }
+
+  Widget _dungeon() {
+    return FutureBuilder(
+      future: _comandos.buscaDungeons(),
+
+      // ignore: missing_return
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            return Center(child: Text("Carregando"));
+            break;
+          default:
+            if (snapshot.hasError) {
+            } else {
+              _dungeons = snapshot.data;
+              // _persos[0].toMap();
+              return _listDungeon();
+            }
+            break;
+        }
+      },
+    );
+  }
+
+  Widget _listDungeon() {
+    return Column(
+      children: [
+        Expanded(
+          flex: 1,
+          child: Row(
+            children: [
+              raisedButtonOfList(
+                "Procurar",
+                () {
+                  setState(() {
+                    DungeonsDados().geraDungeon(_persos[0].rank);
+                  });
+                },
+                color: Colors.grey,
+                textColor: Colors.black,
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 9,
+          child: ListView.builder(
+            itemCount: _dungeons.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Column(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Dungeon(_dungeons[index])));
+                    },
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 5,
+                          child:
+                              Text("Andares: " + _dungeons[index].getAndares),
+                        ),
+                        Expanded(
+                          flex: 5,
+                          child: Text(_dungeons[index].getNome),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    color: Colors.black,
+                    height: 10,
+                    thickness: 2,
+                  )
+                ],
+              );
+            },
+          ),
+        )
+      ],
+    );
+  }
 }

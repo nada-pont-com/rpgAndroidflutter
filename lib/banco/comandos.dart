@@ -1,5 +1,6 @@
 import 'package:inicio/banco/banco.dart';
-import 'package:inicio/banco/application.dart';
+import 'package:inicio/application.dart';
+import 'package:inicio/objetos/dungeon.dart';
 import 'package:inicio/objetos/load.dart';
 import 'package:inicio/objetos/perso.dart';
 import 'package:sqflite/sqflite.dart';
@@ -34,10 +35,31 @@ class Comandos extends Banco {
     return true;
   }
 
+  Future<bool> inserirDungeon(Map<String, dynamic> values) async {
+    Database db = await this.getDb();
+    db.insert("dungeons_tem_loads", values);
+    return true;
+  }
+
+  Future<List<DungeonTable>> buscaDungeons() async {
+    Database db = await this.getDb();
+    List<Map<String, dynamic>> dungeonsBd = await db.query(
+      "dungeons_tem_loads",
+      where: "load_id=?",
+      whereArgs: [loadId],
+    );
+    List<DungeonTable> dungeons = List<DungeonTable>();
+
+    dungeonsBd.forEach((Map<String, dynamic> dungeonDb) {
+      dungeons.add(DungeonTable.map(dungeonDb));
+    });
+    return dungeons;
+  }
+
   Future<List<Perso>> buscaDados() async {
     Database db = await this.getDb();
     List<Map<String, dynamic>> persosDb =
-        await db.query('perso', where: "load_id=?", whereArgs: [load]);
+        await db.query('perso', where: "load_id=?", whereArgs: [loadId]);
     List<Perso> persos = List<Perso>();
     persosDb.forEach((Map<String, dynamic> persoDb) {
       persos.add(Perso.map(persoDb));
