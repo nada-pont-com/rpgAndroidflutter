@@ -21,6 +21,13 @@ bool validaRank(String rankMax, String rankValidar) {
   return false;
 }
 
+dynamic convertRank({String rankS, int rankInt}) {
+  if (rankS == null) return ranks[rankInt];
+  for (var i = 0; i < ranks.length; i++) {
+    if (ranks[i] == rankS) return i;
+  }
+}
+
 Widget raisedButtonOfList(String text, Function onPress,
     {Color color: Colors.blue, Color textColor: Colors.white, Widget texto}) {
   if (texto == null) {

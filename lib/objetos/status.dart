@@ -52,37 +52,37 @@ class Status {
   }
 
   int get getVida => vida;
-  set setVida(vida) => this.vida = vida;
+  set setVida(int vida) => this.vida = vida;
 
   int get getVidaMax => vidaMax;
-  set setVidaMax(vidaMax) => this.vidaMax = vidaMax;
+  set setVidaMax(int vidaMax) => this.vidaMax = vidaMax;
 
   int get getMp => mp;
-  set setMp(mp) => this.mp = mp;
+  set setMp(int mp) => this.mp = mp;
 
   int get getmpMax => mpMax;
-  set setMpMax(mpMax) => this.mpMax = mpMax;
+  set setMpMax(int mpMax) => this.mpMax = mpMax;
 
   int get getAtk => atk;
-  set setAtk(atk) => this.atk = atk;
+  set setAtk(int atk) => this.atk = atk;
 
   int get getDef => def;
-  set setDef(def) => this.def = def;
+  set setDef(int def) => this.def = def;
 
   int get getAgi => agi;
-  set setAgi(agi) => this.agi = agi;
+  set setAgi(int agi) => this.agi = agi;
 
   int get getAtkM => atkM;
-  set setAtkM(atkM) => this.atkM = atkM;
+  set setAtkM(int atkM) => this.atkM = atkM;
 
   int get getDefM => defM;
-  set setDefM(defM) => this.defM = defM;
+  set setDefM(int defM) => this.defM = defM;
 
   int get getVit => vit;
-  set setVit(vit) => this.vit = vit;
+  set setVit(int vit) => this.vit = vit;
 
   int get getIntl => intl;
-  set setIntl(intl) => this.intl = intl;
+  set setIntl(int intl) => this.intl = intl;
 
   Map<String, dynamic> toMap() {
     return {
