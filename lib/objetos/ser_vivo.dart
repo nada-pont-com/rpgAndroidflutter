@@ -108,7 +108,7 @@ class SerVivo extends Status with Objeto {
         }
         // print("atkR:" + atkReal.toString());
         int dano = atkReal.toInt();
-        int validador = inimigo.getVidaReal - dano;
+        int validador = inimigo.getVidaReal - dano; // 399
         String acao = "";
         if (habilidade != null) {
           acao = voce.getNome +

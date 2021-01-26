@@ -72,7 +72,6 @@ class Comandos extends Banco {
         }, values["id"]);
       }
     });
-    // inserirItem(values);
     return true;
   }
 

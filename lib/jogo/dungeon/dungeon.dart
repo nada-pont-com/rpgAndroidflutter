@@ -72,7 +72,7 @@ class _DungeonState extends State<Dungeon> {
               Expanded(
                 flex: 2,
                 child: raisedButtonOfList(
-                  "ESQUERDA",
+                  "Esquerda",
                   (caminhos["Esquerda"] ? _caminhar : null),
                   color: Colors.grey,
                   textColor: Colors.black,
@@ -81,7 +81,7 @@ class _DungeonState extends State<Dungeon> {
               Expanded(
                 flex: 2,
                 child: raisedButtonOfList(
-                  "FRENTE",
+                  "Frente",
                   (caminhos["Frente"] ? _caminhar : null),
                   color: Colors.grey,
                   textColor: Colors.black,
@@ -187,7 +187,7 @@ class _DungeonState extends State<Dungeon> {
   void _regHp() {
     for (int i = 0; i < _dados.length; i++) {
       Perso dado = _dados[i];
-      int vida = dado.getVida - (dado.getVit * 10);
+      int vida = dado.getVidaReal;
       int reg = dado.getVidaMax ~/ 100;
       print("Reg: " + reg.toString());
       dado.setVida = dado.getVidaMax == dado.getVida ? vida : reg + vida;
