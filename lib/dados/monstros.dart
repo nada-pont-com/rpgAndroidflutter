@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:inicio/application.dart';
+import 'package:inicio/dados/itens.dart';
 import 'package:inicio/objetos/monstro.dart';
 import 'package:inicio/objetos/status.dart';
 
@@ -9,40 +10,136 @@ class Monstros {
     "G": [
       {
         "nome": "Slime",
-        "exp": "5",
+        "exp": 5,
         "level": 1,
         "rank": "G",
         "itens": [
           {
             "min": 1,
             "max": 3,
-            "item": "Gosma",
+            "item": Itens().geraItemByName("GOSMA"),
           },
           {
             "min": 0,
             "max": 1,
-            "item": "Poção HP P",
+            "item": Itens().geraItemByName("Poção_HP_P"),
           },
           {
             "min": 0,
             "max": 1,
-            "item": "Poção MP P",
+            "item": Itens().geraItemByName("Poção_MP_P"),
           }
         ],
         "status": Status(
-            vida: 25,
-            agi: 1,
-            atk: 2,
-            atkM: 0,
-            def: 9,
-            defM: 1,
-            intl: 2,
-            mp: 5,
-            mpMax: 5,
-            vidaMax: 25),
-      }
+          vida: 25,
+          atk: 2,
+          def: 9,
+          agi: 1,
+          atkM: 0,
+          defM: 1,
+          intl: 0,
+          mp: 5,
+        ),
+      },
+      {
+        "nome": "Esqueleto",
+        "exp": 10,
+        "level": 3,
+        "rank": "G",
+        "itens": [
+          {
+            "min": 1,
+            "max": 3,
+            "item": Itens().geraItemByName("OSSO"),
+          },
+          {
+            "min": 0,
+            "max": 1,
+            "item": Itens().geraItemByName("Poção_HP_P"),
+          },
+          {
+            "min": 0,
+            "max": 1,
+            "item": Itens().geraItemByName("Poção_MP_P"),
+          }
+        ],
+        "status": Status(
+          vida: 75,
+          atk: 10,
+          def: 4,
+          agi: 5,
+          atkM: 0,
+          defM: 0,
+          mp: 5,
+        ),
+      },
+      {
+        "nome": "Lobo de baixo rank",
+        "exp": 12,
+        "level": 5,
+        "rank": "G",
+        "itens": [
+          {
+            "min": 1,
+            "max": 2,
+            "item": Itens().geraItemByName("CARNE_C"),
+          },
+          {
+            "min": 0,
+            "max": 1,
+            "item": Itens().geraItemByName("Poção_HP_P"),
+          },
+          {
+            "min": 0,
+            "max": 1,
+            "item": Itens().geraItemByName("Poção_MP_P"),
+          }
+        ],
+        "status": Status(
+          vida: 100,
+          atk: 15,
+          def: 7,
+          agi: 20,
+          atkM: 5,
+          defM: 7,
+          mp: 15,
+        ),
+      },
     ],
-    "F": [{}],
+    "F": [
+      {
+        "nome": "Golem de Pedra",
+        "exp": 24,
+        "level": 10,
+        "rank": "F",
+        "itens": [
+          {
+            "min": 1,
+            "max": 2,
+            "item": Itens().geraItemByName("FERRO"),
+          },
+          {
+            "min": 0,
+            "max": 1,
+            "item": Itens().geraItemByName("Poção_HP_P"),
+          },
+          {
+            "min": 0,
+            "max": 1,
+            "item": Itens().geraItemByName("Poção_MP_P"),
+          }
+        ],
+        "status": Status(
+          vida: 175,
+          atk: 10,
+          def: 24,
+          agi: 5,
+          atkM: 0,
+          defM: 0,
+          mp: 15,
+        ),
+      },
+    ],
   };
 
   int quantMonstros() {
@@ -55,7 +152,7 @@ class Monstros {
 
   Map getMonstro(String rank, int andar, int andarMax) {
     Random random = Random();
-    double valor = convertRank(rankS: rank) + 1;
+    double valor = double.parse((convertRank(rankS: rank) + 1).toString());
     valor = valor / andarMax;
     valor = valor * andar;
 
@@ -67,7 +164,7 @@ class Monstros {
     int rand = random.nextInt(_monstros[rank2].length);
     int level = _monstros[rank2][rand]['level'];
 
-    if (level > persos[0].level) {
+    if (level > persos[0].getLevel) {
       return getMonstro(rank, andar, andarMax);
     }
 
@@ -91,7 +188,7 @@ class Monstros {
     int def = statusBase.getDef;
     int defM = statusBase.getDefM;
     int level = (((random.nextInt(1) == 0) ? -1 : 1) * (random.nextInt(2))) +
-        persos[0].level;
+        persos[0].getLevel;
 
     // double modLevel = ((level) - 1) / 10;
 
@@ -119,7 +216,7 @@ class Monstros {
         mod3 = mod3 / valorF;
         break;
     }
-    int ex = (monstroMap["exp"] * status + monstroMap["exp"]);
+    double ex = (monstroMap["exp"] * status + monstroMap["exp"]);
 
     return Monstro(
       rank,
@@ -132,7 +229,7 @@ class Monstros {
       (defM + defM * status).toInt(),
       level,
       monstroMap["nome"],
-      ex,
+      ex.toInt(),
       monstroMap["itens"],
       /*monstroMap["itens"]*/
     );

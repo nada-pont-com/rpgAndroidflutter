@@ -1,21 +1,14 @@
-class Load {
-  int _id;
-  String _nome = "";
+import 'package:inicio/objetos/objeto.dart';
 
+class Load extends Objeto {
   Load({int id, String nome}) {
-    _id = id;
-    _nome = nome;
+    this.id = id;
+    this.nome = nome;
   }
 
-  get nome => _nome;
-  set nome(nome) => _nome = nome;
-
-  get id => _id;
-  set id(id) => _id = id;
-
   Map<String, dynamic> toMap() => {
-        "id": _id,
-        "nome": _nome,
+        "id": id,
+        "nome": nome,
         "cobre": 0,
         "prata": 0,
         "ouro": 0,

@@ -1,10 +1,11 @@
 import 'package:inicio/objetos/perso.dart';
+import 'package:inicio/objetos/status.dart';
 
 class ClassesDados {
   Map _classes = {
     0: {
       "Classe": "Guerreiro",
-      "Status": Perso.status(
+      "Status": Status(
         atk: 10,
         def: 10,
         agi: 5,
@@ -16,7 +17,7 @@ class ClassesDados {
     },
     1: {
       "Classe": "Explorador",
-      "Status": Perso.status(
+      "Status": Status(
         atk: 6,
         def: 7,
         agi: 9,
@@ -36,10 +37,10 @@ class ClassesDados {
 
   Perso getStatus(int index, {Perso persoAntig}) {
     Map classe = _classes[index];
-    print(classe["Status"].toString());
-    Perso perso = classe["Status"];
+    Perso perso = Perso();
+    perso.cloneByStatus(classe["Status"]);
     if (persoAntig != null) {
-      perso.nome = persoAntig.nome;
+      perso.setNome = persoAntig.getNome;
     }
     perso.classe = classe["Classe"];
     return perso;

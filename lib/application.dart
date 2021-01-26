@@ -44,6 +44,8 @@ Widget raisedButtonOfList(String text, Function onPress,
   );
 }
 
+enum HabilidadeStatus { ok, nocalteado, semMp }
+
 String dbName = "rpg.db";
 // tempo VARCHAR(255) NOT NULL,
 List<String> tablesCriat = [
@@ -88,5 +90,22 @@ List<String> tablesCriat = [
         rank CHAR(1) NOT NULL,
         FOREIGN KEY (load_id)
         REFERENCES load (id)
+  )""",
+  // Id referente a posição do item na lista;
+  """CREATE TABLE IF NOT EXISTS itens_perso  (
+        id INT NOT NULL, 
+        load_id INT UNSIGNED NOT NULL,
+        quantidade INT UNSIGNED NOT NULL,
+        FOREIGN KEY (load_id)
+        REFERENCES load (id), 
+        PRIMARY KEY (id,load_id)
+  )""",
+  """CREATE TABLE IF NOT EXISTS perso_tem_habilidades (
+        id INT UNSIGNED NOT NULL,
+        perso_id INT UNSIGNED NOT NULL,
+        level INT UNSIGNED  NOT NULL,
+        FOREIGN KEY (perso_id) 
+        REFERENCES perso (id),
+        PRIMARY KEY (id,perso_id)
   )""",
 ];

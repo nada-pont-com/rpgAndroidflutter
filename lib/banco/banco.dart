@@ -21,11 +21,11 @@ abstract class Banco {
         });
       });
       // await _db.execute("DROP TABLE perso");
-      // await _db.execute("DROP TABLE load");
+      // await _db.execute("DROP TABLE load;");
 
-      // tablesCriat.forEach((String sql) {
-      // _db.execute(sql);
-      // });
+      tablesCriat.forEach((String sql) {
+        _db.execute(sql);
+      });
     }
     return this._db;
   }

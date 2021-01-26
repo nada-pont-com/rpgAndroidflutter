@@ -24,20 +24,43 @@ class _DungeonState extends State<Dungeon> {
   int _passos = 0;
   int _andar;
   int _andarMax;
-  String _nomeDungeon;
+  int _andarAtual;
+  // String _nomeDungeon;
   String _rank;
-  List<Perso> _dados;
+  List<Perso> _dados = persos;
   Monstro _monstro;
+  BuildContext _context;
+  bool descer = false;
+  Map<String, bool> caminhos = {
+    "Esquerda": false,
+    "Direita": false,
+    "Descer": false,
+    "Frente": true,
+  };
 
   _DungeonState(this._dungeon) : super();
 
   @override
   Widget build(BuildContext context) {
+    _context = context;
+    _rank = _dungeon.getRank;
+    _andarAtual = _andar = int.parse(_dungeon.getAndares.split("-")[0]);
+    _andarMax = int.parse(_dungeon.getAndares.split("-")[1]);
+    // _nomeDungeon = _dungeon.getNome;
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
+          appBar: AppBar(
+            title: Text("Dungeon"),
+          ),
           body: _body(),
         ));
+  }
+
+  _caminhar() {
+    _caminhos();
+    _desceCaminho();
+    _geraMonstro();
   }
 
   Widget _body() {
@@ -50,10 +73,7 @@ class _DungeonState extends State<Dungeon> {
                 flex: 2,
                 child: raisedButtonOfList(
                   "ESQUERDA",
-                  () {
-                    _caminhos();
-                    _geraMonstro();
-                  },
+                  (caminhos["Esquerda"] ? _caminhar : null),
                   color: Colors.grey,
                   textColor: Colors.black,
                 ),
@@ -62,7 +82,7 @@ class _DungeonState extends State<Dungeon> {
                 flex: 2,
                 child: raisedButtonOfList(
                   "FRENTE",
-                  () {},
+                  (caminhos["Frente"] ? _caminhar : null),
                   color: Colors.grey,
                   textColor: Colors.black,
                 ),
@@ -71,7 +91,7 @@ class _DungeonState extends State<Dungeon> {
                 flex: 2,
                 child: raisedButtonOfList(
                   "Direita",
-                  () {},
+                  (caminhos["Direita"] ? _caminhar : null),
                   color: Colors.grey,
                   textColor: Colors.black,
                 ),
@@ -80,7 +100,9 @@ class _DungeonState extends State<Dungeon> {
                 flex: 2,
                 child: raisedButtonOfList(
                   "Subir",
-                  () {},
+                  () {
+                    Navigator.pop(context);
+                  },
                   color: Colors.grey,
                   textColor: Colors.black,
                 ),
@@ -89,7 +111,7 @@ class _DungeonState extends State<Dungeon> {
                 flex: 2,
                 child: raisedButtonOfList(
                   "Descer",
-                  () {},
+                  (descer ? _descer : null),
                   color: Colors.grey,
                   textColor: Colors.black,
                 ),
@@ -101,13 +123,21 @@ class _DungeonState extends State<Dungeon> {
     );
   }
 
-  void _desceCaminho() {
-    _passos++;
-    if ((_gerador.nextInt(25) == 0) || (_passos == 100)) {
-      _alert("Você avista uma descida a frente!", text: "Aviso!");
-      // desce.setClickable(true);
-      // desce.setAlpha(1);
+  void _descer() {
+    descer = false;
+    _andarAtual++;
+    if (_andarAtual % 10 == 0)
       _boss();
+    else {
+      _invocarMonstro(2);
+      _alertMonstro();
+    }
+  }
+
+  void _desceCaminho() {
+    if ((_gerador.nextInt(25) == 0) || (_passos == 100)) {
+      _alert("Aviso!", text: "Você avista uma descida a frente!");
+      descer = true;
     }
   }
 
@@ -115,52 +145,40 @@ class _DungeonState extends State<Dungeon> {
     _passos++;
     switch (_gerador.nextInt(6)) {
       case 0: //Frente
-        // frente.setClickable(true);
-        // frente.setAlpha(1);
-        // direita.setClickable(false);
-        // direita.setAlpha(0.2f);
-        // esquerda.setClickable(false);
-        // esquerda.setAlpha(0.2f);
+        for (String key in caminhos.keys) {
+          caminhos[key] = false;
+          if (key == "Frente") caminhos[key] = true;
+        }
         break;
       case 1: //Direita
-        // frente.setClickable(false);
-        // frente.setAlpha(0.2f);
-        // direita.setClickable(true);
-        // direita.setAlpha(1);
-        // esquerda.setClickable(false);
-        // esquerda.setAlpha(0.2f);
+        for (String key in caminhos.keys) {
+          caminhos[key] = false;
+          if (key == "Direita") caminhos[key] = true;
+        }
         break;
       case 2: //Esquerda
-        // frente.setClickable(false);
-        // frente.setAlpha(0.2f);
-        // direita.setClickable(false);
-        // direita.setAlpha(0.2f);
-        // esquerda.setClickable(true);
-        // esquerda.setAlpha(1);
+        for (String key in caminhos.keys) {
+          caminhos[key] = false;
+          if (key == "Esquerda") caminhos[key] = true;
+        }
         break;
       case 3: //Frente/Direita
-        // frente.setClickable(true);
-        // frente.setAlpha(1);
-        // direita.setClickable(true);
-        // direita.setAlpha(1);
-        // esquerda.setClickable(false);
-        // esquerda.setAlpha(0.2f);
+        for (String key in caminhos.keys) {
+          caminhos[key] = false;
+          if (key == "Frente" || key == "Direita") caminhos[key] = true;
+        }
         break;
       case 4: //Frente/Esquerda
-        // frente.setClickable(true);
-        // frente.setAlpha(1);
-        // direita.setClickable(false);
-        // direita.setAlpha(0.2f);
-        // esquerda.setClickable(true);
-        // esquerda.setAlpha(0.2f);
+        for (String key in caminhos.keys) {
+          caminhos[key] = false;
+          if (key == "Frente" || key == "Esquerda") caminhos[key] = true;
+        }
         break;
       case 5: //Direita/Esquerda
-        // frente.setClickable(false);
-        // frente.setAlpha(0.2f);
-        // direita.setClickable(true);
-        // direita.setAlpha(1);
-        // esquerda.setClickable(true);
-        // esquerda.setAlpha(1);
+        for (String key in caminhos.keys) {
+          caminhos[key] = false;
+          if (key == "Direita" || key == "Esquerda") caminhos[key] = true;
+        }
         break;
     }
     _regHp();
@@ -169,18 +187,19 @@ class _DungeonState extends State<Dungeon> {
   void _regHp() {
     for (int i = 0; i < _dados.length; i++) {
       Perso dado = _dados[i];
-      int vida = dado.getVida;
+      int vida = dado.getVida - (dado.getVit * 10);
       int reg = dado.getVidaMax ~/ 100;
-
       print("Reg: " + reg.toString());
-      dado.setVida = reg > vida ? vida : reg;
+      dado.setVida = dado.getVidaMax == dado.getVida ? vida : reg + vida;
     }
+    setState(() {});
   }
 
   void _geraMonstro() {
     int rand = _gerador.nextInt(100);
     if (rand < 10) {
       _invocarMonstro(1);
+      _alertMonstro();
       // AlertDialog.Builder alert = new AlertDialog.Builder(this);
       // alert.setTitle("Aviso");
       // alert.setMessage("Você encontrou um "+monstro.getNome());
@@ -215,16 +234,78 @@ class _DungeonState extends State<Dungeon> {
     }
   }
 
+  void _alertMonstro() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Aviso"),
+          content: Text("Você encontrou um " + _monstro.getNome),
+          actions: [
+            FlatButton(
+              child: Text("Lutar"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                    _context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            Battle(_monstro))).then((value) {
+                  if (!value) {
+                    Navigator.pop(_context);
+                  }
+                  return;
+                });
+              },
+            ),
+            FlatButton(
+              child: Text("Fugir"),
+              onPressed: () {
+                int agiT = 0;
+                for (int i = 0; i < _dados.length; i++) {
+                  agiT += _dados[i].getAgi;
+                }
+                int agiM = agiT ~/ _dados.length;
+
+                int fuga = ((agiM / max(_monstro.getAgi, 1)) * 100).toInt();
+                int valor = _gerador.nextInt(100);
+                if (valor <= fuga) {
+                  // _alert("Alerta", text: "Conseguiu fugir");
+                  Navigator.of(context).pop();
+                } else {
+                  _alert("Alerta", text: "Falha ao tentar fugir");
+                  Navigator.of(context).pop();
+                  Navigator.push(
+                      _context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              Battle(_monstro))).then((value) {
+                    if (!value) {
+                      Navigator.pop(_context);
+                    }
+                    return;
+                  });
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _invocarMonstro(int tipo) {
     _monstro = Monstros().constroiMonstro(_rank, tipo, _andar, _andarMax);
   }
 
   void _boss() {
     if ((_gerador.nextInt(99) > 79) || (_passos == 100)) {
-      //TODO colocar o boss no final do nome do monstro e alterar vida. adicionar jogo casual ou hard(3 vidas)
+      //TOD colocar o boss no final do nome do monstro e alterar vida. adicionar jogo casual ou hard(3 vidas)
       _invocarMonstro(3);
       _alert("Aviso",
-          text: "Você encontrou um Boss:" + _monstro.nome,
+          text: "Você encontrou um Boss:" + _monstro.getNome,
+          barrierDismissible: false,
           actions: [
             FlatButton(
               child: Text("Lutar"),
@@ -232,7 +313,13 @@ class _DungeonState extends State<Dungeon> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => Battle(_monstro)));
+                        builder: (BuildContext context) =>
+                            Battle(_monstro))).then((value) {
+                  if (!value) {
+                    Navigator.pop(_context);
+                  }
+                  return null;
+                });
               },
             ),
           ]);

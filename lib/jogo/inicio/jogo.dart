@@ -10,14 +10,12 @@ import 'package:inicio/objetos/perso.dart';
 
 class Jogo extends StatefulWidget {
   @override
-  _JogoState createState() {
-    return _JogoState();
-  }
+  _JogoState createState() => _JogoState();
 }
 
 class _JogoState extends State<Jogo> {
-  List<Perso> _persos = List<Perso>();
-  List<DungeonTable> _dungeons = List<DungeonTable>();
+  List<Perso> _persos = <Perso>[];
+  List<DungeonTable> _dungeons = <DungeonTable>[];
   Comandos _comandos = Comandos();
   BuildContext _context;
   int _selectBar = 0, _refDunGuil = 0;
@@ -28,6 +26,11 @@ class _JogoState extends State<Jogo> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        appBar: AppBar(
+          title: Text(_selectBar == 0
+              ? "Personagens"
+              : (_selectBar == 1 ? "Work" : "Configurações")),
+        ),
         body: _body(),
         bottomNavigationBar: BottomNavigationBar(
           items: [
@@ -37,11 +40,11 @@ class _JogoState extends State<Jogo> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.construction),
-              label: "Home",
+              label: "Trabalhos",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
-              label: "Home",
+              label: "Configs",
             ),
           ],
           onTap: (int index) {
@@ -74,6 +77,7 @@ class _JogoState extends State<Jogo> {
               raisedButtonOfList(
                 "Voltar",
                 () {
+                  print(_context);
                   Navigator.pop(_context);
                 },
                 color: Colors.grey,
@@ -85,7 +89,7 @@ class _JogoState extends State<Jogo> {
         Expanded(
           flex: 9,
           child: FutureBuilder(
-            future: _comandos.buscaDados(),
+            future: _comandos.buscaPersos(),
 
             // ignore: missing_return
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -98,6 +102,7 @@ class _JogoState extends State<Jogo> {
                   if (snapshot.hasError) {
                   } else {
                     _persos = snapshot.data;
+                    persos = _persos;
                     _persos[0].toMap();
                     return _listPerso();
                   }
@@ -116,8 +121,10 @@ class _JogoState extends State<Jogo> {
       itemBuilder: (BuildContext context, int index) {
         return InkWell(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => PersonagemMenu()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PersonagemMenu(_persos[index])));
           },
           child: Container(
             child: Column(
@@ -126,7 +133,7 @@ class _JogoState extends State<Jogo> {
                   children: [
                     Container(
                       margin: EdgeInsets.only(right: 10, left: 10),
-                      child: Text(_persos[index].nome),
+                      child: Text(_persos[index].getNome),
                     ),
                     Expanded(
                       flex: 1,
@@ -141,7 +148,7 @@ class _JogoState extends State<Jogo> {
                       flex: 2,
                       child: Column(
                         children: [
-                          Text(_persos[index].experiencia.toString() +
+                          Text(_persos[index].getExperiencia.toString() +
                               "/" +
                               _persos[index].getExpMax().toString()),
                           Text(_persos[index].getVida.toString() +
@@ -164,7 +171,7 @@ class _JogoState extends State<Jogo> {
                               backgroundColor: Colors.black,
                               valueColor: AlwaysStoppedAnimation(
                                   Colors.lightGreenAccent),
-                              value: _persos[index].experiencia /
+                              value: _persos[index].getExperiencia /
                                   _persos[index].getExpMax(),
                             ),
                           ),
@@ -198,7 +205,7 @@ class _JogoState extends State<Jogo> {
                       child: Container(
                           margin: EdgeInsets.only(right: 10, left: 10),
                           child: Text(
-                              "Level: " + _persos[index].level.toString())),
+                              "Level: " + _persos[index].getLevel.toString())),
                     ),
                     Expanded(
                       flex: 5,
@@ -236,13 +243,13 @@ class _JogoState extends State<Jogo> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Atk: " + _persos[index].getAtk.toString(),
+                          Text("AtkM: " + _persos[index].getAtkM.toString(),
                               textScaleFactor: 1.5),
-                          Text("Def: " + _persos[index].getDef.toString(),
+                          Text("DefM: " + _persos[index].getDefM.toString(),
                               textScaleFactor: 1.5),
-                          Text("Agi: " + _persos[index].getAgi.toString(),
+                          Text("Agi: " + _persos[index].getMp.toString(),
                               textScaleFactor: 1.5),
-                          Text("Int: " + _persos[index].getIntl.toString(),
+                          Text("Vit: " + _persos[index].getVit.toString(),
                               textScaleFactor: 1.5),
                         ],
                       ),
@@ -345,7 +352,7 @@ class _JogoState extends State<Jogo> {
                 "Procurar",
                 () {
                   setState(() {
-                    DungeonsDados().geraDungeon(_persos[0].rank);
+                    DungeonsDados().geraDungeon(_persos[0].getRank);
                   });
                 },
                 color: Colors.grey,

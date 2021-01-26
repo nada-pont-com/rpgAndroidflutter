@@ -31,7 +31,7 @@ class DungeonsDados {
     "100"
   ];
 
-  List<DungeonTable> listaDeDungeons = List<DungeonTable>();
+  List<DungeonTable> listaDeDungeons = <DungeonTable>[];
 
   Comandos comandos = Comandos();
 

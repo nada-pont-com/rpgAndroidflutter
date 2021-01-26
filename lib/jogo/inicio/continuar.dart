@@ -10,7 +10,7 @@ class Continuar extends StatefulWidget {
 
 class _ContinuarState extends State<Continuar> {
   Comandos comandos = Comandos();
-  List<Load> loads = List<Load>();
+  List<Load> loads = <Load>[];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

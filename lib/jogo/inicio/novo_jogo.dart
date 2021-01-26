@@ -15,7 +15,9 @@ class _NovoLoadState extends State<NovoLoad> {
   TextEditingController _nomeSave = TextEditingController(text: "");
   TextEditingController _nomePerso = TextEditingController();
 
-  Load _load = new Load();
+  BuildContext _context;
+
+  Load _load = Load();
   Perso _newPerso = new Perso();
   ClassesDados _classesDados = new ClassesDados();
 
@@ -26,10 +28,16 @@ class _NovoLoadState extends State<NovoLoad> {
   int referencia = 0;
   @override
   Widget build(BuildContext context) {
+    _context = context;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Teste',
-      home: Scaffold(body: _body()),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Novo Jogo"),
+        ),
+        body: _body(),
+      ),
     );
   }
 
@@ -67,9 +75,7 @@ class _NovoLoadState extends State<NovoLoad> {
           ),
         ),
       ),
-      _textoField(_nomeSave, "Nome do Save", () {
-        print(_nomeSave.text);
-      }),
+      _textoField(_nomeSave, "Nome do Save", () {}),
       Center(
         child: Row(
           children: [
@@ -78,7 +84,7 @@ class _NovoLoadState extends State<NovoLoad> {
               () {
                 String txt = _nomeSave.text;
                 if (_validaNome(txt)) {
-                  _load.nome = txt;
+                  _load.setNome = txt;
                   setState(() {
                     referencia++;
                   });
@@ -150,7 +156,6 @@ class _NovoLoadState extends State<NovoLoad> {
               setState(() {
                 referencia--;
               });
-              // Navigator.pop(context);
             }),
           ],
         ),
@@ -171,7 +176,7 @@ class _NovoLoadState extends State<NovoLoad> {
       ),
       _textoField(_nomePerso, "Insira o nome", () {
         if (_validaNome(_nomePerso.text)) {
-          _newPerso.nome = _nomePerso.text;
+          _newPerso.setNome = _nomePerso.text;
         }
       }),
       Center(
@@ -180,23 +185,25 @@ class _NovoLoadState extends State<NovoLoad> {
             _raisedButtonOfList("Continuar", () {
               String txt = _nomePerso.text;
               if (_validaNome(txt)) {
-                _newPerso.nome = txt;
+                _newPerso.setNome = txt;
                 _validador(_nomeSave.text).then((value) {
                   if (value) {
+                    print(_load.toMap());
                     comandos.inserirLoad(_load.toMap());
-                    _newPerso.loadId = _load.id;
+                    _newPerso.loadId = _load.getId;
                     _newPerso.setVida = 100;
                     _newPerso.setVidaMax = 100;
-                    _newPerso.setMp = 100;
-                    _newPerso.setMpMax = 100;
+                    _newPerso.setMp = 10;
+                    _newPerso.setMpMax = 10;
                     comandos.inserirPerso(_newPerso.toMap());
-                    loadId = _load.id;
-                    persos = List<Perso>();
+                    loadId = _load.getId;
+                    persos = <Perso>[];
                     persos.add(_newPerso);
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) => Jogo()));
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => Jogo()),
+                    ).then((value) => Navigator.pop(_context));
                   }
                 });
               }
@@ -279,7 +286,7 @@ class _NovoLoadState extends State<NovoLoad> {
     int cont = 0;
     bool nomeRepetido = false;
     for (Load load in loads) {
-      if (txt == load.nome) {
+      if (txt == load.getNome) {
         nomeRepetido = true;
       }
       cont++;
@@ -320,14 +327,14 @@ class _NovoLoadState extends State<NovoLoad> {
       if (loads.length == 2) {
         cont2 = 6;
         for (int i = 0; i < loads.length; i++) {
-          cont2 = cont2 - loads[i].id;
+          cont2 = cont2 - loads[i].getId;
         }
       } else if (loads.length != 0) {
-        if (loads[0].id == 1) {
+        if (loads[0].getId == 1) {
           cont2++;
         }
       }
-      _load.id = cont2;
+      _load.setId = cont2;
       return true;
     }
     return false;

@@ -23,19 +23,24 @@ class Status {
   int vit;
   @protected
   int intl;
+  @protected
+  int nocalteado = 0;
+  @protected
+  Status extraStatus;
 
   Status(
       {this.vida: 0,
-      this.vidaMax,
-      this.mp,
-      this.mpMax,
-      this.atk,
-      this.def,
-      this.agi,
-      this.atkM,
-      this.defM,
-      this.intl,
-      this.vit});
+      // this.vidaAparente: 0,
+      this.vidaMax: 0,
+      this.mp: 0,
+      this.mpMax: 0,
+      this.atk: 0,
+      this.def: 0,
+      this.agi: 0,
+      this.atkM: 0,
+      this.defM: 0,
+      this.intl: 0,
+      this.vit: 0});
 
   Status.map(Map<String, dynamic> status) {
     vida = status["vida"];
@@ -51,10 +56,86 @@ class Status {
     intl = status["inteli"];
   }
 
-  int get getVida => vida;
+  void cloneByStatus(Status clone) {
+    Map<String, dynamic> extra = clone.toMap();
+    vida = extra["vida"];
+    vidaMax = extra["vidaMax"];
+    mp = extra["mp"];
+    mpMax = extra["mpMax"];
+    atk = extra["atk"];
+    def = extra["def"];
+    agi = extra["agi"];
+    defM = extra["defM"];
+    atkM = extra["atkM"];
+    vit = extra["vit"];
+    intl = extra["inteli"];
+  }
+
+  Status clone() {
+    Status clone = Status();
+    clone.cloneByStatus(this);
+    return clone;
+  }
+
+  void extra(double valor, Status base, Status status, {int type = 1}) {
+    Map<String, dynamic> extra = status.toMap();
+    if (type == 1) {
+      valor *= 0.01;
+    }
+    vida = extra["vida"] == -1
+        ? (type == 1 ? (valor * base.getVida) : (valor)).toInt()
+        : extra["vida"];
+    vidaMax = extra["vidaMax"] == -1
+        ? (type == 1 ? (valor * base.getVidaMax) : (valor)).toInt()
+        : extra["vidaMax"];
+    mp = extra["mp"] == -1
+        ? (type == 1 ? (valor * base.getMp) : (valor)).toInt()
+        : extra["mp"];
+    mpMax = extra["mpMax"] == -1
+        ? (type == 1 ? (valor * base.getmpMax) : (valor)).toInt()
+        : extra["mpMax"];
+    atk = extra["atk"] == -1
+        ? (type == 1 ? (valor * base.getAtk) : (valor)).toInt()
+        : extra["atk"];
+    def = extra["def"] == -1
+        ? (type == 1 ? (valor * base.getDef) : (valor)).toInt()
+        : extra["def"];
+    agi = extra["agi"] == -1
+        ? (type == 1 ? (valor * base.getAgi) : (valor)).toInt()
+        : extra["agi"];
+    defM = extra["defM"] == -1
+        ? (type == 1 ? (valor * base.getDefM) : (valor)).toInt()
+        : extra["defM"];
+    atkM = extra["atkM"] == -1
+        ? (type == 1 ? (valor * base.getAtkM) : (valor)).toInt()
+        : extra["atkM"];
+    vit = extra["vit"] == -1
+        ? (type == 1 ? (valor * base.getVit) : (valor)).toInt()
+        : extra["vit"];
+    intl = extra["inteli"] == -1
+        ? (type == 1 ? (valor * base.getIntl) : (valor)).toInt()
+        : extra["inteli"];
+  }
+
+  void increment(Status status) {
+    vida = status.getVida + vida;
+    vidaMax = status.getVidaMax + vidaMax;
+    mp = status.getMp + mp;
+    mpMax = status.getmpMax + mpMax;
+    atk = status.getAtk + atk;
+    def = status.getDef + def;
+    agi = status.getAgi + agi;
+    defM = status.getDefM + defM;
+    atkM = status.getAtkM + atkM;
+    vit = status.getVit + vit;
+    intl = status.getIntl + intl;
+  }
+
+  int get getVida => vida + (vit * 10);
+  int get getVidaReal => vida;
   set setVida(int vida) => this.vida = vida;
 
-  int get getVidaMax => vidaMax;
+  int get getVidaMax => vidaMax + (vit * 10);
   set setVidaMax(int vidaMax) => this.vidaMax = vidaMax;
 
   int get getMp => mp;
@@ -84,6 +165,12 @@ class Status {
   int get getIntl => intl;
   set setIntl(int intl) => this.intl = intl;
 
+  int get getNocalteado => nocalteado;
+  set setNocalteado(int nocalteado) => this.nocalteado = nocalteado;
+
+  Status get getExtraStatus => extraStatus;
+  void clearExtraStatus() => this.extraStatus.cloneByStatus(Status());
+
   Map<String, dynamic> toMap() {
     return {
       "vida": vida,
@@ -98,5 +185,31 @@ class Status {
       "vit": vit,
       "inteli": intl,
     };
+  }
+
+  @override
+  String toString() {
+    return " vida: " +
+        vida.toString() +
+        " vidaMax: " +
+        vidaMax.toString() +
+        " mp: " +
+        mp.toString() +
+        " mpMax: " +
+        mpMax.toString() +
+        " atk: " +
+        atk.toString() +
+        " def: " +
+        def.toString() +
+        " agi: " +
+        agi.toString() +
+        " defM: " +
+        defM.toString() +
+        " atkM: " +
+        atkM.toString() +
+        " vit: " +
+        vit.toString() +
+        " inteli: " +
+        intl.toString();
   }
 }
