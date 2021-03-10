@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:inicio/objetos/load.dart';
 import 'package:inicio/objetos/perso.dart';
 
 int dbVersion = 1;
@@ -7,6 +8,8 @@ int dbVersion = 1;
 int loadId = 1;
 
 List<Perso> persos;
+
+Load load;
 
 List<String> ranks = ["G", "F", "E", "D", "C", "B", "A", "S"];
 

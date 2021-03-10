@@ -47,7 +47,7 @@ class _BattleState extends State<Battle> {
 
   int modo = -1;
 
-  body() {
+  Widget body() {
     return Container(
       margin: EdgeInsets.only(top: 10, left: 10, right: 10),
       child: Column(
@@ -435,35 +435,19 @@ class _BattleState extends State<Battle> {
 
   void _monstroAtk() {
     if (_monstro.isVivo()) {
-      int hab = 0;
-      // Random().nextInt(_monstro.getHabilidades.length + 1);
+      int hab = Random().nextInt(_monstro.getHabilidades.length + 1);
       listaAcoes.replaceRange(
           0,
           0,
           _monstro.atkInimigo(
             _monstro,
             _persos[Random().nextInt(_persos.length)],
-            habilidade: hab == 0 ? null : _monstro.getHabilidades[hab],
+            habilidade: hab == _monstro.getHabilidades.length
+                ? null
+                : _monstro.getHabilidades[hab],
           ));
     } else {
       _monsterMorto();
-    }
-  }
-
-  //Ação das habilidades
-  void habilidade(Habilidades habilidades) {
-    Perso perso = persos[(_persoNumber)];
-    int tipo = habilidades.getTipo;
-    int mp = perso.getMp, custo = habilidades.getCusto;
-    if (mp > custo) {
-      perso.setMp = (mp - custo);
-      // mpBar.setProgress(perso.getMp());
-      if (tipo == 1) {
-        // int atks = habilidades.getNuberAtk();
-        // _atk(atks, habilidades);
-      } else {
-        _monstroAtk();
-      }
     }
   }
 
@@ -506,7 +490,7 @@ class _BattleState extends State<Battle> {
   }
 
   void _monstroItens() {
-    for (var item in _monstro.itens) {
+    for (Map item in _monstro.itens) {
       int quant = random.nextInt(item["max"]) + item["min"];
       if (quant > 0) {
         Item itemDrop = item["item"];
@@ -518,8 +502,9 @@ class _BattleState extends State<Battle> {
 
   void _salvar() {
     Comandos comandos = Comandos();
+    load.atualizaItens(_listaDeItens);
     for (int i = 0; i < _listaDeItens.length; i++) {
-      comandos.newItem(_listaDeItens[i].toMap());
+      comandos.newItem(_listaDeItens[i].toMapBanco());
     }
     for (Perso perso in persos) {
       comandos.atulizarPerso(perso.toMap(), perso.getId);

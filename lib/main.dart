@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inicio/application.dart';
 import 'package:inicio/banco/comandos.dart';
 // import 'package:inicio/jogo/inicio/continuar.dart';
 import 'package:inicio/jogo/inicio/jogo.dart';
@@ -34,7 +35,19 @@ class MyApp extends StatelessWidget {
 class TelaInicio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Comandos().buscaLoad();
+    Comandos().buscaLoad().then((value) {
+      value.forEach((item) {
+        if (item.getId == loadId) {
+          load = item;
+          Comandos().buscaItensLoad().then((value) {
+            value.forEach((element) {
+              print(element.toMap());
+            });
+            return load.atualizaItens(value);
+          });
+        }
+      });
+    });
 
     return Scaffold(
       appBar: AppBar(

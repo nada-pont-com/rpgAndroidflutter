@@ -125,6 +125,23 @@ class Comandos extends Banco {
     return itens;
   }
 
+  Future<List<Item>> buscaItensLoad() async {
+    Database db = await this.getDb();
+    List<Map<String, dynamic>> itensBd = await db.query(
+      "itens_perso",
+      where: "load_id=?",
+      whereArgs: [loadId],
+    );
+    List<Item> itens = <Item>[];
+
+    itensBd.forEach((Map<String, dynamic> itemDb) {
+      Item item = Itens().geraItemById(itemDb["id"]);
+      item.quantidade = itemDb["quantidade"];
+      itens.add(item);
+    });
+    return itens;
+  }
+
   Future<List<DungeonTable>> buscaDungeons() async {
     Database db = await this.getDb();
     List<Map<String, dynamic>> dungeonsBd = await db.query(

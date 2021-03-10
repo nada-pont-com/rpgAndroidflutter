@@ -5,6 +5,7 @@ import 'package:inicio/banco/comandos.dart';
 import 'package:inicio/dados/dungeon_dados.dart';
 import 'package:inicio/jogo/dungeon/dungeon.dart';
 import 'package:inicio/jogo/inicio/personagem_menu.dart';
+import 'package:inicio/jogo/itens/itens.dart';
 import 'package:inicio/objetos/dungeon.dart';
 import 'package:inicio/objetos/perso.dart';
 
@@ -268,7 +269,7 @@ class _JogoState extends State<Jogo> {
     if (_refDunGuil == 0) {
       return _buttonsGuildDung();
     } else if (_refDunGuil == 1) {
-      return Text("ola");
+      return Text("data");
     } else {
       return _dungeon();
     }
@@ -313,6 +314,14 @@ class _JogoState extends State<Jogo> {
           color: Colors.grey,
           textColor: Colors.black,
         ),
+        raisedButtonOfList("Itens", () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Itens(),
+            ),
+          );
+        }),
       ],
     );
   }

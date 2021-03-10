@@ -1,22 +1,24 @@
+import 'package:inicio/objetos/habilidades.dart';
 import 'package:inicio/objetos/ser_vivo.dart';
 
 class Monstro extends SerVivo {
   List<dynamic> _itens;
 
   Monstro(
-    String rank,
-    int vida,
-    int mp,
-    int atk,
-    int def,
-    int agi,
-    int atkM,
-    int defM,
-    int level,
-    String nome,
-    int ex,
-    List<dynamic> item,
-  ) : super(
+      String rank,
+      int vida,
+      int mp,
+      int atk,
+      int def,
+      int agi,
+      int atkM,
+      int defM,
+      int level,
+      String nome,
+      int ex,
+      List<dynamic> item,
+      List<Habilidades> habilidades)
+      : super(
           vida: vida,
           vidaMax: vida,
           mp: mp,
@@ -39,6 +41,7 @@ class Monstro extends SerVivo {
     this.nome = nome;
     this.experiencia = ex;
     this._itens = item;
+    this.habilidades = habilidades;
   }
 
   List<dynamic> get itens => _itens;

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:inicio/application.dart';
 import 'package:inicio/dados/itens.dart';
+import 'package:inicio/objetos/habilidades.dart';
 import 'package:inicio/objetos/monstro.dart';
 import 'package:inicio/objetos/status.dart';
 
@@ -231,14 +232,13 @@ class Monstros {
       monstroMap["nome"],
       ex.toInt(),
       monstroMap["itens"],
-      /*monstroMap["itens"]*/
+      <Habilidades>[],
     );
   }
 
   double _mod() {
     Random random = new Random();
     double mod = random.nextDouble() + random.nextInt(1); //{1.5,0.5,1,2};
-//        System.out.println("ola mundo: "+mod);
     if (mod < 0.4) {
       return _mod();
     } else {

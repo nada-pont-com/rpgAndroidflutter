@@ -19,6 +19,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
     _pontosHab = _perso.pontosHab;
     _perso.clearExtraStatus();
   }
+
   int _selectPage = 0, _selectHab = 0;
   Perso _perso;
   List<Habilidades> _listHabilidades = HabilidadesDados().getHabilidades();
@@ -219,10 +220,10 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                       child: Row(
                           children: _pointsButtons(
                               "Atk: " + _perso.getAtk.toString(), () {
-                        if (_pontosExp != 0) {
+                        if (_pontosExp == 0) {
                           _perso.getExtraStatus.setAtk =
                               _perso.getExtraStatus.getAtk + 1;
-                          _pontosExp--;
+                          // _pontosExp--;
                           setState(() {});
                         }
                       }, () {

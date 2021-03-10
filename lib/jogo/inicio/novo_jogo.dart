@@ -199,6 +199,7 @@ class _NovoLoadState extends State<NovoLoad> {
                     loadId = _load.getId;
                     persos = <Perso>[];
                     persos.add(_newPerso);
+                    load = _load;
                     Navigator.push(
                       context,
                       MaterialPageRoute(
