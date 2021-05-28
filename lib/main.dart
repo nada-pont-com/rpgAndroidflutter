@@ -35,19 +35,19 @@ class MyApp extends StatelessWidget {
 class TelaInicio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Comandos().buscaLoad().then((value) {
-      value.forEach((item) {
-        if (item.getId == loadId) {
-          load = item;
-          Comandos().buscaItensLoad().then((value) {
-            value.forEach((element) {
-              print(element.toMap());
-            });
-            return load.atualizaItens(value);
-          });
-        }
-      });
-    });
+    // Comandos().buscaLoad().then((value) {
+    //   value.forEach((item) {
+    //     if (item.getId == loadId) {
+    //       load = item;
+    //       Comandos().buscaItensLoad().then((value) {
+    //         value.forEach((element) {
+    //           print(element.toMap());
+    //         });
+    //         return load.atualizaItens(value);
+    //       });
+    //     }
+    //   });
+    // });
 
     return Scaffold(
       appBar: AppBar(

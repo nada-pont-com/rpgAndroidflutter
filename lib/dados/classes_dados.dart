@@ -31,9 +31,7 @@ class ClassesDados {
 
   String getClasse(int index) => _classes[index]['Classe'];
 
-  int size() {
-    return _classes.length;
-  }
+  int size() => _classes.length;
 
   Perso getStatus(int index, {Perso persoAntig}) {
     Map classe = _classes[index];

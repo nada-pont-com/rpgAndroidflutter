@@ -6,6 +6,7 @@ class Load extends Objeto {
   Load({int id, String nome}) {
     this.id = id;
     this.nome = nome;
+    _itens = <Item>[];
   }
 
   List<Item> get itens => _itens;

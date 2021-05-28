@@ -57,18 +57,18 @@ class Status {
   }
 
   void cloneByStatus(Status clone) {
-    Map<String, dynamic> extra = clone.toMap();
-    vida = extra["vida"];
-    vidaMax = extra["vidaMax"];
-    mp = extra["mp"];
-    mpMax = extra["mpMax"];
-    atk = extra["atk"];
-    def = extra["def"];
-    agi = extra["agi"];
-    defM = extra["defM"];
-    atkM = extra["atkM"];
-    vit = extra["vit"];
-    intl = extra["inteli"];
+    // Map<String, dynamic> extra = clone.toMap();
+    vida = clone.vida;
+    vidaMax = clone.vidaMax;
+    mp = clone.mp;
+    mpMax = clone.mpMax;
+    atk = clone.atk;
+    def = clone.def;
+    agi = clone.agi;
+    defM = clone.defM;
+    atkM = clone.atkM;
+    vit = clone.vit;
+    intl = clone.intl;
   }
 
   Status clone() {

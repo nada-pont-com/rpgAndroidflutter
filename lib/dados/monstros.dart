@@ -201,6 +201,7 @@ class Monstros {
         mod3 = 2;
         break;
       case 3: // boss
+        print("boss");
         mod3 = (random.nextInt(4) + 4).toDouble(); // 4x a 7x
         double valorMin = 1;
         double valorMax = 3.5;
@@ -215,8 +216,12 @@ class Monstros {
           valorF = valorF / valor;
         }
         mod3 = mod3 / valorF;
+        print(mod3);
+        print(andar);
         break;
     }
+    status *= mod3;
+
     double ex = (monstroMap["exp"] * status + monstroMap["exp"]);
 
     return Monstro(

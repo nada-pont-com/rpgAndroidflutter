@@ -91,6 +91,7 @@ class SerVivo extends Status with Objeto {
   List<String> atkInimigo(SerVivo voce, SerVivo inimigo,
       {Habilidades habilidade}) {
     List<String> acoes = <String>[];
+    print(inimigo.toMap());
     if (nocalteado == 0) {
       int valor = 1, nocalteValor = 0, atks = 1;
       if (habilidade != null) {

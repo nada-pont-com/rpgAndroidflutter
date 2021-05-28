@@ -30,7 +30,7 @@ class _DungeonState extends State<Dungeon> {
   List<Perso> _dados = persos;
   Monstro _monstro;
   BuildContext _context;
-  bool descer = false;
+  bool descer = true;
   Map<String, bool> caminhos = {
     "Esquerda": false,
     "Direita": false,
@@ -124,12 +124,12 @@ class _DungeonState extends State<Dungeon> {
   }
 
   void _descer() {
-    descer = false;
+    descer = true;
     _andarAtual++;
     if (_andarAtual % 10 == 0)
       _boss();
     else {
-      _invocarMonstro(2);
+      _invocarMonstro(3);
       _alertMonstro();
     }
   }
@@ -198,7 +198,7 @@ class _DungeonState extends State<Dungeon> {
   void _geraMonstro() {
     int rand = _gerador.nextInt(100);
     if (rand < 10) {
-      _invocarMonstro(1);
+      _invocarMonstro(3);
       _alertMonstro();
       // AlertDialog.Builder alert = new AlertDialog.Builder(this);
       // alert.setTitle("Aviso");
@@ -296,7 +296,7 @@ class _DungeonState extends State<Dungeon> {
   }
 
   void _invocarMonstro(int tipo) {
-    _monstro = Monstros().constroiMonstro(_rank, tipo, _andar, _andarMax);
+    _monstro = Monstros().constroiMonstro(_rank, tipo, _andarAtual, _andarMax);
   }
 
   void _boss() {
