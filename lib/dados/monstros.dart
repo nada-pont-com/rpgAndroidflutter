@@ -172,12 +172,20 @@ class Monstros {
     return _monstros[rank2][rand];
   }
 
-  Monstro constroiMonstro(String rank, int tipo, andar, andarMax) {
+  Map getMonstroByIdRank(int id, String rank) {
+    if (_monstros[rank] != null && _monstros[rank].length < id)
+      return _monstros[rank][id];
+    return null;
+  }
+
+  Monstro constroiMonstro(String rank, int tipo, andar, andarMax, {int id}) {
     double valor;
     int valorInt;
     Random random = Random();
 
-    Map monstroMap = getMonstro(rank, andar, andarMax);
+    Map monstroMap = id == null ? getMonstroByIdRank(id, rank) : null;
+
+    if (monstroMap == null) monstroMap = getMonstro(rank, andar, andarMax);
 
     rank = monstroMap["rank"];
     Status statusBase = monstroMap["status"];
@@ -239,6 +247,10 @@ class Monstros {
       monstroMap["itens"],
       <Habilidades>[],
     );
+  }
+
+  String getNomeMonstroByIdRank(String rank, int id) {
+    return _monstros[rank][id]['nome'];
   }
 
   double _mod() {

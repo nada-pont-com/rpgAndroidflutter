@@ -71,7 +71,7 @@ class _DungeonState extends State<Dungeon> {
             children: [
               Expanded(
                 flex: 2,
-                child: raisedButtonOfList(
+                child: elevatedButtonOfList(
                   "Esquerda",
                   (caminhos["Esquerda"] ? _caminhar : null),
                   color: Colors.grey,
@@ -80,7 +80,7 @@ class _DungeonState extends State<Dungeon> {
               ),
               Expanded(
                 flex: 2,
-                child: raisedButtonOfList(
+                child: elevatedButtonOfList(
                   "Frente",
                   (caminhos["Frente"] ? _caminhar : null),
                   color: Colors.grey,
@@ -89,7 +89,7 @@ class _DungeonState extends State<Dungeon> {
               ),
               Expanded(
                 flex: 2,
-                child: raisedButtonOfList(
+                child: elevatedButtonOfList(
                   "Direita",
                   (caminhos["Direita"] ? _caminhar : null),
                   color: Colors.grey,
@@ -98,7 +98,7 @@ class _DungeonState extends State<Dungeon> {
               ),
               Expanded(
                 flex: 2,
-                child: raisedButtonOfList(
+                child: elevatedButtonOfList(
                   "Subir",
                   () {
                     Navigator.pop(context);
@@ -109,7 +109,7 @@ class _DungeonState extends State<Dungeon> {
               ),
               Expanded(
                 flex: 2,
-                child: raisedButtonOfList(
+                child: elevatedButtonOfList(
                   "Descer",
                   (descer ? _descer : null),
                   color: Colors.grey,
@@ -243,7 +243,7 @@ class _DungeonState extends State<Dungeon> {
           title: Text("Aviso"),
           content: Text("Você encontrou um " + _monstro.getNome),
           actions: [
-            FlatButton(
+            TextButton(
               child: Text("Lutar"),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -259,7 +259,7 @@ class _DungeonState extends State<Dungeon> {
                 });
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text("Fugir"),
               onPressed: () {
                 int agiT = 0;
@@ -307,7 +307,7 @@ class _DungeonState extends State<Dungeon> {
           text: "Você encontrou um Boss:" + _monstro.getNome,
           barrierDismissible: false,
           actions: [
-            FlatButton(
+            TextButton(
               child: Text("Lutar"),
               onPressed: () {
                 Navigator.push(

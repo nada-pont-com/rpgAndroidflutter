@@ -79,7 +79,7 @@ class _NovoLoadState extends State<NovoLoad> {
       Center(
         child: Row(
           children: [
-            _raisedButtonOfList(
+            _elevatedButtonOfList(
               "Continuar",
               () {
                 String txt = _nomeSave.text;
@@ -91,7 +91,7 @@ class _NovoLoadState extends State<NovoLoad> {
                 }
               },
             ),
-            _raisedButtonOfList("Cancelar", () {
+            _elevatedButtonOfList("Cancelar", () {
               Navigator.pop(context);
             }),
           ],
@@ -145,14 +145,14 @@ class _NovoLoadState extends State<NovoLoad> {
       Center(
         child: Row(
           children: [
-            _raisedButtonOfList("Continuar", () {
+            _elevatedButtonOfList("Continuar", () {
               if (refClasse != -1) {
                 setState(() {
                   referencia++;
                 });
               }
             }),
-            _raisedButtonOfList("Voltar", () {
+            _elevatedButtonOfList("Voltar", () {
               setState(() {
                 referencia--;
               });
@@ -182,7 +182,7 @@ class _NovoLoadState extends State<NovoLoad> {
       Center(
         child: Row(
           children: [
-            _raisedButtonOfList("Continuar", () {
+            _elevatedButtonOfList("Continuar", () {
               String txt = _nomePerso.text;
               if (_validaNome(txt)) {
                 _newPerso.setNome = txt;
@@ -209,7 +209,7 @@ class _NovoLoadState extends State<NovoLoad> {
                 });
               }
             }),
-            _raisedButtonOfList("Voltar", () {
+            _elevatedButtonOfList("Voltar", () {
               setState(() {
                 referencia--;
               });
@@ -232,7 +232,7 @@ class _NovoLoadState extends State<NovoLoad> {
           maxLength: 25,
           onEditingComplete: onEdit);
 
-  Expanded _raisedButtonOfList(
+  Expanded _elevatedButtonOfList(
     String text,
     Function onPress, {
     Color color: Colors.blue,
@@ -242,9 +242,12 @@ class _NovoLoadState extends State<NovoLoad> {
         flex: 5,
         child: Container(
           margin: EdgeInsets.all(5),
-          child: RaisedButton(
-              color: color,
-              textColor: textColor,
+          child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(color),
+                textStyle: MaterialStateProperty.all<TextStyle>(
+                    TextStyle(color: textColor)),
+              ),
               child: Text(text),
               onPressed: onPress),
         ),
@@ -306,13 +309,13 @@ class _NovoLoadState extends State<NovoLoad> {
                     lista.setVisibility(View.VISIBLE);
                 }*/
       List<Widget> action = [
-        FlatButton(
+        TextButton(
           child: Text("Deletar"),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        FlatButton(
+        TextButton(
           child: Text("Cancelar"),
           onPressed: () {
             Navigator.of(context).pop();

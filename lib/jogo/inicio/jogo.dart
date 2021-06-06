@@ -4,6 +4,7 @@ import 'package:inicio/application.dart';
 import 'package:inicio/banco/comandos.dart';
 import 'package:inicio/dados/dungeon_dados.dart';
 import 'package:inicio/jogo/dungeon/dungeon.dart';
+import 'package:inicio/jogo/guilda/guilda.dart';
 import 'package:inicio/jogo/inicio/personagem_menu.dart';
 import 'package:inicio/jogo/itens/itens.dart';
 import 'package:inicio/objetos/dungeon.dart';
@@ -75,7 +76,7 @@ class _JogoState extends State<Jogo> {
         Container(
           child: Row(
             children: [
-              raisedButtonOfList(
+              elevatedButtonOfList(
                 "Voltar",
                 () {
                   print(_context);
@@ -279,7 +280,7 @@ class _JogoState extends State<Jogo> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        raisedButtonOfList(
+        elevatedButtonOfList(
           "Voltar",
           () {
             setState(() {
@@ -294,17 +295,20 @@ class _JogoState extends State<Jogo> {
           height: 10,
           thickness: 2,
         ),
-        raisedButtonOfList(
+        elevatedButtonOfList(
           "Guilda",
           () {
-            setState(() {
-              _refDunGuil = 1;
-            });
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Guilda(),
+              ),
+            );
           },
           color: Colors.grey,
           textColor: Colors.black,
         ),
-        raisedButtonOfList(
+        elevatedButtonOfList(
           "Dungeon",
           () {
             setState(() {
@@ -314,7 +318,7 @@ class _JogoState extends State<Jogo> {
           color: Colors.grey,
           textColor: Colors.black,
         ),
-        raisedButtonOfList("Itens", () {
+        elevatedButtonOfList("Itens", () {
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -357,7 +361,7 @@ class _JogoState extends State<Jogo> {
           flex: 1,
           child: Row(
             children: [
-              raisedButtonOfList(
+              elevatedButtonOfList(
                 "Procurar",
                 () {
                   setState(() {

@@ -63,23 +63,32 @@ class TelaInicio extends StatelessWidget {
               Container(
                 width: 115,
                 margin: EdgeInsets.all(5),
-                child: RaisedButton(
+                child: ElevatedButton(
                   child: Text("Continuar"),
-                  color: Colors.blue,
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue),
+                    textStyle: MaterialStateProperty.all<TextStyle>(
+                        TextStyle(color: Colors.white)),
+                  ),
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => Jogo()));
                   },
-                  textColor: Colors.white,
+                  // textColor: Colors.white,
                 ),
               ),
               Container(
                 width: 115,
                 margin: EdgeInsets.all(5),
-                child: RaisedButton(
+                child: ElevatedButton(
                   child: Text("Novo Jogo"),
-                  color: Colors.blue,
-                  textColor: Colors.white,
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue),
+                    textStyle: MaterialStateProperty.all<TextStyle>(
+                        TextStyle(color: Colors.white)),
+                  ),
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => NovoLoad()));

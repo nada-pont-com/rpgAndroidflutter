@@ -381,7 +381,7 @@ class _BattleState extends State<Battle> {
                               ),
                             ),
                             actions: [
-                              FlatButton(
+                              TextButton(
                                 child: Text("Usar"),
                                 onPressed: () {
                                   modo = -1;
@@ -411,7 +411,7 @@ class _BattleState extends State<Battle> {
                                   setState(() {});
                                 },
                               ),
-                              FlatButton(
+                              TextButton(
                                 child: Text("Cancelar"),
                                 onPressed: () {
                                   Navigator.of(context).pop();
@@ -469,14 +469,14 @@ class _BattleState extends State<Battle> {
               " de Exp." +
               "\nDeseja continuar a jornada na Dongeon ou voltar para a superfice!"),
           actions: [
-            FlatButton(
+            TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.pop(_context, true);
               },
               child: Text("Continuar"),
             ),
-            FlatButton(
+            TextButton(
               child: Text("Voltar"),
               onPressed: () {
                 Navigator.of(context).pop();

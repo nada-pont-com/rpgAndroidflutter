@@ -73,7 +73,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        raisedButtonOfList(
+        elevatedButtonOfList(
           "Voltar",
           () {
             _perso.clearExtraStatus();
@@ -388,7 +388,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
         ),
         SizedBox(
           width: double.infinity,
-          child: raisedButtonOfList(
+          child: elevatedButtonOfList(
             "Salvar",
             () {
               _perso.pontosExp = _pontosExp;
@@ -422,10 +422,12 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
           child: SizedBox(
             width: 30,
             height: 25,
-            child: RaisedButton(
+            child: ElevatedButton(
               onPressed: bntAdd,
               child: Icon(Icons.add),
-              padding: EdgeInsets.zero,
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+              ),
             ),
           ),
         ),
@@ -445,10 +447,12 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
           child: SizedBox(
             width: 30,
             height: 25,
-            child: RaisedButton(
+            child: ElevatedButton(
               onPressed: bntRemove,
               child: Icon(Icons.remove),
-              padding: EdgeInsets.zero,
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+              ),
             ),
           ),
         ),
@@ -543,7 +547,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(
             width: double.infinity,
-            child: RaisedButton(
+            child: ElevatedButton(
               onPressed: () {
                 for (Habilidades hab in _perso.getHabilidades) {
                   if (hab.getId == _listHabilidades[_selectHab].getId) {
@@ -570,7 +574,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                           _listHabilidades[_selectHab].getPontos().toString() +
                           " pontos."),
                       actions: [
-                        FlatButton(
+                        TextButton(
                           child: Text("Aprender"),
                           onPressed: () {
                             _perso.getHabilidades
@@ -583,7 +587,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                             setState(() {});
                           },
                         ),
-                        FlatButton(
+                        TextButton(
                           child: Text("Cancelar"),
                           onPressed: () {
                             Navigator.of(context).pop();

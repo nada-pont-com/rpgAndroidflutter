@@ -67,4 +67,6 @@ class Itens {
     }
     return null;
   }
+
+  get contItens => _itens.length;
 }

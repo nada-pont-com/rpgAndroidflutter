@@ -31,17 +31,23 @@ dynamic convertRank({String rankS, int rankInt}) {
   }
 }
 
-Widget raisedButtonOfList(String text, Function onPress,
+Widget elevatedButtonOfList(String text, Function onPress,
     {Color color: Colors.blue, Color textColor: Colors.white, Widget texto}) {
   if (texto == null) {
     texto = Text(text);
   }
   return Container(
     margin: EdgeInsets.all(5),
-    child: RaisedButton(
-        padding: EdgeInsets.all(0),
-        color: color,
-        textColor: textColor,
+    child: ElevatedButton(
+        // padding: EdgeInsets.all(0),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+          textStyle: MaterialStateProperty.all<TextStyle>(
+              TextStyle(color: Colors.white)),
+          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(0)),
+        ),
+        // color: color,
+        // textColor: textColor,
         child: texto,
         onPressed: onPress),
   );
