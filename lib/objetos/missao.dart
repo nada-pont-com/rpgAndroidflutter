@@ -136,7 +136,7 @@ class Missao extends Objeto {
         do {
           vali = true;
           Itens itens = Itens();
-          int id = random.nextInt(itens.contItens);
+          int id = random.nextInt(itens.countItens);
           Item item = itens.geraItemById(id);
 
           if (item.raridade == (rank)) {

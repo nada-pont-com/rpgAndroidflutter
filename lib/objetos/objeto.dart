@@ -11,4 +11,6 @@ abstract class Objeto {
 
   int get getId => id;
   set setId(int id) => this.id = id;
+
+  String toString() => "id=" + id.toString() + ", nome=" + nome;
 }

@@ -7,6 +7,13 @@ class Item extends Objeto {
   int _quantidade;
   Status _status;
 
+  Item.item({int quantidade: 0, String nome: "", int id, String raridade}) {
+    this.nome = nome;
+    this._quantidade = quantidade;
+    this.id = id;
+    this._raridade = raridade;
+  }
+
   Item(Map<String, dynamic> item) {
     this.id = item["id"];
     this.nome = item["nome"];
@@ -44,5 +51,13 @@ class Item extends Objeto {
       "load_id": loadId,
     };
     return itemMap;
+  }
+
+  String toString() {
+    return super.toString() +
+        ", raridade=" +
+        raridade +
+        ", quantidade=" +
+        quantidade.toString();
   }
 }

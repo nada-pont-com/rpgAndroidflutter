@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:inicio/objetos/item.dart';
 import 'package:inicio/objetos/missao.dart';
 
 class Guilda extends StatefulWidget {
@@ -14,8 +13,6 @@ class _Guilda extends State<Guilda> {
 
   @override
   Widget build(BuildContext context) {
-    Missao a = Missao();
-    Item aux = a.item;
     return MaterialApp(
       title: "Guilda",
       debugShowCheckedModeBanner: false,
@@ -43,6 +40,7 @@ class _Guilda extends State<Guilda> {
             });
           },
           currentIndex: _aba,
+          selectedItemColor: Colors.blue,
         ),
       ),
     );
@@ -62,16 +60,18 @@ class _Guilda extends State<Guilda> {
     return Container(
       child: Row(
         children: [
-          Column(
-            children: [],
+          Expanded(
+            child: Column(
+              children: [],
+            ),
           ),
-          ListView.builder(
-              itemCount: _listMisao.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Column(
-                  children: [],
-                );
-              })
+          // ListView.builder(
+          //     itemCount: _listMisao.length,
+          //     itemBuilder: (BuildContext context, int index) {
+          //       return Column(
+          //         children: [],
+          //       );
+          //     })
         ],
       ),
     );

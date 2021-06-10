@@ -78,4 +78,6 @@ class Load extends Objeto {
         "prata": 0,
         "ouro": 0,
       };
+
+  String toString() => super.toString();
 }

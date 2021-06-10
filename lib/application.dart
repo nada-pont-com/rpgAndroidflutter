@@ -1,5 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:inicio/banco/comandos.dart';
+import 'package:inicio/dados/itens.dart';
+import 'package:inicio/objetos/item.dart';
 import 'package:inicio/objetos/load.dart';
 import 'package:inicio/objetos/perso.dart';
 
@@ -118,3 +123,16 @@ List<String> tablesCriat = [
         PRIMARY KEY (id,perso_id)
   )""",
 ];
+
+void insertsItemFromLoad() {
+  Itens itens = Itens();
+  int quant = itens.countItens;
+  Random rand = Random();
+  Comandos comandos = Comandos();
+
+  for (int i = 0; i < quant; i++) {
+    Item item = itens.geraItemById(i);
+    item.quantidade = rand.nextInt(100);
+    comandos.newItem(item.toMapBanco());
+  }
+}
