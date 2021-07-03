@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
-import 'package:inicio/application.dart';
-import 'package:inicio/objetos/habilidades.dart';
-import 'package:inicio/objetos/status.dart';
-import 'package:inicio/objetos/objeto.dart';
+import 'package:rpgandroid/application.dart';
+import 'package:rpgandroid/objetos/habilidades.dart';
+import 'package:rpgandroid/objetos/status.dart';
+import 'package:rpgandroid/objetos/objeto.dart';
 
 class SerVivo extends Status with Objeto {
   @protected

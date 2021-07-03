@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:inicio/application.dart';
-import 'package:inicio/banco/comandos.dart';
-// import 'package:inicio/jogo/inicio/continuar.dart';
-import 'package:inicio/jogo/inicio/jogo.dart';
-import 'package:inicio/jogo/inicio/novo_jogo.dart';
-import 'package:inicio/objetos/notificacao.dart';
+import 'package:rpgandroid/application.dart';
+import 'package:rpgandroid/banco/comandos.dart';
+// import 'package:rpgandroid/jogo/rpgandroid/continuar.dart';
+import 'package:rpgandroid/jogo/inicio/jogo.dart';
+import 'package:rpgandroid/jogo/inicio/novo_jogo.dart';
+import 'package:rpgandroid/objetos/notificacao.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'RPG Android',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,

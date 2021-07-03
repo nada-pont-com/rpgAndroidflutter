@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:inicio/application.dart';
-import 'package:inicio/banco/comandos.dart';
-import 'package:inicio/objetos/dungeon.dart';
+import 'package:rpgandroid/application.dart';
+import 'package:rpgandroid/banco/comandos.dart';
+import 'package:rpgandroid/objetos/dungeon.dart';
 
 class DungeonsDados {
   //TODO nomes novos de acordo com o rank; limitar monstros aos nomes; até 3 para o rank G, aumentar de acordo com o rank;

@@ -1,6 +1,6 @@
-// import 'package:inicio/dados/habilidades.dart';
-import 'package:inicio/objetos/objeto.dart';
-import 'package:inicio/objetos/status.dart';
+// import 'package:rpgandroid/dados/habilidades.dart';
+import 'package:rpgandroid/objetos/objeto.dart';
+import 'package:rpgandroid/objetos/status.dart';
 
 class Habilidades extends Objeto {
   int _tipo; //1-Ataque, 2-fortalecimento

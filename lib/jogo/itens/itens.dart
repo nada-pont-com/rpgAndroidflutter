@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:inicio/application.dart';
-// import 'package:inicio/banco/comandos.dart';
-import 'package:inicio/objetos/item.dart';
+import 'package:rpgandroid/application.dart';
+// import 'package:rpgandroid/banco/comandos.dart';
+import 'package:rpgandroid/objetos/item.dart';
 
 class Itens extends StatefulWidget {
   @override

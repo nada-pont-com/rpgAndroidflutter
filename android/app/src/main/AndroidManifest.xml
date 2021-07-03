@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.inicio">
+    package="com.example.rpgandroid">
    <application
-        android:label="inicio"
+        android:label="RPG Android"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

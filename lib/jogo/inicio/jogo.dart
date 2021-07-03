@@ -1,16 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:inicio/application.dart';
-import 'package:inicio/banco/comandos.dart';
-import 'package:inicio/dados/dungeon_dados.dart';
-import 'package:inicio/jogo/dungeon/dungeon.dart';
-import 'package:inicio/jogo/guilda/guilda.dart';
-import 'package:inicio/jogo/inicio/personagem_menu.dart';
-import 'package:inicio/jogo/itens/itens.dart';
-import 'package:inicio/objetos/dungeon.dart';
-import 'package:inicio/objetos/item.dart';
-import 'package:inicio/objetos/perso.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:rpgandroid/application.dart';
+import 'package:rpgandroid/banco/comandos.dart';
+import 'package:rpgandroid/dados/dungeon_dados.dart';
+import 'package:rpgandroid/jogo/dungeon/dungeon.dart';
+import 'package:rpgandroid/jogo/guilda/guilda.dart';
+import 'package:rpgandroid/jogo/inicio/personagem_menu.dart';
+import 'package:rpgandroid/jogo/itens/itens.dart';
+import 'package:rpgandroid/objetos/dungeon.dart';
+import 'package:rpgandroid/objetos/perso.dart';
 
 class Jogo extends StatefulWidget {
   @override

@@ -2,13 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:inicio/application.dart';
-import 'package:inicio/banco/comandos.dart';
-import 'package:inicio/objetos/habilidades.dart';
-import 'package:inicio/objetos/item.dart';
-import 'package:inicio/objetos/monstro.dart';
-import 'package:inicio/objetos/notificacao.dart';
-import 'package:inicio/objetos/perso.dart';
+import 'package:rpgandroid/application.dart';
+import 'package:rpgandroid/banco/comandos.dart';
+import 'package:rpgandroid/objetos/habilidades.dart';
+import 'package:rpgandroid/objetos/item.dart';
+import 'package:rpgandroid/objetos/monstro.dart';
+import 'package:rpgandroid/objetos/notificacao.dart';
+import 'package:rpgandroid/objetos/perso.dart';
 import 'package:provider/provider.dart';
 
 class Battle extends StatefulWidget {

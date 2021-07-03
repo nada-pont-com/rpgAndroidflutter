@@ -1,12 +1,12 @@
 import 'dart:math';
 
-import 'package:inicio/dados/dungeon_dados.dart';
-import 'package:inicio/dados/itens.dart';
-import 'package:inicio/dados/monstros.dart';
-import 'package:inicio/objetos/dungeon.dart';
-import 'package:inicio/objetos/item.dart';
-import 'package:inicio/objetos/monstro.dart';
-import 'package:inicio/objetos/objeto.dart';
+import 'package:rpgandroid/dados/dungeon_dados.dart';
+import 'package:rpgandroid/dados/itens.dart';
+import 'package:rpgandroid/dados/monstros.dart';
+import 'package:rpgandroid/objetos/dungeon.dart';
+import 'package:rpgandroid/objetos/item.dart';
+import 'package:rpgandroid/objetos/monstro.dart';
+import 'package:rpgandroid/objetos/objeto.dart';
 
 class Missao extends Objeto {
   int _tipo; //salv

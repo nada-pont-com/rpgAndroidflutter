@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:inicio/objetos/ser_vivo.dart';
-import 'package:inicio/objetos/status.dart';
+import 'package:rpgandroid/objetos/ser_vivo.dart';
+import 'package:rpgandroid/objetos/status.dart';
 
 class Perso extends SerVivo {
   int _pontosExp = 0;
