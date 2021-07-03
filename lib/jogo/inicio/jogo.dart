@@ -8,7 +8,9 @@ import 'package:inicio/jogo/guilda/guilda.dart';
 import 'package:inicio/jogo/inicio/personagem_menu.dart';
 import 'package:inicio/jogo/itens/itens.dart';
 import 'package:inicio/objetos/dungeon.dart';
+import 'package:inicio/objetos/item.dart';
 import 'package:inicio/objetos/perso.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Jogo extends StatefulWidget {
   @override
@@ -31,7 +33,11 @@ class _JogoState extends State<Jogo> {
         appBar: AppBar(
           title: Text(_selectBar == 0
               ? "Personagens"
-              : (_selectBar == 1 ? "Work" : "Configurações")),
+              : (_selectBar == 1
+                  ? "Work"
+                  : _selectBar == 2
+                      ? "Informações"
+                      : "Configurações")),
         ),
         body: _body(),
         bottomNavigationBar: BottomNavigationBar(
@@ -43,6 +49,10 @@ class _JogoState extends State<Jogo> {
             BottomNavigationBarItem(
               icon: Icon(Icons.construction),
               label: "Trabalhos",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.info_outline),
+              label: "Infos",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
@@ -57,6 +67,7 @@ class _JogoState extends State<Jogo> {
           },
           currentIndex: _selectBar,
           selectedItemColor: Colors.amber,
+          unselectedItemColor: Colors.black54,
         ),
       ),
     );
@@ -65,8 +76,10 @@ class _JogoState extends State<Jogo> {
   Widget _body() {
     if (_selectBar == 0) {
       return _perso();
-    } else {
+    } else if (_selectBar == 1) {
       return _dungeonGuild();
+    } else {
+      return _info();
     }
   }
 
@@ -413,6 +426,120 @@ class _JogoState extends State<Jogo> {
           ),
         )
       ],
+    );
+  }
+
+  Widget _info() {
+    // insertsItemFromLoad();
+    Comandos comandos = Comandos();
+    // comandos.buscaLoad().then((value) => {print(value)});
+    if (series.length == 0) {
+      comandos.buscaItensLoad().then((value) => setState(() {
+            itens = value;
+          }));
+    }
+    _constroiSeriesToLine();
+    _constroiSeriesToPie();
+
+    return Container(
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              children: [
+                SfCartesianChart(
+                  primaryXAxis: CategoryAxis(
+                    title: AxisTitle(text: "Ranks"),
+                  ),
+                  primaryYAxis: CategoryAxis(
+                    title: AxisTitle(text: "Qtds"),
+                  ),
+                  // Chart title
+                  title: ChartTitle(text: 'Quant '),
+                  // Enable legend
+                  legend: Legend(isVisible: true),
+                  // Enable tooltip
+                  tooltipBehavior: TooltipBehavior(enable: true),
+                  series: series,
+                ),
+                Expanded(
+                  child: SfCircularChart(
+                    title: ChartTitle(text: 'Itens por rank'),
+                    legend: Legend(isVisible: true),
+                    series: seriesPie,
+                  ),
+                )
+              ],
+            ),
+          ),
+          // ListView.builder(
+          //     itemCount: _listMisao.length,
+          //     itemBuilder: (BuildContext context, int index) {
+          //       return Column(
+          //         children: [],
+          //       );
+          //     })
+        ],
+      ),
+    );
+  }
+
+  List<ChartSeries<Item, String>> series = <ChartSeries<Item, String>>[];
+  List<PieSeries<Item, String>> seriesPie = <PieSeries<Item, String>>[];
+
+  _constroiSeriesToLine() {
+    print(itens);
+    series = [];
+    itens.forEach((item) {
+      List<Item> itensValidados = [item];
+
+      series.add(
+        LineSeries<Item, String>(
+          yValueMapper: (Item item, int _) => item.quantidade,
+          xValueMapper: (Item item, int _) => item.raridade,
+          dataSource: itensValidados,
+          name: item.getNome,
+          markerSettings: MarkerSettings(
+            isVisible: true,
+            shape: DataMarkerType.circle,
+            borderWidth: 1,
+          ),
+          animationDuration: 0,
+          dataLabelSettings: DataLabelSettings(
+            isVisible: true,
+          ),
+        ),
+      );
+    });
+  }
+
+  List<Item> itens = <Item>[];
+
+  _constroiSeriesToPie() {
+    seriesPie = [];
+    List<Item> itensValidados = [];
+    ranks.forEach((rank) {
+      itensValidados.add(Item.item(raridade: rank));
+      itens.forEach((item) {
+        if (item.raridade == rank)
+          itensValidados.last.quantidade += item.quantidade;
+      });
+    });
+    seriesPie.add(
+      PieSeries<Item, String>(
+        yValueMapper: (Item item, int _) => item.quantidade,
+        xValueMapper: (Item item, int _) => item.raridade,
+        dataSource: itensValidados,
+        explode: true,
+        explodeIndex: 0,
+        dataLabelMapper: (Item item, _) =>
+            item.raridade + ":" + item.quantidade.toString(),
+        dataLabelSettings: DataLabelSettings(
+          isVisible: true,
+          showZeroValue: false,
+        ),
+        animationDuration: 1,
+      ),
     );
   }
 }

@@ -52,6 +52,13 @@ class Itens {
       "raridade": "F",
       "estatistica": Status(),
     },
+    {
+      "id": 7,
+      "nome": "Ferro2",
+      "nomeKey": "FERRO2",
+      "raridade": "F",
+      "estatistica": Status(),
+    },
   ];
 
   Item geraItemById(int id) {
@@ -68,5 +75,5 @@ class Itens {
     return null;
   }
 
-  get contItens => _itens.length;
+  get countItens => _itens.length;
 }
