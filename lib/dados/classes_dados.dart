@@ -1,5 +1,5 @@
-import 'package:rpgandroid/objetos/perso.dart';
-import 'package:rpgandroid/objetos/status.dart';
+import 'package:rpg_flutter/objetos/perso.dart';
+import 'package:rpg_flutter/objetos/status.dart';
 
 class ClassesDados {
   Map _classes = {
@@ -33,7 +33,7 @@ class ClassesDados {
 
   int size() => _classes.length;
 
-  Perso getStatus(int index, {Perso persoAntig}) {
+  Perso getStatus(int index, {Perso? persoAntig}) {
     Map classe = _classes[index];
     Perso perso = Perso();
     perso.cloneByStatus(classe["Status"]);

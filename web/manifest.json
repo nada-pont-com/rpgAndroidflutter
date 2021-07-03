@@ -1,6 +1,6 @@
 {
-    "name": "inicio",
-    "short_name": "inicio",
+    "name": "rpg_flutter",
+    "short_name": "rpg_flutter",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

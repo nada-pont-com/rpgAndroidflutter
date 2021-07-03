@@ -1,13 +1,13 @@
 import 'dart:math';
 
-import 'package:rpgandroid/objetos/ser_vivo.dart';
-import 'package:rpgandroid/objetos/status.dart';
+import 'package:rpg_flutter/objetos/ser_vivo.dart';
+import 'package:rpg_flutter/objetos/status.dart';
 
 class Perso extends SerVivo {
   int _pontosExp = 0;
   int _pontosHab = 0;
-  int _loadId;
-  String _classe;
+  int? _loadId;
+  String? _classe;
   int _rankExp = 0;
 
   Perso() : super();
@@ -56,18 +56,18 @@ class Perso extends SerVivo {
   int get pontosHab => _pontosHab;
   set pontosHab(pontosHab) => this._pontosHab = pontosHab;
 
-  int get loadId => _loadId;
+  int? get loadId => _loadId;
   set loadId(loadId) => this._loadId = loadId;
 
-  String get classe => _classe;
+  String? get classe => _classe;
   set classe(classe) => this._classe = classe;
 
   int get rankExp => _rankExp;
   set rankExp(rankExp) => this._rankExp = rankExp;
 
   int getExpMax() {
-    double i = pow(2, (level.toDouble() - 1)); //potencia 2^(level-1)
-    double d = pow(1.5, (level.toDouble())); //potencia 1.5^level
+    double i = pow(2, (level.toDouble() - 1)).toDouble(); //potencia 2^(level-1)
+    double d = pow(1.5, (level.toDouble())).toDouble(); //potencia 1.5^level
     return ((100 * i) ~/ d);
   }
 

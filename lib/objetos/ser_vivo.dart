@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
-import 'package:rpgandroid/application.dart';
-import 'package:rpgandroid/objetos/habilidades.dart';
-import 'package:rpgandroid/objetos/status.dart';
-import 'package:rpgandroid/objetos/objeto.dart';
+import 'package:rpg_flutter/application.dart';
+import 'package:rpg_flutter/objetos/habilidades.dart';
+import 'package:rpg_flutter/objetos/status.dart';
+import 'package:rpg_flutter/objetos/objeto.dart';
 
 class SerVivo extends Status with Objeto {
   @protected
@@ -14,7 +14,7 @@ class SerVivo extends Status with Objeto {
   @protected
   String rank = "G";
   @protected
-  List<Habilidades> habilidades;
+  List<Habilidades>? habilidades;
 
   int get getLevel => level;
   set setLevel(level) => this.level = level;
@@ -25,7 +25,7 @@ class SerVivo extends Status with Objeto {
   String get getRank => rank;
   set setRank(rank) => this.rank = rank;
 
-  List<Habilidades> get getHabilidades => habilidades;
+  List<Habilidades>? get getHabilidades => habilidades;
   set setHabilidades(habilidades) => this.habilidades = habilidades;
 
   SerVivo({
@@ -67,13 +67,13 @@ class SerVivo extends Status with Objeto {
 
   int useHabilidade(Habilidades habilidade) {
     if (nocalteado == 0) {
-      int tipo = habilidade.getTipo;
-      int custo = habilidade.getCusto;
+      int tipo = habilidade.getTipo!;
+      int custo = habilidade.getCusto!;
       if (mp >= custo) {
         setMp = (mp - custo);
         if (tipo == 2) {
-          extraStatus.extra(
-              habilidade.getValor().toDouble(), this, habilidade.getExtra());
+          extraStatus!.extra(
+              habilidade.getValor()!.toDouble(), this, habilidade.getExtra());
         } else if (tipo == 1) {}
         return HabilidadeStatus.ok.index;
       } else
@@ -89,21 +89,21 @@ class SerVivo extends Status with Objeto {
   }
 
   List<String> atkInimigo(SerVivo voce, SerVivo inimigo,
-      {Habilidades habilidade}) {
+      {Habilidades? habilidade}) {
     List<String> acoes = <String>[];
     print(inimigo.toMap());
     if (nocalteado == 0) {
       int valor = 1, nocalteValor = 0, atks = 1;
       if (habilidade != null) {
-        valor = habilidade.getValor();
-        nocalteValor = habilidade.getNocalte();
-        atks = habilidade.getNumberAtk();
+        valor = habilidade.getValor()!;
+        nocalteValor = habilidade.getNocalte()!;
+        atks = habilidade.getNumberAtk()!;
       }
 
       for (int i = 0; i < atks; i++) {
-        double atk = getAtk * valor * 0.01 + (getAtk) + extraStatus.getAtk;
+        double atk = getAtk * valor * 0.01 + (getAtk) + extraStatus!.getAtk;
         double atkReal =
-            atk - ((inimigo.getDef + inimigo.getExtraStatus.getDef) / 5);
+            atk - ((inimigo.getDef + inimigo.getExtraStatus!.getDef) / 5);
         if (atkReal < 0) {
           atkReal = 0;
         }

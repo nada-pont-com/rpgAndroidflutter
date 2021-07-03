@@ -1,12 +1,12 @@
-import 'package:rpgandroid/banco/banco.dart';
-import 'package:rpgandroid/application.dart';
-import 'package:rpgandroid/dados/habilidades.dart';
-import 'package:rpgandroid/dados/itens.dart';
-import 'package:rpgandroid/objetos/dungeon.dart';
-import 'package:rpgandroid/objetos/habilidades.dart';
-import 'package:rpgandroid/objetos/item.dart';
-import 'package:rpgandroid/objetos/load.dart';
-import 'package:rpgandroid/objetos/perso.dart';
+import 'package:rpg_flutter/banco/banco.dart';
+import 'package:rpg_flutter/application.dart';
+import 'package:rpg_flutter/dados/habilidades.dart';
+import 'package:rpg_flutter/dados/itens.dart';
+import 'package:rpg_flutter/objetos/dungeon.dart';
+import 'package:rpg_flutter/objetos/habilidades.dart';
+import 'package:rpg_flutter/objetos/item.dart';
+import 'package:rpg_flutter/objetos/load.dart';
+import 'package:rpg_flutter/objetos/perso.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Comandos extends Banco {
@@ -16,13 +16,13 @@ class Comandos extends Banco {
   @override
   String get dbname => dbName;
 
-  static Comandos _this;
+  static Comandos? _this;
 
   factory Comandos() {
     if (_this == null) {
       _this = Comandos.getInstance();
     }
-    return _this;
+    return _this!;
   }
 
   Comandos.getInstance() : super();
@@ -101,7 +101,7 @@ class Comandos extends Banco {
     );
     List<Habilidades> habilidades = <Habilidades>[];
     habsPersoDb.forEach((Map<String, dynamic> habDb) {
-      Habilidades hab = HabilidadesDados().getHabilidadeById(habDb["id"]);
+      Habilidades hab = HabilidadesDados().getHabilidadeById(habDb["id"])!;
       hab.level = habDb["level"];
       habilidades.add(hab);
     });
@@ -118,7 +118,7 @@ class Comandos extends Banco {
     List<Item> itens = <Item>[];
 
     itensBd.forEach((Map<String, dynamic> itemDb) {
-      Item item = Itens().geraItemById(itemDb["id"]);
+      Item item = Itens().geraItemById(itemDb["id"])!;
       item.quantidade = itemDb["quantidade"];
       itens.add(item);
     });
@@ -135,7 +135,7 @@ class Comandos extends Banco {
     List<Item> itens = <Item>[];
 
     itensBd.forEach((Map<String, dynamic> itemDb) {
-      Item item = Itens().geraItemById(itemDb["id"]);
+      Item item = Itens().geraItemById(itemDb["id"])!;
       item.quantidade = itemDb["quantidade"];
       itens.add(item);
     });

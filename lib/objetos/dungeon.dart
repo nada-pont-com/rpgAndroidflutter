@@ -1,9 +1,9 @@
-import 'package:rpgandroid/application.dart';
-import 'package:rpgandroid/objetos/objeto.dart';
+import 'package:rpg_flutter/application.dart';
+import 'package:rpg_flutter/objetos/objeto.dart';
 
 class DungeonTable extends Objeto {
-  String _andares;
-  String _rank;
+  String? _andares;
+  String? _rank;
 
   DungeonTable();
 
@@ -13,11 +13,11 @@ class DungeonTable extends Objeto {
     _rank = dungeon["rank"];
   }
 
-  String get getAndares => _andares;
+  String? get getAndares => _andares;
 
   set setAndares(String andares) => this._andares = andares;
 
-  String get getRank => _rank;
+  String? get getRank => _rank;
 
   set setRank(String rank) => this._rank = rank;
 
@@ -35,10 +35,10 @@ class DungeonTable extends Objeto {
         nome +
         '\'' +
         ", andares='" +
-        _andares +
+        _andares! +
         '\'' +
         ", rank='" +
-        _rank +
+        _rank! +
         '\'' +
         '}';
   }

@@ -1,8 +1,8 @@
-import 'package:rpgandroid/application.dart';
+import 'package:rpg_flutter/application.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class Banco {
-  Database _db;
+  Database? _db;
 
   String get dbname;
 
@@ -24,10 +24,10 @@ abstract class Banco {
       // await _db.execute("DROP TABLE load;");
 
       tablesCriat.forEach((String sql) {
-        _db.execute(sql);
+        _db!.execute(sql);
       });
     }
-    return this._db;
+    return this._db!;
   }
 
   Future<Database> getDb() async {
@@ -36,7 +36,7 @@ abstract class Banco {
 
   void close() async {
     if (this._db != null) {
-      await this._db.close();
+      await this._db!.close();
       this._db = null;
     }
   }

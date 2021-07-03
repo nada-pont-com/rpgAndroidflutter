@@ -2,14 +2,14 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rpgandroid/application.dart';
-import 'package:rpgandroid/banco/comandos.dart';
-import 'package:rpgandroid/objetos/habilidades.dart';
-import 'package:rpgandroid/objetos/item.dart';
-import 'package:rpgandroid/objetos/monstro.dart';
-import 'package:rpgandroid/objetos/notificacao.dart';
-import 'package:rpgandroid/objetos/perso.dart';
 import 'package:provider/provider.dart';
+import 'package:rpg_flutter/application.dart';
+import 'package:rpg_flutter/banco/comandos.dart';
+import 'package:rpg_flutter/objetos/habilidades.dart';
+import 'package:rpg_flutter/objetos/item.dart';
+import 'package:rpg_flutter/objetos/monstro.dart';
+import 'package:rpg_flutter/objetos/notificacao.dart';
+import 'package:rpg_flutter/objetos/perso.dart';
 
 class Battle extends StatefulWidget {
   final Monstro _monstro;
@@ -22,14 +22,14 @@ class Battle extends StatefulWidget {
 class _BattleState extends State<Battle> {
   _BattleState(this._monstro) : super();
   int _persoNumber = 0;
-  Monstro _monstro;
+  late Monstro _monstro;
   Random random = Random();
   List<Perso> _persos = persos;
   List<String> listaAcoes = ["jose", "teste"];
-  List<Habilidades> listaHabilidadesPerso;
+  List<Habilidades>? listaHabilidadesPerso;
   List<Item> _listaDeItens = <Item>[];
   int nocalte = 0;
-  BuildContext _context;
+  late BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
@@ -331,7 +331,7 @@ class _BattleState extends State<Battle> {
               child: InkWell(
                 onTap: () {
                   print(_persos[_persoNumber].getHabilidades.toString());
-                  if (_persos[_persoNumber].getHabilidades.length == 0) {
+                  if (_persos[_persoNumber].getHabilidades!.length == 0) {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -357,11 +357,11 @@ class _BattleState extends State<Battle> {
                               child: SingleChildScrollView(
                                 child: Column(
                                   children: _persos[_persoNumber]
-                                      .getHabilidades
+                                      .getHabilidades!
                                       .map(
-                                        (e) => RadioListTile(
+                                        (e) => RadioListTile<int>(
                                           title: Text(e.toString()),
-                                          value: e.getId,
+                                          value: e.getId!,
                                           groupValue:
                                               _singleNotifier.currentIndex,
                                           selected:
@@ -387,13 +387,13 @@ class _BattleState extends State<Battle> {
                                   modo = -1;
                                   Perso perso = _persos[_persoNumber];
                                   if (perso
-                                          .getHabilidades[
+                                          .getHabilidades![
                                               _singleNotifier.currentIndex]
                                           .getTipo ==
                                       2) {
-                                    perso.useHabilidade(perso.getHabilidades[
+                                    perso.useHabilidade(perso.getHabilidades![
                                         _singleNotifier.currentIndex]);
-                                    print(perso.getExtraStatus.toMap());
+                                    print(perso.getExtraStatus!.toMap());
                                   } else
                                     listaAcoes.replaceRange(
                                       0,
@@ -401,7 +401,7 @@ class _BattleState extends State<Battle> {
                                       perso.atkInimigo(
                                         perso,
                                         _monstro,
-                                        habilidade: perso.getHabilidades[
+                                        habilidade: perso.getHabilidades![
                                             _singleNotifier.currentIndex],
                                       ),
                                     );
@@ -435,16 +435,16 @@ class _BattleState extends State<Battle> {
 
   void _monstroAtk() {
     if (_monstro.isVivo()) {
-      int hab = Random().nextInt(_monstro.getHabilidades.length + 1);
+      int hab = Random().nextInt(_monstro.getHabilidades!.length + 1);
       listaAcoes.replaceRange(
           0,
           0,
           _monstro.atkInimigo(
             _monstro,
             _persos[Random().nextInt(_persos.length)],
-            habilidade: hab == _monstro.getHabilidades.length
+            habilidade: hab == _monstro.getHabilidades!.length
                 ? null
-                : _monstro.getHabilidades[hab],
+                : _monstro.getHabilidades![hab],
           ));
     } else {
       _monsterMorto();
@@ -490,8 +490,8 @@ class _BattleState extends State<Battle> {
   }
 
   void _monstroItens() {
-    for (Map item in _monstro.itens) {
-      int quant = random.nextInt(item["max"]) + item["min"];
+    for (Map item in _monstro.itens!) {
+      int quant = (random.nextInt(item["max"]) + item["min"]).toInt();
       if (quant > 0) {
         Item itemDrop = item["item"];
         itemDrop.quantidade = (quant);
@@ -502,12 +502,12 @@ class _BattleState extends State<Battle> {
 
   void _salvar() {
     Comandos comandos = Comandos();
-    load.atualizaItens(_listaDeItens);
+    load!.atualizaItens(_listaDeItens);
     for (int i = 0; i < _listaDeItens.length; i++) {
       comandos.newItem(_listaDeItens[i].toMapBanco());
     }
     for (Perso perso in persos) {
-      comandos.atulizarPerso(perso.toMap(), perso.getId);
+      comandos.atulizarPerso(perso.toMap(), perso.getId!);
     }
   }
 }

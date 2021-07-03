@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rpgandroid/application.dart';
-import 'package:rpgandroid/banco/comandos.dart';
-import 'package:rpgandroid/dados/habilidades.dart';
-import 'package:rpgandroid/objetos/habilidades.dart';
-import 'package:rpgandroid/objetos/perso.dart';
+import 'package:rpg_flutter/application.dart';
+import 'package:rpg_flutter/banco/comandos.dart';
+import 'package:rpg_flutter/dados/habilidades.dart';
+import 'package:rpg_flutter/objetos/habilidades.dart';
+import 'package:rpg_flutter/objetos/perso.dart';
 
 class PersonagemMenu extends StatefulWidget {
   final Perso _perso;
@@ -21,9 +21,9 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
   }
 
   int _selectPage = 0, _selectHab = 0;
-  Perso _perso;
+  late Perso _perso;
   List<Habilidades> _listHabilidades = HabilidadesDados().getHabilidades();
-  int _pontosExp, _pontosHab;
+  late int _pontosExp, _pontosHab;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -169,7 +169,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                       child: Container(
                         margin: EdgeInsets.only(right: 10, left: 10),
                         child: Text(
-                          "Classe: " + _perso.classe,
+                          "Classe: " + _perso.classe!,
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -221,19 +221,19 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                           children: _pointsButtons(
                               "Atk: " + _perso.getAtk.toString(), () {
                         if (_pontosExp == 0) {
-                          _perso.getExtraStatus.setAtk =
-                              _perso.getExtraStatus.getAtk + 1;
+                          _perso.getExtraStatus!.setAtk =
+                              _perso.getExtraStatus!.getAtk + 1;
                           // _pontosExp--;
                           setState(() {});
                         }
                       }, () {
-                        if (_perso.getExtraStatus.getAtk != 0) {
-                          _perso.getExtraStatus.setAtk =
-                              _perso.getExtraStatus.getAtk - 1;
+                        if (_perso.getExtraStatus!.getAtk != 0) {
+                          _perso.getExtraStatus!.setAtk =
+                              _perso.getExtraStatus!.getAtk - 1;
                           _pontosExp++;
                           setState(() {});
                         }
-                      }, _perso.getExtraStatus.getAtk.toString())),
+                      }, _perso.getExtraStatus!.getAtk.toString())),
                     ),
                     Container(
                       padding: EdgeInsets.only(bottom: 10, left: 2, top: 2),
@@ -241,19 +241,19 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                           children: _pointsButtons(
                               "Def: " + _perso.getDef.toString(), () {
                         if (_pontosExp != 0) {
-                          _perso.getExtraStatus.setDef =
-                              _perso.getExtraStatus.getDef + 1;
+                          _perso.getExtraStatus!.setDef =
+                              _perso.getExtraStatus!.getDef + 1;
                           _pontosExp--;
                           setState(() {});
                         }
                       }, () {
-                        if (_perso.getExtraStatus.getDef != 0) {
-                          _perso.getExtraStatus.setDef =
-                              _perso.getExtraStatus.getDef - 1;
+                        if (_perso.getExtraStatus!.getDef != 0) {
+                          _perso.getExtraStatus!.setDef =
+                              _perso.getExtraStatus!.getDef - 1;
                           _pontosExp++;
                           setState(() {});
                         }
-                      }, _perso.getExtraStatus.getDef.toString())),
+                      }, _perso.getExtraStatus!.getDef.toString())),
                     ),
                     Container(
                       padding: EdgeInsets.only(bottom: 10, left: 2, top: 2),
@@ -261,19 +261,19 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                           children: _pointsButtons(
                               "Agi: " + _perso.getAgi.toString(), () {
                         if (_pontosExp != 0) {
-                          _perso.getExtraStatus.setAgi =
-                              _perso.getExtraStatus.getAgi + 1;
+                          _perso.getExtraStatus!.setAgi =
+                              _perso.getExtraStatus!.getAgi + 1;
                           _pontosExp--;
                           setState(() {});
                         }
                       }, () {
-                        if (_perso.getExtraStatus.getAgi != 0) {
-                          _perso.getExtraStatus.setAgi =
-                              _perso.getExtraStatus.getAgi - 1;
+                        if (_perso.getExtraStatus!.getAgi != 0) {
+                          _perso.getExtraStatus!.setAgi =
+                              _perso.getExtraStatus!.getAgi - 1;
                           _pontosExp++;
                           setState(() {});
                         }
-                      }, _perso.getExtraStatus.getAgi.toString())),
+                      }, _perso.getExtraStatus!.getAgi.toString())),
                     ),
                     Container(
                       padding: EdgeInsets.only(bottom: 10, left: 2, top: 2),
@@ -281,19 +281,19 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                         children: _pointsButtons(
                             "Int: " + _perso.getIntl.toString(), () {
                           if (_pontosExp != 0) {
-                            _perso.getExtraStatus.setIntl =
-                                _perso.getExtraStatus.getIntl + 1;
+                            _perso.getExtraStatus!.setIntl =
+                                _perso.getExtraStatus!.getIntl + 1;
                             _pontosExp--;
                             setState(() {});
                           }
                         }, () {
-                          if (_perso.getExtraStatus.getIntl != 0) {
-                            _perso.getExtraStatus.setIntl =
-                                _perso.getExtraStatus.getIntl - 1;
+                          if (_perso.getExtraStatus!.getIntl != 0) {
+                            _perso.getExtraStatus!.setIntl =
+                                _perso.getExtraStatus!.getIntl - 1;
                             _pontosExp++;
                             setState(() {});
                           }
-                        }, _perso.getExtraStatus.getIntl.toString()),
+                        }, _perso.getExtraStatus!.getIntl.toString()),
                       ),
                     ),
                   ],
@@ -310,19 +310,19 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                         children: _pointsButtons(
                             "AtkM: " + _perso.getAtkM.toString(), () {
                           if (_pontosExp != 0) {
-                            _perso.getExtraStatus.setAtkM =
-                                _perso.getExtraStatus.getAtkM + 1;
+                            _perso.getExtraStatus!.setAtkM =
+                                _perso.getExtraStatus!.getAtkM + 1;
                             _pontosExp--;
                             setState(() {});
                           }
                         }, () {
-                          if (_perso.getExtraStatus.getAtkM != 0) {
-                            _perso.getExtraStatus.setAtkM =
-                                _perso.getExtraStatus.getAtkM - 1;
+                          if (_perso.getExtraStatus!.getAtkM != 0) {
+                            _perso.getExtraStatus!.setAtkM =
+                                _perso.getExtraStatus!.getAtkM - 1;
                             _pontosExp++;
                             setState(() {});
                           }
-                        }, _perso.getExtraStatus.getAtkM.toString()),
+                        }, _perso.getExtraStatus!.getAtkM.toString()),
                       ),
                     ),
                     Container(
@@ -331,19 +331,19 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                           children: _pointsButtons(
                               "DefM: " + _perso.getDefM.toString(), () {
                         if (_pontosExp != 0) {
-                          _perso.getExtraStatus.setDefM =
-                              _perso.getExtraStatus.getDefM + 1;
+                          _perso.getExtraStatus!.setDefM =
+                              _perso.getExtraStatus!.getDefM + 1;
                           _pontosExp--;
                           setState(() {});
                         }
                       }, () {
-                        if (_perso.getExtraStatus.getDefM != 0) {
-                          _perso.getExtraStatus.setDefM =
-                              _perso.getExtraStatus.getDefM - 1;
+                        if (_perso.getExtraStatus!.getDefM != 0) {
+                          _perso.getExtraStatus!.setDefM =
+                              _perso.getExtraStatus!.getDefM - 1;
                           _pontosExp++;
                           setState(() {});
                         }
-                      }, _perso.getExtraStatus.getDefM.toString())),
+                      }, _perso.getExtraStatus!.getDefM.toString())),
                     ),
                     Container(
                       padding: EdgeInsets.only(bottom: 10, left: 2, top: 2),
@@ -365,19 +365,19 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                         children: _pointsButtons(
                             "Vit: " + _perso.getVit.toString(), () {
                           if (_pontosExp != 0) {
-                            _perso.getExtraStatus.setVit =
-                                _perso.getExtraStatus.getVit + 1;
+                            _perso.getExtraStatus!.setVit =
+                                _perso.getExtraStatus!.getVit + 1;
                             _pontosExp--;
                             setState(() {});
                           }
                         }, () {
-                          if (_perso.getExtraStatus.getVit != 0) {
-                            _perso.getExtraStatus.setVit =
-                                _perso.getExtraStatus.getVit - 1;
+                          if (_perso.getExtraStatus!.getVit != 0) {
+                            _perso.getExtraStatus!.setVit =
+                                _perso.getExtraStatus!.getVit - 1;
                             _pontosExp++;
                             setState(() {});
                           }
-                        }, _perso.getExtraStatus.getVit.toString()),
+                        }, _perso.getExtraStatus!.getVit.toString()),
                       ),
                     ),
                   ],
@@ -392,9 +392,9 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
             "Salvar",
             () {
               _perso.pontosExp = _pontosExp;
-              _perso.increment(_perso.getExtraStatus);
+              _perso.increment(_perso.getExtraStatus!);
               _perso.clearExtraStatus();
-              Comandos().atulizarPerso(_perso.toMap(), _perso.getId);
+              Comandos().atulizarPerso(_perso.toMap(), _perso.getId!);
               setState(() {});
             },
           ),
@@ -405,8 +405,8 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
     // );
   }
 
-  List<Widget> _pointsButtons(
-      String text, Function bntAdd, Function bntRemove, String pontosUse) {
+  List<Widget> _pointsButtons(String text, void Function() bntAdd,
+      void Function() bntRemove, String pontosUse) {
     return [
       Expanded(
         flex: 7,
@@ -481,7 +481,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
           height: 50,
           child: SingleChildScrollView(
             child: Text(
-              _listHabilidades[_selectHab].getDescricao(),
+              _listHabilidades[_selectHab].getDescricao()!,
             ),
           ),
         ),
@@ -503,7 +503,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                   ),
                 )
               ];
-              for (Habilidades hab in _perso.getHabilidades) {
+              for (Habilidades hab in _perso.getHabilidades!) {
                 if (hab.getId == _listHabilidades[index].getId) {
                   text.add(Expanded(
                     flex: 1,
@@ -549,7 +549,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                for (Habilidades hab in _perso.getHabilidades) {
+                for (Habilidades hab in _perso.getHabilidades!) {
                   if (hab.getId == _listHabilidades[_selectHab].getId) {
                     _alert("Habilidade",
                         text: "Você já possue essa habilidade.");
@@ -557,7 +557,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                   }
                 }
 
-                if (_listHabilidades[_selectHab].getPontos() >
+                if (_listHabilidades[_selectHab].getPontos()! >
                     _perso.pontosHab) {
                   // _alert("Pontos", text: "Pontos insuficientes.");
                   // return null;
@@ -577,7 +577,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                         TextButton(
                           child: Text("Aprender"),
                           onPressed: () {
-                            _perso.getHabilidades
+                            _perso.getHabilidades!
                                 .add(_listHabilidades[_selectHab]);
                             Map<String, dynamic> hab =
                                 _listHabilidades[_selectHab].toMapToBanco();
@@ -608,8 +608,8 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
 
   void _alert(String title,
       {String text: "",
-      Widget content,
-      List<Widget> actions,
+      Widget? content,
+      List<Widget>? actions,
       bool barrierDismissible: true}) {
     if (content == null) {
       content = Text(text);

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rpgandroid/application.dart';
-import 'package:rpgandroid/banco/comandos.dart';
-import 'package:rpgandroid/dados/classes_dados.dart';
-import 'package:rpgandroid/jogo/inicio/jogo.dart';
-import 'package:rpgandroid/objetos/load.dart';
-import 'package:rpgandroid/objetos/perso.dart';
+import 'package:rpg_flutter/application.dart';
+import 'package:rpg_flutter/banco/comandos.dart';
+import 'package:rpg_flutter/dados/classes_dados.dart';
+import 'package:rpg_flutter/jogo/inicio/jogo.dart';
+import 'package:rpg_flutter/objetos/load.dart';
+import 'package:rpg_flutter/objetos/perso.dart';
 
 class NovoLoad extends StatefulWidget {
   @override
@@ -15,10 +15,10 @@ class _NovoLoadState extends State<NovoLoad> {
   TextEditingController _nomeSave = TextEditingController(text: "");
   TextEditingController _nomePerso = TextEditingController();
 
-  BuildContext _context;
+  late BuildContext _context;
 
   Load _load = Load();
-  Perso _newPerso = new Perso();
+  Perso _newPerso = Perso();
   ClassesDados _classesDados = new ClassesDados();
 
   Comandos comandos = Comandos();
@@ -28,6 +28,7 @@ class _NovoLoadState extends State<NovoLoad> {
   int referencia = 0;
   @override
   Widget build(BuildContext context) {
+    print("chegou aqui");
     _context = context;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -126,12 +127,12 @@ class _NovoLoadState extends State<NovoLoad> {
               width: 80,
               child: ListTile(
                 title: Text(this._classesDados.getClasse(index)),
-                leading: Radio(
+                leading: Radio<int>(
                   value: index,
                   groupValue: refClasse,
                   onChanged: (value) {
                     setState(() {
-                      refClasse = value;
+                      refClasse = value!;
                       _newPerso =
                           _classesDados.getStatus(value, persoAntig: _newPerso);
                     });
@@ -186,8 +187,12 @@ class _NovoLoadState extends State<NovoLoad> {
               String txt = _nomePerso.text;
               if (_validaNome(txt)) {
                 _newPerso.setNome = txt;
-                _validador(_nomeSave.text).then((value) {
-                  if (value) {
+                comandos.buscaLoad().then((value) {
+                  print("aqui3");
+                  bool valida = _validador(_nomeSave.text, value);
+                  print("aqui4");
+
+                  if (valida) {
                     print(_load.toMap());
                     comandos.inserirLoad(_load.toMap());
                     _newPerso.loadId = _load.getId;
@@ -196,7 +201,7 @@ class _NovoLoadState extends State<NovoLoad> {
                     _newPerso.setMp = 10;
                     _newPerso.setMpMax = 10;
                     comandos.inserirPerso(_newPerso.toMap());
-                    loadId = _load.getId;
+                    loadId = _load.getId!;
                     persos = <Perso>[];
                     persos.add(_newPerso);
                     load = _load;
@@ -224,7 +229,7 @@ class _NovoLoadState extends State<NovoLoad> {
   TextField _textoField(
     TextEditingController controller,
     String label,
-    Function onEdit,
+    void Function() onEdit,
   ) =>
       TextField(
           controller: controller,
@@ -234,7 +239,7 @@ class _NovoLoadState extends State<NovoLoad> {
 
   Expanded _elevatedButtonOfList(
     String text,
-    Function onPress, {
+    void Function() onPress, {
     Color color: Colors.blue,
     Color textColor: Colors.white,
   }) =>
@@ -255,8 +260,8 @@ class _NovoLoadState extends State<NovoLoad> {
 
   _alert(String title,
       {String text: "",
-      Widget content,
-      List<Widget> actions,
+      Widget? content,
+      List<Widget>? actions,
       bool barrierDismissible: true}) {
     if (content == null) {
       content = Text(text);
@@ -284,8 +289,8 @@ class _NovoLoadState extends State<NovoLoad> {
     return false;
   }
 
-  Future<bool> _validador(String txt) async {
-    List<Load> loads = await comandos.buscaLoad();
+  bool _validador(String txt, List<Load> loads) {
+    // List<Load> loads = <Load>[];
     // comandos.close();
     int cont = 0;
     bool nomeRepetido = false;
@@ -331,7 +336,7 @@ class _NovoLoadState extends State<NovoLoad> {
       if (loads.length == 2) {
         cont2 = 6;
         for (int i = 0; i < loads.length; i++) {
-          cont2 = cont2 - loads[i].getId;
+          cont2 = cont2 - loads[i].getId!;
         }
       } else if (loads.length != 0) {
         if (loads[0].getId == 1) {

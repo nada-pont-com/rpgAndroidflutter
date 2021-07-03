@@ -1,5 +1,5 @@
-import 'package:rpgandroid/objetos/item.dart';
-import 'package:rpgandroid/objetos/status.dart';
+import 'package:rpg_flutter/objetos/item.dart';
+import 'package:rpg_flutter/objetos/status.dart';
 
 class Itens {
   List<Map<String, dynamic>> _itens = [
@@ -61,12 +61,12 @@ class Itens {
     },
   ];
 
-  Item geraItemById(int id) {
+  Item? geraItemById(int id) {
     if (id > _itens.length) return null;
     return Item(_itens[id]);
   }
 
-  Item geraItemByName(String nome) {
+  Item? geraItemByName(String nome) {
     for (int i = 0; i < _itens.length; i++) {
       if (_itens[i]["nomeKey"] == nome) {
         return Item(_itens[i]);

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rpgandroid/banco/comandos.dart';
-import 'package:rpgandroid/objetos/load.dart';
+import 'package:rpg_flutter/banco/comandos.dart';
+import 'package:rpg_flutter/objetos/load.dart';
 
 class Continuar extends StatefulWidget {
   @override

@@ -2,16 +2,19 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rpgandroid/objetos/load.dart';
-import 'package:rpgandroid/objetos/perso.dart';
+import 'package:rpg_flutter/banco/comandos.dart';
+import 'package:rpg_flutter/dados/itens.dart';
+import 'package:rpg_flutter/objetos/item.dart';
+import 'package:rpg_flutter/objetos/load.dart';
+import 'package:rpg_flutter/objetos/perso.dart';
 
 int dbVersion = 1;
 
 int loadId = 1;
 
-List<Perso> persos;
+late List<Perso> persos;
 
-Load load;
+Load? load;
 
 List<String> ranks = ["G", "F", "E", "D", "C", "B", "A", "S"];
 
@@ -26,15 +29,15 @@ bool validaRank(String rankMax, String rankValidar) {
   return false;
 }
 
-dynamic convertRank({String rankS, int rankInt}) {
-  if (rankS == null) return ranks[rankInt];
+dynamic convertRank({String? rankS, int? rankInt}) {
+  if (rankS == null) return ranks[rankInt == null ? 0 : rankInt];
   for (var i = 0; i < ranks.length; i++) {
     if (ranks[i] == rankS) return i;
   }
 }
 
-Widget elevatedButtonOfList(String text, Function onPress,
-    {Color color: Colors.blue, Color textColor: Colors.white, Widget texto}) {
+Widget elevatedButtonOfList(String text, void Function()? onPress,
+    {Color color: Colors.blue, Color textColor: Colors.white, Widget? texto}) {
   if (texto == null) {
     texto = Text(text);
   }
@@ -128,7 +131,7 @@ void insertsItemFromLoad() {
   Comandos comandos = Comandos();
 
   for (int i = 0; i < quant; i++) {
-    Item item = itens.geraItemById(i);
+    Item item = itens.geraItemById(i)!;
     item.quantidade = rand.nextInt(100);
     comandos.newItem(item.toMapBanco());
   }

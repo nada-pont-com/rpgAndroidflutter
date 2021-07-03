@@ -1,15 +1,16 @@
-import 'package:rpgandroid/objetos/item.dart';
-import 'package:rpgandroid/objetos/objeto.dart';
+import 'package:rpg_flutter/objetos/item.dart';
+import 'package:rpg_flutter/objetos/objeto.dart';
 
 class Load extends Objeto {
-  List<Item> _itens;
-  Load({int id, String nome}) {
+  late List<Item> _itens;
+
+  Load({int id: 0, String nome: ""}) {
     this.id = id;
     this.nome = nome;
     _itens = <Item>[];
   }
 
-  List<Item> get itens => _itens;
+  List<Item>? get itens => _itens;
   // set itens(List<Item> itens) => _itens = itens;
 
   void atualizaItens(List<Item> itens) {
@@ -51,9 +52,9 @@ class Load extends Objeto {
         : -1;
   }
 
-  int removeItem(Item item, {id, indice}) {
+  int removeItem(Item item, {int? id, int? indice}) {
     int retorn = size();
-    if (item != null || id != null) {
+    if (id != null) {
       for (int i = 0; i < size(); i++) {
         if (_itens[i].getId == (itens != null ? item.getId : id)) {
           _itens.removeAt(i);

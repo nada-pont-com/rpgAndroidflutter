@@ -1,5 +1,5 @@
-import 'package:rpgandroid/objetos/habilidades.dart';
-import 'package:rpgandroid/objetos/status.dart';
+import 'package:rpg_flutter/objetos/habilidades.dart';
+import 'package:rpg_flutter/objetos/status.dart';
 
 class HabilidadesDados {
   List<Map<String, dynamic>> _habilidades = [
@@ -61,7 +61,7 @@ class HabilidadesDados {
     },
   ];
 
-  Habilidades getHabilidadeById(int id) {
+  Habilidades? getHabilidadeById(int id) {
     if (id >= _habilidades.length) return null;
     return Habilidades(_habilidades[id]);
   }

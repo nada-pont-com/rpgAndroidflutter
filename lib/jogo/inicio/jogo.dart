@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rpgandroid/application.dart';
-import 'package:rpgandroid/banco/comandos.dart';
-import 'package:rpgandroid/dados/dungeon_dados.dart';
-import 'package:rpgandroid/jogo/dungeon/dungeon.dart';
-import 'package:rpgandroid/jogo/guilda/guilda.dart';
-import 'package:rpgandroid/jogo/inicio/personagem_menu.dart';
-import 'package:rpgandroid/jogo/itens/itens.dart';
-import 'package:rpgandroid/objetos/dungeon.dart';
-import 'package:rpgandroid/objetos/perso.dart';
+import 'package:rpg_flutter/application.dart';
+import 'package:rpg_flutter/banco/comandos.dart';
+import 'package:rpg_flutter/dados/dungeon_dados.dart';
+import 'package:rpg_flutter/jogo/dungeon/dungeon.dart';
+import 'package:rpg_flutter/jogo/guilda/guilda.dart';
+import 'package:rpg_flutter/jogo/inicio/personagem_menu.dart';
+import 'package:rpg_flutter/jogo/itens/itens.dart';
+import 'package:rpg_flutter/objetos/dungeon.dart';
+import 'package:rpg_flutter/objetos/item.dart';
+import 'package:rpg_flutter/objetos/perso.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Jogo extends StatefulWidget {
   @override
@@ -19,7 +21,7 @@ class _JogoState extends State<Jogo> {
   List<Perso> _persos = <Perso>[];
   List<DungeonTable> _dungeons = <DungeonTable>[];
   Comandos _comandos = Comandos();
-  BuildContext _context;
+  late BuildContext _context;
   int _selectBar = 0, _refDunGuil = 0;
 
   @override
@@ -110,16 +112,15 @@ class _JogoState extends State<Jogo> {
                 case ConnectionState.none:
                 case ConnectionState.waiting:
                   return Center(child: Text("Carregando"));
-                  break;
                 default:
                   if (snapshot.hasError) {
+                    return Center(child: Text("Erro"));
                   } else {
                     _persos = snapshot.data;
                     persos = _persos;
                     _persos[0].toMap();
                     return _listPerso();
                   }
-                  break;
               }
             },
           ),
@@ -224,7 +225,7 @@ class _JogoState extends State<Jogo> {
                       flex: 5,
                       child: Container(
                           margin: EdgeInsets.only(right: 10, left: 10),
-                          child: Text("Classe: " + _persos[index].classe)),
+                          child: Text("Classe: " + _persos[index].classe!)),
                     ),
                   ],
                 ),
@@ -351,15 +352,14 @@ class _JogoState extends State<Jogo> {
           case ConnectionState.none:
           case ConnectionState.waiting:
             return Center(child: Text("Carregando"));
-            break;
           default:
             if (snapshot.hasError) {
+              return Center(child: Text("Erro"));
             } else {
               _dungeons = snapshot.data;
               // _persos[0].toMap();
               return _listDungeon();
             }
-            break;
         }
       },
     );
@@ -375,6 +375,7 @@ class _JogoState extends State<Jogo> {
               elevatedButtonOfList(
                 "Procurar",
                 () {
+                  print("aqui6");
                   setState(() {
                     DungeonsDados().geraDungeon(_persos[0].getRank);
                   });
@@ -404,7 +405,7 @@ class _JogoState extends State<Jogo> {
                         Expanded(
                           flex: 5,
                           child:
-                              Text("Andares: " + _dungeons[index].getAndares),
+                              Text("Andares: " + _dungeons[index].getAndares!),
                         ),
                         Expanded(
                           flex: 5,

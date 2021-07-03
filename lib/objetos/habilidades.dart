@@ -1,18 +1,18 @@
-// import 'package:rpgandroid/dados/habilidades.dart';
-import 'package:rpgandroid/objetos/objeto.dart';
-import 'package:rpgandroid/objetos/status.dart';
+// import 'package:rpg_flutter/dados/habilidades.dart';
+import 'package:rpg_flutter/objetos/objeto.dart';
+import 'package:rpg_flutter/objetos/status.dart';
 
 class Habilidades extends Objeto {
-  int _tipo; //1-Ataque, 2-fortalecimento
-  int _numberAtk; //numero de ataques que habilidade fara;
-  int _valor; // dano, aumento // porcentagem;
-  int _aumento;
-  int _nocalte;
-  Status _extra; //tipo de fortalecimento;
-  int _pontos; //pontos necessarios para adquirir a habilidade;
-  String _descricao;
-  int _custoMp; //custo de mp
+  int? _tipo; //1-Ataque, 2-fortalecimento
+  int? _numberAtk; //numero de ataques que habilidade fara;
+  int? _valor; // dano, aumento // porcentagem;
+  int? _aumento;
+  int? _nocalte;
+  int? _pontos; //pontos necessarios para adquirir a habilidade;
+  String _descricao = "";
+  int? _custoMp; //custo de mp
   int _level = 1; //custo de mp
+  Status? _extra; //tipo de fortalecimento;
 
   Habilidades(Map<String, dynamic> habilidade) {
     this.id = habilidade["id"];
@@ -32,7 +32,7 @@ class Habilidades extends Objeto {
     this._tipo = tipo;
   }
 
-  int get getTipo {
+  int? get getTipo {
     return _tipo;
   }
 
@@ -40,7 +40,7 @@ class Habilidades extends Objeto {
     this._numberAtk = numberAtk;
   }
 
-  int getNumberAtk() {
+  int? getNumberAtk() {
     return _numberAtk;
   }
 
@@ -48,7 +48,7 @@ class Habilidades extends Objeto {
     this._valor = valor;
   }
 
-  int getValor() {
+  int? getValor() {
     return _valor;
   }
 
@@ -56,7 +56,7 @@ class Habilidades extends Objeto {
     this._aumento = aumento;
   }
 
-  int getAumento() {
+  int? getAumento() {
     return _aumento;
   }
 
@@ -64,7 +64,7 @@ class Habilidades extends Objeto {
     this._nocalte = nocalte;
   }
 
-  int getNocalte() {
+  int? getNocalte() {
     return _nocalte;
   }
 
@@ -72,7 +72,7 @@ class Habilidades extends Objeto {
     this._extra = extra;
   }
 
-  Status getExtra() {
+  Status? getExtra() {
     return _extra;
   }
 
@@ -80,11 +80,11 @@ class Habilidades extends Objeto {
     this._pontos = pontos;
   }
 
-  int getPontos() {
+  int? getPontos() {
     return _pontos;
   }
 
-  String getDescricao() {
+  String? getDescricao() {
     return _descricao;
   }
 
@@ -92,7 +92,7 @@ class Habilidades extends Objeto {
     this._custoMp = custoMp;
   }
 
-  int get getCusto {
+  int? get getCusto {
     return _custoMp;
   }
 
@@ -109,7 +109,7 @@ class Habilidades extends Objeto {
         _custoMp.toString() +
         " MP";
     bool valida = false;
-    _extra.toMap().forEach((key, value) {
+    _extra!.toMap().forEach((key, value) {
       if (value == -1) {
         valida = true;
       }
@@ -117,7 +117,9 @@ class Habilidades extends Objeto {
 
     if (valida) {
       Status extraClone = Status();
-      extraClone.extra(_valor.toDouble(), null, _extra, type: 2);
+      if (_extra != null) {
+        extraClone.extra(_valor!.toDouble(), null, _extra, type: 2);
+      }
       this._descricao = this._descricao + "\nEfeito:" + extraClone.toString();
     }
   }

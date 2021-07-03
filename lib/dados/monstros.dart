@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:rpgandroid/application.dart';
-import 'package:rpgandroid/dados/itens.dart';
-import 'package:rpgandroid/objetos/habilidades.dart';
-import 'package:rpgandroid/objetos/monstro.dart';
-import 'package:rpgandroid/objetos/status.dart';
+import 'package:rpg_flutter/application.dart';
+import 'package:rpg_flutter/dados/itens.dart';
+import 'package:rpg_flutter/objetos/habilidades.dart';
+import 'package:rpg_flutter/objetos/monstro.dart';
+import 'package:rpg_flutter/objetos/status.dart';
 
 class Monstros {
   Map<String, List<Map<String, dynamic>>> _monstros = {
@@ -146,7 +146,7 @@ class Monstros {
   int quantMonstros() {
     int cont = 0;
     for (String key in _monstros.keys) {
-      cont += _monstros[key].length;
+      cont += _monstros[key]!.length;
     }
     return cont;
   }
@@ -162,28 +162,28 @@ class Monstros {
 
     String rank2 = convertRank(rankInt: valorInt);
 
-    int rand = random.nextInt(_monstros[rank2].length);
-    int level = _monstros[rank2][rand]['level'];
+    int rand = random.nextInt(_monstros[rank2]!.length);
+    int level = _monstros[rank2]![rand]['level'];
 
     if (level > persos[0].getLevel) {
       return getMonstro(rank, andar, andarMax);
     }
 
-    return _monstros[rank2][rand];
+    return _monstros[rank2]![rand];
   }
 
-  Map getMonstroByIdRank(int id, String rank) {
-    if (_monstros[rank] != null && _monstros[rank].length < id)
-      return _monstros[rank][id];
+  Map? getMonstroByIdRank(int? id, String rank) {
+    if (_monstros[rank] != null && id != null && _monstros[rank]!.length < id)
+      return _monstros[rank]![id];
     return null;
   }
 
-  Monstro constroiMonstro(String rank, int tipo, andar, andarMax, {int id}) {
+  Monstro constroiMonstro(String rank, int tipo, andar, andarMax, {int? id}) {
     double valor;
     int valorInt;
     Random random = Random();
 
-    Map monstroMap = id == null ? getMonstroByIdRank(id, rank) : null;
+    Map? monstroMap = id != null ? getMonstroByIdRank(id, rank) : null;
 
     if (monstroMap == null) monstroMap = getMonstro(rank, andar, andarMax);
 
@@ -250,7 +250,7 @@ class Monstros {
   }
 
   String getNomeMonstroByIdRank(String rank, int id) {
-    return _monstros[rank][id]['nome'];
+    return _monstros[rank]![id]['nome'];
   }
 
   double _mod() {

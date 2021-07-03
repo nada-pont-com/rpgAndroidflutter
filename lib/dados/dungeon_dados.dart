@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:rpgandroid/application.dart';
-import 'package:rpgandroid/banco/comandos.dart';
-import 'package:rpgandroid/objetos/dungeon.dart';
+import 'package:rpg_flutter/application.dart';
+import 'package:rpg_flutter/banco/comandos.dart';
+import 'package:rpg_flutter/objetos/dungeon.dart';
 
 class DungeonsDados {
   //TODO nomes novos de acordo com o rank; limitar monstros aos nomes; até 3 para o rank G, aumentar de acordo com o rank;
@@ -35,13 +35,14 @@ class DungeonsDados {
 
   Comandos comandos = Comandos();
 
-  static DungeonsDados _this;
+  static DungeonsDados? _this;
 
   factory DungeonsDados() {
+    // ignore: unnecessary_null_comparison
     if (_this == null) {
       _this = DungeonsDados.getInstance();
     }
-    return _this;
+    return _this!;
   }
 
   DungeonsDados.getInstance() : super();
@@ -98,7 +99,7 @@ class DungeonsDados {
   void _geraNome(String rank) {
     _nome = [];
     for (String key in _dungeons.keys) {
-      _nome.addAll(_dungeons[key]["nomes"]);
+      _nome.addAll(_dungeons[key]!["nomes"]);
       if (key == rank) {
         break;
       }

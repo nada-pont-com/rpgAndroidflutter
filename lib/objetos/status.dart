@@ -2,31 +2,31 @@ import 'package:flutter/cupertino.dart';
 
 class Status {
   @protected
-  int vida;
+  int vida = 0;
   @protected
-  int vidaMax;
+  int vidaMax = 0;
   @protected
-  int mp;
+  int mp = 0;
   @protected
-  int mpMax;
+  int mpMax = 0;
   @protected
-  int atk;
+  int atk = 0;
   @protected
-  int def;
+  int def = 0;
   @protected
-  int agi;
+  int agi = 0;
   @protected
-  int atkM;
+  int atkM = 0;
   @protected
-  int defM;
+  int defM = 0;
   @protected
-  int vit;
+  int vit = 0;
   @protected
-  int intl;
+  int intl = 0;
   @protected
   int nocalteado = 0;
   @protected
-  Status extraStatus;
+  Status? extraStatus;
 
   Status(
       {this.vida: 0,
@@ -77,8 +77,11 @@ class Status {
     return clone;
   }
 
-  void extra(double valor, Status base, Status status, {int type = 1}) {
-    Map<String, dynamic> extra = status.toMap();
+  void extra(double valor, Status? base, Status? status, {int type = 1}) {
+    Map<String, dynamic> extra = status!.toMap();
+    if (base == null) {
+      base = Status();
+    }
     if (type == 1) {
       valor *= 0.01;
     }
@@ -168,8 +171,8 @@ class Status {
   int get getNocalteado => nocalteado;
   set setNocalteado(int nocalteado) => this.nocalteado = nocalteado;
 
-  Status get getExtraStatus => extraStatus;
-  void clearExtraStatus() => this.extraStatus.cloneByStatus(Status());
+  Status? get getExtraStatus => extraStatus;
+  void clearExtraStatus() => this.extraStatus!.cloneByStatus(Status());
 
   Map<String, dynamic> toMap() {
     return {

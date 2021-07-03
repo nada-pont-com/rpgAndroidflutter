@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rpgandroid/application.dart';
-// import 'package:rpgandroid/banco/comandos.dart';
-import 'package:rpgandroid/objetos/item.dart';
+import 'package:rpg_flutter/application.dart';
+// import 'package:rpg_flutter/banco/comandos.dart';
+import 'package:rpg_flutter/objetos/item.dart';
 
 class Itens extends StatefulWidget {
   @override
@@ -11,7 +11,7 @@ class Itens extends StatefulWidget {
 
 class _ItensState extends State<Itens> {
   // Comandos _comandos = Comandos();
-  List<Item> _itens = load.itens;
+  List<Item>? _itens = load!.itens;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,22 +30,22 @@ class _ItensState extends State<Itens> {
   }
 
   Widget _listItens() {
-    int list = _itens.length ~/ 10;
+    int list = _itens!.length ~/ 10;
     int cont = 0;
     return Container(
       child: ListView.builder(
-        itemCount: (list == 0 && _itens.length != 0 ? 1 : list),
+        itemCount: (list == 0 && _itens!.length != 0 ? 1 : list),
         itemBuilder: (BuildContext context, int index) {
           List<Widget> retorno = [];
           for (int i = 0; i < 5; i++) {
-            if (cont < _itens.length) {
+            if (cont < _itens!.length) {
               retorno.add(Expanded(
                 flex: 1,
                 child: Column(
                   children: [
-                    Text(_itens[cont].getNome + ": "),
+                    Text(_itens![cont].getNome + ": "),
                     Text(
-                      _itens[cont].quantidade.toString(),
+                      _itens![cont].quantidade.toString(),
                     ),
                   ],
                 ),

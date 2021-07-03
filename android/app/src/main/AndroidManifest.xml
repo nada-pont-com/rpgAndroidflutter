@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.rpgandroid">
+    package="com.example.rpg_flutter">
    <application
-        android:label="RPG Android"
+        android:label="rpg_flutter"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

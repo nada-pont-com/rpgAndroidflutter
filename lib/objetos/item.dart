@@ -1,13 +1,13 @@
-import 'package:rpgandroid/application.dart';
-import 'package:rpgandroid/objetos/objeto.dart';
-import 'package:rpgandroid/objetos/status.dart';
+import 'package:rpg_flutter/application.dart';
+import 'package:rpg_flutter/objetos/objeto.dart';
+import 'package:rpg_flutter/objetos/status.dart';
 
 class Item extends Objeto {
-  String _raridade;
-  int _quantidade;
-  Status _status;
+  String? _raridade;
+  int _quantidade = 0;
+  Status? _status;
 
-  Item.item({int quantidade: 0, String nome: "", int id, String raridade}) {
+  Item.item({int quantidade: 0, String nome: "", int? id, String? raridade}) {
     this.nome = nome;
     this._quantidade = quantidade;
     this.id = id;
@@ -23,13 +23,13 @@ class Item extends Objeto {
 
   set raridade(String raridade) => this._raridade = raridade;
 
-  String get raridade => _raridade;
+  String get raridade => _raridade!;
 
   int get quantidade => _quantidade;
 
   set quantidade(int quantidade) => this._quantidade = quantidade;
 
-  Status get status => Status.map(_status.toMap());
+  Status get status => Status.map(_status!.toMap());
 
   Map<String, dynamic> toMapBanco() {
     Map<String, dynamic> itemMap = {

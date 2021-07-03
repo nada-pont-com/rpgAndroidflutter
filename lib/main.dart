@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:rpgandroid/application.dart';
-import 'package:rpgandroid/banco/comandos.dart';
-// import 'package:rpgandroid/jogo/rpgandroid/continuar.dart';
-import 'package:rpgandroid/jogo/inicio/jogo.dart';
-import 'package:rpgandroid/jogo/inicio/novo_jogo.dart';
-import 'package:rpgandroid/objetos/notificacao.dart';
+import 'package:rpg_flutter/application.dart';
+// import 'package:rpg_flutter/application.dart';
+import 'package:rpg_flutter/banco/comandos.dart';
+// import 'package:rpg_flutter/jogo/rpgandroid/continuar.dart';
+import 'package:rpg_flutter/jogo/inicio/jogo.dart';
+import 'package:rpg_flutter/jogo/inicio/novo_jogo.dart';
+import 'package:rpg_flutter/objetos/notificacao.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -22,6 +23,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("aqui 2");
     return MaterialApp(
         title: 'RPG Android',
         debugShowCheckedModeBanner: false,
@@ -35,19 +37,19 @@ class MyApp extends StatelessWidget {
 class TelaInicio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Comandos().buscaLoad().then((value) {
-    //   value.forEach((item) {
-    //     if (item.getId == loadId) {
-    //       load = item;
-    //       Comandos().buscaItensLoad().then((value) {
-    //         value.forEach((element) {
-    //           print(element.toMap());
-    //         });
-    //         return load.atualizaItens(value);
-    //       });
-    //     }
-    //   });
-    // });
+    Comandos().buscaLoad().then((value) {
+      value.forEach((item) {
+        if (item.getId == loadId) {
+          load = item;
+          Comandos().buscaItensLoad().then((value) {
+            value.forEach((element) {
+              print(element.toMap());
+            });
+            return load!.atualizaItens(value);
+          });
+        }
+      });
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -73,7 +75,9 @@ class TelaInicio extends StatelessWidget {
                   ),
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Jogo()));
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return Jogo();
+                    }));
                   },
                   // textColor: Colors.white,
                 ),
@@ -91,7 +95,10 @@ class TelaInicio extends StatelessWidget {
                   ),
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => NovoLoad()));
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      print("teste");
+                      return NovoLoad();
+                    }));
                   },
                 ),
               ),

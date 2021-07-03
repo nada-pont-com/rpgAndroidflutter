@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rpgandroid/objetos/item.dart';
-import 'package:rpgandroid/objetos/missao.dart';
+// import 'package:rpg_flutter/objetos/item.dart';
+import 'package:rpg_flutter/objetos/missao.dart';
 
 class Guilda extends StatefulWidget {
   @override
@@ -78,11 +78,11 @@ class _Guilda extends State<Guilda> {
     );
   }
 
-  Widget _missoes() {
+  Widget? _missoes() {
     return null;
   }
 
-  Widget _persos() {
+  Widget? _persos() {
     return null;
   }
 }
