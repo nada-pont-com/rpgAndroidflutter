@@ -1,5 +1,5 @@
-import 'package:inicio/application.dart';
-import 'package:inicio/objetos/objeto.dart';
+import 'package:rpgandroid/application.dart';
+import 'package:rpgandroid/objetos/objeto.dart';
 
 class DungeonTable extends Objeto {
   String _andares;

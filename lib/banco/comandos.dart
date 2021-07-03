@@ -1,12 +1,12 @@
-import 'package:inicio/banco/banco.dart';
-import 'package:inicio/application.dart';
-import 'package:inicio/dados/habilidades.dart';
-import 'package:inicio/dados/itens.dart';
-import 'package:inicio/objetos/dungeon.dart';
-import 'package:inicio/objetos/habilidades.dart';
-import 'package:inicio/objetos/item.dart';
-import 'package:inicio/objetos/load.dart';
-import 'package:inicio/objetos/perso.dart';
+import 'package:rpgandroid/banco/banco.dart';
+import 'package:rpgandroid/application.dart';
+import 'package:rpgandroid/dados/habilidades.dart';
+import 'package:rpgandroid/dados/itens.dart';
+import 'package:rpgandroid/objetos/dungeon.dart';
+import 'package:rpgandroid/objetos/habilidades.dart';
+import 'package:rpgandroid/objetos/item.dart';
+import 'package:rpgandroid/objetos/load.dart';
+import 'package:rpgandroid/objetos/perso.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Comandos extends Banco {

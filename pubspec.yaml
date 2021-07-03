@@ -1,4 +1,4 @@
-name: inicio
+name: rpgandroid
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -32,6 +32,12 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.1
   syncfusion_flutter_charts: ^19.1.66+1
+  flutter_launcher_icons: ^0.9.0
+
+flutter_icons:
+    image_path: "icon/sig-512.png"
+    android: true
+    ios: true
 
 dev_dependencies:
   flutter_test:

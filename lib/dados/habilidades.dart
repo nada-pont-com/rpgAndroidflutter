@@ -1,5 +1,5 @@
-import 'package:inicio/objetos/habilidades.dart';
-import 'package:inicio/objetos/status.dart';
+import 'package:rpgandroid/objetos/habilidades.dart';
+import 'package:rpgandroid/objetos/status.dart';
 
 class HabilidadesDados {
   List<Map<String, dynamic>> _habilidades = [

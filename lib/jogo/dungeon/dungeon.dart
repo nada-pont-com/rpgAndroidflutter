@@ -2,12 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:inicio/application.dart';
-import 'package:inicio/dados/monstros.dart';
-import 'package:inicio/jogo/batalha/battle.dart';
-import 'package:inicio/objetos/dungeon.dart';
-import 'package:inicio/objetos/monstro.dart';
-import 'package:inicio/objetos/perso.dart';
+import 'package:rpgandroid/application.dart';
+import 'package:rpgandroid/dados/monstros.dart';
+import 'package:rpgandroid/jogo/batalha/battle.dart';
+import 'package:rpgandroid/objetos/dungeon.dart';
+import 'package:rpgandroid/objetos/monstro.dart';
+import 'package:rpgandroid/objetos/perso.dart';
 
 class Dungeon extends StatefulWidget {
   final DungeonTable _dungeon;

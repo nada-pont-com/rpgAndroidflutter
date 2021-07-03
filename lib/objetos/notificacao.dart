@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
 class SingleNotifier extends ChangeNotifier {
-  int _currentIndex = 0;
   SingleNotifier();
+
+  int _currentIndex = 0;
   int get currentIndex => _currentIndex;
-  updateCountry(int value) {
+
+  void updateCountry(int value) {
     if (value != _currentIndex) {
       _currentIndex = value;
+      print(hasListeners);
       notifyListeners();
     }
   }

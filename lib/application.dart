@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:inicio/objetos/load.dart';
-import 'package:inicio/objetos/perso.dart';
+import 'package:rpgandroid/objetos/load.dart';
+import 'package:rpgandroid/objetos/perso.dart';
 
 int dbVersion = 1;
 

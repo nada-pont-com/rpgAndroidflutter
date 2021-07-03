@@ -1,5 +1,5 @@
-import 'package:inicio/objetos/habilidades.dart';
-import 'package:inicio/objetos/ser_vivo.dart';
+import 'package:rpgandroid/objetos/habilidades.dart';
+import 'package:rpgandroid/objetos/ser_vivo.dart';
 
 class Monstro extends SerVivo {
   List<dynamic> _itens;

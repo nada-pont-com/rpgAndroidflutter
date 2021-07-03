@@ -1,6 +1,6 @@
-import 'package:inicio/application.dart';
-import 'package:inicio/objetos/objeto.dart';
-import 'package:inicio/objetos/status.dart';
+import 'package:rpgandroid/application.dart';
+import 'package:rpgandroid/objetos/objeto.dart';
+import 'package:rpgandroid/objetos/status.dart';
 
 class Item extends Objeto {
   String _raridade;

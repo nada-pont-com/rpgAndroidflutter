@@ -1,5 +1,5 @@
-import 'package:inicio/objetos/item.dart';
-import 'package:inicio/objetos/objeto.dart';
+import 'package:rpgandroid/objetos/item.dart';
+import 'package:rpgandroid/objetos/objeto.dart';
 
 class Load extends Objeto {
   List<Item> _itens;

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:inicio/objetos/item.dart';
-import 'package:inicio/objetos/missao.dart';
+import 'package:rpgandroid/objetos/item.dart';
+import 'package:rpgandroid/objetos/missao.dart';
 
 class Guilda extends StatefulWidget {
   @override

@@ -1,5 +1,5 @@
-import 'package:inicio/objetos/perso.dart';
-import 'package:inicio/objetos/status.dart';
+import 'package:rpgandroid/objetos/perso.dart';
+import 'package:rpgandroid/objetos/status.dart';
 
 class ClassesDados {
   Map _classes = {

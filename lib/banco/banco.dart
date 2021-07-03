@@ -1,4 +1,4 @@
-import 'package:inicio/application.dart';
+import 'package:rpgandroid/application.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class Banco {

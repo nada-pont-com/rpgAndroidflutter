@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:inicio/application.dart';
-import 'package:inicio/banco/comandos.dart';
-import 'package:inicio/dados/classes_dados.dart';
-import 'package:inicio/jogo/inicio/jogo.dart';
-import 'package:inicio/objetos/load.dart';
-import 'package:inicio/objetos/perso.dart';
+import 'package:rpgandroid/application.dart';
+import 'package:rpgandroid/banco/comandos.dart';
+import 'package:rpgandroid/dados/classes_dados.dart';
+import 'package:rpgandroid/jogo/inicio/jogo.dart';
+import 'package:rpgandroid/objetos/load.dart';
+import 'package:rpgandroid/objetos/perso.dart';
 
 class NovoLoad extends StatefulWidget {
   @override

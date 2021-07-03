@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:inicio/application.dart';
-import 'package:inicio/dados/itens.dart';
-import 'package:inicio/objetos/habilidades.dart';
-import 'package:inicio/objetos/monstro.dart';
-import 'package:inicio/objetos/status.dart';
+import 'package:rpgandroid/application.dart';
+import 'package:rpgandroid/dados/itens.dart';
+import 'package:rpgandroid/objetos/habilidades.dart';
+import 'package:rpgandroid/objetos/monstro.dart';
+import 'package:rpgandroid/objetos/status.dart';
 
 class Monstros {
   Map<String, List<Map<String, dynamic>>> _monstros = {

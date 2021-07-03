@@ -1,5 +1,5 @@
-import 'package:inicio/objetos/item.dart';
-import 'package:inicio/objetos/status.dart';
+import 'package:rpgandroid/objetos/item.dart';
+import 'package:rpgandroid/objetos/status.dart';
 
 class Itens {
   List<Map<String, dynamic>> _itens = [
