@@ -1,8 +1,8 @@
-import 'package:rpg_flutter/objetos/perso.dart';
-import 'package:rpg_flutter/objetos/status.dart';
+import 'package:rpg_andriod/objetos/perso.dart';
+import 'package:rpg_andriod/objetos/status.dart';
 
 class ClassesDados {
-  Map _classes = {
+  final Map _classes = {
     0: {
       "Classe": "Guerreiro",
       "Status": Status(

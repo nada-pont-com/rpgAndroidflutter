@@ -1,33 +1,34 @@
+// ignore_for_file: avoid_print
+
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rpg_flutter/application.dart';
-import 'package:rpg_flutter/banco/comandos.dart';
-import 'package:rpg_flutter/objetos/habilidades.dart';
-import 'package:rpg_flutter/objetos/item.dart';
-import 'package:rpg_flutter/objetos/monstro.dart';
-import 'package:rpg_flutter/objetos/notificacao.dart';
-import 'package:rpg_flutter/objetos/perso.dart';
+import 'package:rpg_andriod/banco/comandos.dart';
+import 'package:rpg_andriod/objetos/habilidades.dart';
+import 'package:rpg_andriod/objetos/item.dart';
+import 'package:rpg_andriod/objetos/load.dart';
+import 'package:rpg_andriod/objetos/monstro.dart';
+import 'package:rpg_andriod/objetos/notificacao.dart';
+import 'package:rpg_andriod/objetos/perso.dart';
 
 class Battle extends StatefulWidget {
-  final Monstro _monstro;
-  Battle(this._monstro) : super();
+  const Battle({Key? key}) : super(key: key);
 
   @override
-  _BattleState createState() => _BattleState(_monstro);
+  _BattleState createState() => _BattleState();
 }
 
 class _BattleState extends State<Battle> {
-  _BattleState(this._monstro) : super();
+  _BattleState() : super();
   int _persoNumber = 0;
-  late Monstro _monstro;
+  final Monstro _monstro = Monstro();
   Random random = Random();
-  List<Perso> _persos = persos;
+  final List<Perso> _persos = Load.getInstance.persos;
   List<String> listaAcoes = ["jose", "teste"];
   List<Habilidades>? listaHabilidadesPerso;
-  List<Item> _listaDeItens = <Item>[];
+  final List<Item> _listaDeItens = <Item>[];
   int nocalte = 0;
   late BuildContext _context;
 
@@ -38,7 +39,7 @@ class _BattleState extends State<Battle> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Battle"),
+          title: const Text("Battle"),
         ),
         body: body(),
       ),
@@ -49,7 +50,7 @@ class _BattleState extends State<Battle> {
 
   Widget body() {
     return Container(
-      margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+      margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
       child: Column(
         children: [
           Expanded(
@@ -58,15 +59,11 @@ class _BattleState extends State<Battle> {
               children: [
                 Expanded(
                   flex: 5,
-                  child: Container(
-                    child: Text(_monstro.getNome),
-                  ),
+                  child: Text(_monstro.getNome),
                 ),
                 Expanded(
                   flex: 5,
-                  child: Container(
-                    child: Text("Lv:" + _monstro.getLevel.toString()),
-                  ),
+                  child: Text("Lv:" + _monstro.getLevel.toString()),
                 )
               ],
             ),
@@ -80,7 +77,7 @@ class _BattleState extends State<Battle> {
                   child: Row(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(right: 5),
+                        margin: const EdgeInsets.only(right: 5),
                         child: Text("Hp: " +
                             _monstro.getVida.toString() +
                             "/" +
@@ -90,13 +87,13 @@ class _BattleState extends State<Battle> {
                         flex: 4,
                         child: Container(
                           // color: Colors.blue,
-                          padding: EdgeInsets.only(top: 2.5, bottom: 2.5),
-                          margin: EdgeInsets.only(right: 10),
+                          padding: const EdgeInsets.only(top: 2.5, bottom: 2.5),
+                          margin: const EdgeInsets.only(right: 10),
                           child: LinearProgressIndicator(
                             // valueColor: Colors.red,
                             minHeight: 10,
                             backgroundColor: Colors.black,
-                            valueColor: AlwaysStoppedAnimation(Colors.red),
+                            valueColor: const AlwaysStoppedAnimation(Colors.red),
                             value: _monstro.getVida / _monstro.getVidaMax,
                           ),
                         ),
@@ -109,7 +106,7 @@ class _BattleState extends State<Battle> {
                   child: Row(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(right: 5),
+                        margin: const EdgeInsets.only(right: 5),
                         child: Text("Mp: " +
                             _monstro.getMp.toString() +
                             "/" +
@@ -118,12 +115,12 @@ class _BattleState extends State<Battle> {
                       Expanded(
                         flex: 4,
                         child: Container(
-                          padding: EdgeInsets.only(top: 4),
-                          margin: EdgeInsets.only(right: 10),
+                          padding: const EdgeInsets.only(top: 4),
+                          margin: const EdgeInsets.only(right: 10),
                           child: LinearProgressIndicator(
                             backgroundColor: Colors.black,
                             minHeight: 10,
-                            valueColor: AlwaysStoppedAnimation(Colors.blue),
+                            valueColor: const AlwaysStoppedAnimation(Colors.blue),
                             value: _monstro.getMp / _monstro.getmpMax,
                           ),
                         ),
@@ -137,18 +134,18 @@ class _BattleState extends State<Battle> {
           Expanded(
             flex: 85,
             child: ListView.builder(
-              padding: EdgeInsets.symmetric(vertical: 20),
+              padding: const EdgeInsets.symmetric(vertical: 20),
               itemCount: listaAcoes.length,
               itemBuilder: (BuildContext contex, int index) {
                 return Column(
                   children: [
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       child: Text(
                         listaAcoes[index],
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       height: 10,
                       color: Colors.black,
                       thickness: 1,
@@ -180,14 +177,14 @@ class _BattleState extends State<Battle> {
                                 }
                                 setState(() {});
                               },
-                              child: Text("Atk"),
+                              child: const Text("Atk"),
                             ),
                           ),
-                          Expanded(
+                          const Expanded(
                             flex: 1,
                             child: Text("Def"),
                           ),
-                          Expanded(
+                          const Expanded(
                             flex: 1,
                             child: Text("Fugir"),
                           ),
@@ -195,7 +192,7 @@ class _BattleState extends State<Battle> {
                       ),
                     ),
                   ),
-                  (modo == -1 ? Text("") : _acoes()),
+                  (modo == -1 ? const Text("") : _acoes()),
                   Expanded(
                     flex: 8,
                     child: Container(
@@ -213,72 +210,70 @@ class _BattleState extends State<Battle> {
 
   Widget _listPerso() {
     return ListView.builder(
-      padding: EdgeInsets.only(top: 5),
+      padding: const EdgeInsets.only(top: 5),
       itemCount: _persos.length,
       itemBuilder: (BuildContext context, int index) {
-        return Container(
-          child: InkWell(
-            onTap: () {
-              print(_persos[index].toMap());
-              // _persos.add(_persos[index]);
-            },
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(right: 10, left: 10),
-                      child: Text(_persos[index].getNome),
+        return InkWell(
+          onTap: () {
+            print(_persos[index].toMap());
+            // _persos.add(_persos[index]);
+          },
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(right: 10, left: 10),
+                    child: Text(_persos[index].getNome),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: const [
+                        // Text("Exp"),
+                        Text("Vida"),
+                      ],
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        children: [
-                          // Text("Exp"),
-                          Text("Vida"),
-                        ],
-                      ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      children: [
+                        // Text(_persos[index].getExperiencia.toString() +
+                        //     "/" +
+                        //     _persos[index].getExpMax().toString()),
+                        Text(_persos[index].getVida.toString() +
+                            "/" +
+                            _persos[index].getVidaMax.toString())
+                      ],
                     ),
-                    Expanded(
-                      flex: 2,
-                      child: Column(
-                        children: [
-                          // Text(_persos[index].getExperiencia.toString() +
-                          //     "/" +
-                          //     _persos[index].getExpMax().toString()),
-                          Text(_persos[index].getVida.toString() +
-                              "/" +
-                              _persos[index].getVidaMax.toString())
-                        ],
-                      ),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.only(top: 4),
+                          margin: const EdgeInsets.only(right: 10),
+                          child: LinearProgressIndicator(
+                            backgroundColor: Colors.black,
+                            minHeight: 10,
+                            valueColor: const AlwaysStoppedAnimation(Colors.red),
+                            value: _persos[index].getVida /
+                                _persos[index].getVidaMax,
+                          ),
+                        )
+                      ],
                     ),
-                    Expanded(
-                      flex: 5,
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.only(top: 4),
-                            margin: EdgeInsets.only(right: 10),
-                            child: LinearProgressIndicator(
-                              backgroundColor: Colors.black,
-                              minHeight: 10,
-                              valueColor: AlwaysStoppedAnimation(Colors.red),
-                              value: _persos[index].getVida /
-                                  _persos[index].getVidaMax,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Divider(
-                  height: 10,
-                  color: Colors.black,
-                  thickness: 1,
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+              const Divider(
+                height: 10,
+                color: Colors.black,
+                thickness: 1,
+              ),
+            ],
           ),
         );
       },
@@ -314,7 +309,7 @@ class _BattleState extends State<Battle> {
 
                   setState(() {});
                 },
-                child: Text("atk"),
+                child: const Text("atk"),
               ),
             ),
             Expanded(
@@ -323,7 +318,7 @@ class _BattleState extends State<Battle> {
                 onTap: () {
                   modo = -1;
                 },
-                child: Text("atkM"),
+                child: const Text("atkM"),
               ),
             ),
             Expanded(
@@ -331,11 +326,11 @@ class _BattleState extends State<Battle> {
               child: InkWell(
                 onTap: () {
                   print(_persos[_persoNumber].getHabilidades.toString());
-                  if (_persos[_persoNumber].getHabilidades!.length == 0) {
+                  if (_persos[_persoNumber].getHabilidades!.isEmpty) {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return AlertDialog(
+                        return const AlertDialog(
                           title: Text("Aviso!"),
                           content: Text("Não possue habilidades."),
                         );
@@ -348,83 +343,82 @@ class _BattleState extends State<Battle> {
                       builder: (BuildContext context) {
                         var _singleNotifier =
                             Provider.of<SingleNotifier>(context);
-                        return Container(
-                          child: AlertDialog(
-                            title: Text("Escolha"),
-                            content: Container(
-                              width: 100,
-                              height: 100,
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  children: _persos[_persoNumber]
-                                      .getHabilidades!
-                                      .map(
-                                        (e) => RadioListTile<int>(
-                                          title: Text(e.toString()),
-                                          value: e.getId!,
-                                          groupValue:
-                                              _singleNotifier.currentIndex,
-                                          selected:
-                                              _singleNotifier.currentIndex ==
-                                                  e.getId,
-                                          onChanged: (value) {
-                                            if (value !=
-                                                _singleNotifier.currentIndex) {
-                                              _singleNotifier
-                                                  .updateCountry(value);
-                                            }
-                                          },
-                                        ),
-                                      )
-                                      .toList(),
-                                ),
+                        return AlertDialog(
+                          title: const Text("Escolha"),
+                          content: SizedBox(
+                            width: 100,
+                            height: 100,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: _persos[_persoNumber]
+                                    .getHabilidades!
+                                    .map(
+                                      (e) => RadioListTile<int>(
+                                        title: Text(e.toString()),
+                                        value: e.getId,
+                                        groupValue:
+                                            _singleNotifier.currentIndex,
+                                        selected:
+                                            _singleNotifier.currentIndex ==
+                                                e.getId,
+                                        onChanged: (value) {
+                                          if (value !=
+                                              _singleNotifier.currentIndex) {
+                                            _singleNotifier
+                                                .updateCountry(value);
+                                          }
+                                        },
+                                      ),
+                                    )
+                                    .toList(),
                               ),
                             ),
-                            actions: [
-                              TextButton(
-                                child: Text("Usar"),
-                                onPressed: () {
-                                  modo = -1;
-                                  Perso perso = _persos[_persoNumber];
-                                  if (perso
-                                          .getHabilidades![
-                                              _singleNotifier.currentIndex]
-                                          .getTipo ==
-                                      2) {
-                                    perso.useHabilidade(perso.getHabilidades![
-                                        _singleNotifier.currentIndex]);
-                                    print(perso.getExtraStatus!.toMap());
-                                  } else
-                                    listaAcoes.replaceRange(
-                                      0,
-                                      0,
-                                      perso.atkInimigo(
-                                        perso,
-                                        _monstro,
-                                        habilidade: perso.getHabilidades![
-                                            _singleNotifier.currentIndex],
-                                      ),
-                                    );
-
-                                  Navigator.of(context).pop();
-                                  _monstroAtk();
-                                  setState(() {});
-                                },
-                              ),
-                              TextButton(
-                                child: Text("Cancelar"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
                           ),
+                          actions: [
+                            TextButton(
+                              child: const Text("Usar"),
+                              onPressed: () {
+                                modo = -1;
+                                Perso perso = _persos[_persoNumber];
+                                if (perso
+                                        .getHabilidades![
+                                            _singleNotifier.currentIndex]
+                                        .getTipo ==
+                                    2) {
+                                  perso.useHabilidade(perso.getHabilidades![
+                                      _singleNotifier.currentIndex]);
+                                  print(perso.getExtraStatus!.toMap());
+                                } else {
+                                  listaAcoes.replaceRange(
+                                    0,
+                                    0,
+                                    perso.atkInimigo(
+                                      perso,
+                                      _monstro,
+                                      habilidade: perso.getHabilidades![
+                                          _singleNotifier.currentIndex],
+                                    ),
+                                  );
+                                }
+
+                                Navigator.of(context).pop();
+                                _monstroAtk();
+                                setState(() {});
+                              },
+                            ),
+                            TextButton(
+                              child: const Text("Cancelar"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
                         );
                       },
                     );
                   }
                 },
-                child: Text("hab"),
+                child: const Text("hab"),
               ),
             ),
           ],
@@ -462,7 +456,7 @@ class _BattleState extends State<Battle> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Aviso!"),
+          title: const Text("Aviso!"),
           content: Text(_monstro.getNome +
               " derrotado(a) e ganhou " +
               _monstro.getExperiencia.toString() +
@@ -474,10 +468,10 @@ class _BattleState extends State<Battle> {
                 Navigator.of(context).pop();
                 Navigator.pop(_context, true);
               },
-              child: Text("Continuar"),
+              child: const Text("Continuar"),
             ),
             TextButton(
-              child: Text("Voltar"),
+              child: const Text("Voltar"),
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.pop(_context, false);
@@ -502,12 +496,12 @@ class _BattleState extends State<Battle> {
 
   void _salvar() {
     Comandos comandos = Comandos();
-    load!.atualizaItens(_listaDeItens);
+    Load().atualizaItens(_listaDeItens);
     for (int i = 0; i < _listaDeItens.length; i++) {
       comandos.newItem(_listaDeItens[i].toMapBanco());
     }
-    for (Perso perso in persos) {
-      comandos.atulizarPerso(perso.toMap(), perso.getId!);
+    for (Perso perso in Load.getInstance.persos) {
+      comandos.atulizarPerso(perso.toMap(), perso.getId);
     }
   }
 }

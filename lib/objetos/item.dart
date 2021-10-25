@@ -1,33 +1,28 @@
-import 'package:rpg_flutter/application.dart';
-import 'package:rpg_flutter/objetos/objeto.dart';
-import 'package:rpg_flutter/objetos/status.dart';
+import 'package:rpg_andriod/objetos/load.dart';
+import 'package:rpg_andriod/objetos/objeto.dart';
+import 'package:rpg_andriod/objetos/status.dart';
 
 class Item extends Objeto {
   String? _raridade;
-  int _quantidade = 0;
+  int quantidade = 0;
   Status? _status;
 
-  Item.item({int quantidade: 0, String nome: "", int? id, String? raridade}) {
+  Item.item({this.quantidade = 0, String nome = "", int id = 0, String? raridade}) {
     this.nome = nome;
-    this._quantidade = quantidade;
     this.id = id;
-    this._raridade = raridade;
+    _raridade = raridade;
   }
 
   Item(Map<String, dynamic> item) {
-    this.id = item["id"];
-    this.nome = item["nome"];
-    this._raridade = item["raridade"];
-    this._status = item["status"];
+    id = item["id"];
+    nome = item["nome"];
+    _raridade = item["raridade"];
+    _status = item["status"];
   }
 
-  set raridade(String raridade) => this._raridade = raridade;
+  set raridade(String raridade) => _raridade = raridade;
 
   String get raridade => _raridade!;
-
-  int get quantidade => _quantidade;
-
-  set quantidade(int quantidade) => this._quantidade = quantidade;
 
   Status get status => Status.map(_status!.toMap());
 
@@ -37,7 +32,7 @@ class Item extends Objeto {
       // "nome": nome,
       // "raridade": raridade,
       "quantidade": quantidade,
-      "load_id": loadId,
+      "load_id": Load.getInstance.getId,
     };
     return itemMap;
   }
@@ -48,14 +43,15 @@ class Item extends Objeto {
       "nome": nome,
       "raridade": raridade,
       "quantidade": quantidade,
-      "load_id": loadId,
+      "load_id": Load.getInstance.getId,
     };
     return itemMap;
   }
 
+  @override
   String toString() {
     return super.toString() +
-        ", raridade=" +
+        ", raridade="+
         raridade +
         ", quantidade=" +
         quantidade.toString();

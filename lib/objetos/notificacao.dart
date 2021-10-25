@@ -9,7 +9,7 @@ class SingleNotifier extends ChangeNotifier {
   void updateCountry(int? value) {
     if (value != _currentIndex) {
       _currentIndex = value!;
-      print(hasListeners);
+      // print(hasListeners);
       notifyListeners();
     }
   }

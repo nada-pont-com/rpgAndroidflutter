@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
-import 'package:rpg_flutter/application.dart';
-import 'package:rpg_flutter/objetos/habilidades.dart';
-import 'package:rpg_flutter/objetos/status.dart';
-import 'package:rpg_flutter/objetos/objeto.dart';
+import 'package:rpg_andriod/application.dart';
+import 'package:rpg_andriod/objetos/habilidades.dart';
+import 'package:rpg_andriod/objetos/status.dart';
+import 'package:rpg_andriod/objetos/objeto.dart';
 
 class SerVivo extends Status with Objeto {
   @protected
@@ -53,7 +53,7 @@ class SerVivo extends Status with Objeto {
           intl: intl,
           vit: vit,
         ) {
-    this.extraStatus = Status();
+    extraStatus = Status();
   }
 
   SerVivo.map(Map<String, dynamic> serVivo) : super.map(serVivo) {
@@ -62,7 +62,7 @@ class SerVivo extends Status with Objeto {
     id = serVivo['id'];
     rank = serVivo['rank'];
     level = serVivo['level'];
-    this.extraStatus = Status();
+    extraStatus = Status();
   }
 
   int useHabilidade(Habilidades habilidade) {
@@ -76,8 +76,9 @@ class SerVivo extends Status with Objeto {
               habilidade.getValor()!.toDouble(), this, habilidade.getExtra());
         } else if (tipo == 1) {}
         return HabilidadeStatus.ok.index;
-      } else
+      } else {
         return HabilidadeStatus.semMp.index;
+      }
     } else {
       nocalteado--;
       return HabilidadeStatus.nocalteado.index;
@@ -91,7 +92,7 @@ class SerVivo extends Status with Objeto {
   List<String> atkInimigo(SerVivo voce, SerVivo inimigo,
       {Habilidades? habilidade}) {
     List<String> acoes = <String>[];
-    print(inimigo.toMap());
+    // print(inimigo.toMap());
     if (nocalteado == 0) {
       int valor = 1, nocalteValor = 0, atks = 1;
       if (habilidade != null) {
@@ -143,10 +144,11 @@ class SerVivo extends Status with Objeto {
     } else {
       nocalteado--;
     }
-    this.clearExtraStatus();
+    clearExtraStatus();
     return acoes;
   }
 
+  @override
   Map<String, dynamic> toMap() {
     Map<String, dynamic> serVivoMap = {
       "nome": nome,

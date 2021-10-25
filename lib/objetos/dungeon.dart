@@ -1,44 +1,50 @@
-import 'package:rpg_flutter/application.dart';
-import 'package:rpg_flutter/objetos/objeto.dart';
+import 'package:rpg_andriod/objetos/load.dart';
+import 'package:rpg_andriod/objetos/objeto.dart';
 
 class DungeonTable extends Objeto {
-  String? _andares;
-  String? _rank;
+  String? andares;
+  String? rank;
 
-  DungeonTable();
+  static DungeonTable? _this;
+
+  factory DungeonTable() {
+    return _this ?? DungeonTable._getInstance();
+  }
+
+  static bool get isActive => _this == null;
+  static void resetDungeon() {
+    _this = null;
+  }
+
+  DungeonTable._getInstance();
+  void setInstance() {
+    _this = this;
+  }
 
   DungeonTable.map(Map<String, dynamic> dungeon) {
     nome = dungeon["nome"];
-    _andares = dungeon["andares"];
-    _rank = dungeon["rank"];
+    andares = dungeon["andares"];
+    rank = dungeon["rank"];
   }
-
-  String? get getAndares => _andares;
-
-  set setAndares(String andares) => this._andares = andares;
-
-  String? get getRank => _rank;
-
-  set setRank(String rank) => this._rank = rank;
 
   Map<String, dynamic> toMap() => {
         "nome": nome,
-        "andares": _andares,
-        "rank": _rank,
-        "load_id": loadId,
+        "andares": andares,
+        "rank": rank,
+        "load_id": Load.getInstance.getId,
       };
 
   @override
   String toString() {
-    return "DungeonTable{" +
-        "nome='" +
+    return "DungeonTable{"
+            "nome='" +
         nome +
         '\'' +
         ", andares='" +
-        _andares! +
+        andares! +
         '\'' +
         ", rank='" +
-        _rank! +
+        rank! +
         '\'' +
         '}';
   }

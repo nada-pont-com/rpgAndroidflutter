@@ -1,18 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rpg_flutter/application.dart';
-import 'package:rpg_flutter/banco/comandos.dart';
-import 'package:rpg_flutter/dados/dungeon_dados.dart';
-import 'package:rpg_flutter/jogo/dungeon/dungeon.dart';
-import 'package:rpg_flutter/jogo/guilda/guilda.dart';
-import 'package:rpg_flutter/jogo/inicio/personagem_menu.dart';
-import 'package:rpg_flutter/jogo/itens/itens.dart';
-import 'package:rpg_flutter/objetos/dungeon.dart';
-import 'package:rpg_flutter/objetos/item.dart';
-import 'package:rpg_flutter/objetos/perso.dart';
+import 'package:rpg_andriod/application.dart';
+import 'package:rpg_andriod/banco/comandos.dart';
+import 'package:rpg_andriod/dados/dungeon_dados.dart';
+import 'package:rpg_andriod/jogo/guilda/guilda.dart';
+import 'package:rpg_andriod/jogo/itens/itens.dart';
+import 'package:rpg_andriod/objetos/dungeon.dart';
+import 'package:rpg_andriod/objetos/item.dart';
+import 'package:rpg_andriod/objetos/load.dart';
+import 'package:rpg_andriod/objetos/perso.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Jogo extends StatefulWidget {
+  const Jogo({Key? key}) : super(key: key);
+
   @override
   _JogoState createState() => _JogoState();
 }
@@ -20,7 +21,7 @@ class Jogo extends StatefulWidget {
 class _JogoState extends State<Jogo> {
   List<Perso> _persos = <Perso>[];
   List<DungeonTable> _dungeons = <DungeonTable>[];
-  Comandos _comandos = Comandos();
+  final Comandos _comandos = Comandos();
   late BuildContext _context;
   int _selectBar = 0, _refDunGuil = 0;
 
@@ -41,7 +42,7 @@ class _JogoState extends State<Jogo> {
         ),
         body: _body(),
         bottomNavigationBar: BottomNavigationBar(
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: "Home",
@@ -86,20 +87,18 @@ class _JogoState extends State<Jogo> {
   Widget _perso() {
     return Column(
       children: [
-        Container(
-          child: Row(
-            children: [
-              elevatedButtonOfList(
-                "Voltar",
-                () {
-                  print(_context);
-                  Navigator.pop(_context);
-                },
-                color: Colors.grey,
-                textColor: Colors.black,
-              )
-            ],
-          ),
+        Row(
+          children: [
+            elevatedButtonOfList(
+              "Voltar",
+              () {
+                // print(_context);
+                Navigator.pop(_context);
+              },
+              color: Colors.grey,
+              textColor: Colors.black,
+            )
+          ],
         ),
         Expanded(
           flex: 9,
@@ -111,13 +110,13 @@ class _JogoState extends State<Jogo> {
               switch (snapshot.connectionState) {
                 case ConnectionState.none:
                 case ConnectionState.waiting:
-                  return Center(child: Text("Carregando"));
+                  return const Center(child: Text("Carregando"));
                 default:
                   if (snapshot.hasError) {
-                    return Center(child: Text("Erro"));
+                    return const Center(child: Text("Erro"));
                   } else {
                     _persos = snapshot.data;
-                    persos = _persos;
+                    Load.getInstance.persos = _persos;
                     _persos[0].toMap();
                     return _listPerso();
                   }
@@ -135,143 +134,141 @@ class _JogoState extends State<Jogo> {
       itemBuilder: (BuildContext context, int index) {
         return InkWell(
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => PersonagemMenu(_persos[index])));
+            _persos[index].setInstance();
+            Navigator.pushNamed(context, '/jogo/persoMenu')
+                .then((value) => Perso.resetPerso());
           },
-          child: Container(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(right: 10, left: 10),
-                      child: Text(_persos[index].getNome),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(right: 10, left: 10),
+                    child: Text(_persos[index].getNome),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: const [
+                        Text("Exp"),
+                        Text("Vida"),
+                      ],
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        children: [
-                          Text("Exp"),
-                          Text("Vida"),
-                        ],
-                      ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      children: [
+                        Text(_persos[index].getExperiencia.toString() +
+                            "/" +
+                            _persos[index].getExpMax().toString()),
+                        Text(_persos[index].getVida.toString() +
+                            "/" +
+                            _persos[index].getVidaMax.toString())
+                      ],
                     ),
-                    Expanded(
-                      flex: 2,
-                      child: Column(
-                        children: [
-                          Text(_persos[index].getExperiencia.toString() +
-                              "/" +
-                              _persos[index].getExpMax().toString()),
-                          Text(_persos[index].getVida.toString() +
-                              "/" +
-                              _persos[index].getVidaMax.toString())
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      flex: 5,
-                      child: Column(
-                        children: [
-                          Container(
-                            // color: Colors.blue,
-                            padding: EdgeInsets.only(top: 2.5, bottom: 2.5),
-                            margin: EdgeInsets.only(right: 10),
-                            child: LinearProgressIndicator(
-                              // valueColor: Colors.red,
-                              minHeight: 10,
-                              backgroundColor: Colors.black,
-                              valueColor: AlwaysStoppedAnimation(
-                                  Colors.lightGreenAccent),
-                              value: _persos[index].getExperiencia /
-                                  _persos[index].getExpMax(),
-                            ),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Column(
+                      children: [
+                        Container(
+                          // color: Colors.blue,
+                          padding: const EdgeInsets.only(top: 2.5, bottom: 2.5),
+                          margin: const EdgeInsets.only(right: 10),
+                          child: LinearProgressIndicator(
+                            // valueColor: Colors.red,
+                            minHeight: 10,
+                            backgroundColor: Colors.black,
+                            valueColor: const AlwaysStoppedAnimation(
+                                Colors.lightGreenAccent),
+                            value: _persos[index].getExperiencia /
+                                _persos[index].getExpMax(),
                           ),
-                          Container(
-                            padding: EdgeInsets.only(top: 4),
-                            margin: EdgeInsets.only(right: 10),
-                            child: LinearProgressIndicator(
-                              backgroundColor: Colors.black,
-                              minHeight: 10,
-                              valueColor: AlwaysStoppedAnimation(Colors.red),
-                              value: _persos[index].getVida /
-                                  _persos[index].getVidaMax,
-                            ),
-                          )
-                        ],
-                      ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(top: 4),
+                          margin: const EdgeInsets.only(right: 10),
+                          child: LinearProgressIndicator(
+                            backgroundColor: Colors.black,
+                            minHeight: 10,
+                            valueColor:
+                                const AlwaysStoppedAnimation(Colors.red),
+                            value: _persos[index].getVida /
+                                _persos[index].getVidaMax,
+                          ),
+                        )
+                      ],
                     ),
-                  ],
-                ),
-                Divider(
-                  height: 10,
-                  color: Colors.black,
-                  thickness: 1,
-                ),
-                Row(
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      flex: 5,
-                      child: Container(
-                          margin: EdgeInsets.only(right: 10, left: 10),
-                          child: Text(
-                              "Level: " + _persos[index].getLevel.toString())),
+                  ),
+                ],
+              ),
+              const Divider(
+                height: 10,
+                color: Colors.black,
+                thickness: 1,
+              ),
+              Row(
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: Container(
+                        margin: const EdgeInsets.only(right: 10, left: 10),
+                        child: Text(
+                            "Level: " + _persos[index].getLevel.toString())),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Container(
+                        margin: const EdgeInsets.only(right: 10, left: 10),
+                        child: Text("Classe: " + _persos[index].classe!)),
+                  ),
+                ],
+              ),
+              const Divider(
+                height: 10,
+                color: Colors.black,
+                thickness: 1,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Atk: " + _persos[index].getAtk.toString(),
+                            textScaleFactor: 1.5),
+                        Text("Def: " + _persos[index].getDef.toString(),
+                            textScaleFactor: 1.5),
+                        Text("Agi: " + _persos[index].getAgi.toString(),
+                            textScaleFactor: 1.5),
+                        Text("Int: " + _persos[index].getIntl.toString(),
+                            textScaleFactor: 1.5),
+                      ],
                     ),
-                    Expanded(
-                      flex: 5,
-                      child: Container(
-                          margin: EdgeInsets.only(right: 10, left: 10),
-                          child: Text("Classe: " + _persos[index].classe!)),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("AtkM: " + _persos[index].getAtkM.toString(),
+                            textScaleFactor: 1.5),
+                        Text("DefM: " + _persos[index].getDefM.toString(),
+                            textScaleFactor: 1.5),
+                        Text("Agi: " + _persos[index].getMp.toString(),
+                            textScaleFactor: 1.5),
+                        Text("Vit: " + _persos[index].getVit.toString(),
+                            textScaleFactor: 1.5),
+                      ],
                     ),
-                  ],
-                ),
-                Divider(
-                  height: 10,
-                  color: Colors.black,
-                  thickness: 1,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 5,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Atk: " + _persos[index].getAtk.toString(),
-                              textScaleFactor: 1.5),
-                          Text("Def: " + _persos[index].getDef.toString(),
-                              textScaleFactor: 1.5),
-                          Text("Agi: " + _persos[index].getAgi.toString(),
-                              textScaleFactor: 1.5),
-                          Text("Int: " + _persos[index].getIntl.toString(),
-                              textScaleFactor: 1.5),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      flex: 5,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("AtkM: " + _persos[index].getAtkM.toString(),
-                              textScaleFactor: 1.5),
-                          Text("DefM: " + _persos[index].getDefM.toString(),
-                              textScaleFactor: 1.5),
-                          Text("Agi: " + _persos[index].getMp.toString(),
-                              textScaleFactor: 1.5),
-                          Text("Vit: " + _persos[index].getVit.toString(),
-                              textScaleFactor: 1.5),
-                        ],
-                      ),
-                    )
-                  ],
-                )
-              ],
-            ),
+                  )
+                ],
+              )
+            ],
           ),
         );
       },
@@ -282,7 +279,7 @@ class _JogoState extends State<Jogo> {
     if (_refDunGuil == 0) {
       return _buttonsGuildDung();
     } else if (_refDunGuil == 1) {
-      return Text("data");
+      return const Text("data");
     } else {
       return _dungeon();
     }
@@ -302,7 +299,7 @@ class _JogoState extends State<Jogo> {
           color: Colors.grey,
           textColor: Colors.black,
         ),
-        Divider(
+        const Divider(
           color: Colors.black,
           height: 10,
           thickness: 2,
@@ -310,12 +307,7 @@ class _JogoState extends State<Jogo> {
         elevatedButtonOfList(
           "Guilda",
           () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Guilda(),
-              ),
-            );
+            Navigator.pushNamed(context, 'jogo/guild');
           },
           color: Colors.grey,
           textColor: Colors.black,
@@ -331,12 +323,7 @@ class _JogoState extends State<Jogo> {
           textColor: Colors.black,
         ),
         elevatedButtonOfList("Itens", () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Itens(),
-            ),
-          );
+          Navigator.pushNamed(context, 'jogo/itens');
         }),
       ],
     );
@@ -351,10 +338,10 @@ class _JogoState extends State<Jogo> {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
           case ConnectionState.waiting:
-            return Center(child: Text("Carregando"));
+            return const Center(child: Text("Carregando"));
           default:
             if (snapshot.hasError) {
-              return Center(child: Text("Erro"));
+              return const Center(child: Text("Erro"));
             } else {
               _dungeons = snapshot.data;
               // _persos[0].toMap();
@@ -375,7 +362,7 @@ class _JogoState extends State<Jogo> {
               elevatedButtonOfList(
                 "Procurar",
                 () {
-                  print("aqui6");
+                  // print("aqui6");
                   setState(() {
                     DungeonsDados().geraDungeon(_persos[0].getRank);
                   });
@@ -395,17 +382,13 @@ class _JogoState extends State<Jogo> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Dungeon(_dungeons[index])));
+                      Navigator.pushNamed(context, '/jogo/dungeon');
                     },
                     child: Row(
                       children: [
                         Expanded(
                           flex: 5,
-                          child:
-                              Text("Andares: " + _dungeons[index].getAndares!),
+                          child: Text("Andares: " + _dungeons[index].andares!),
                         ),
                         Expanded(
                           flex: 5,
@@ -414,7 +397,7 @@ class _JogoState extends State<Jogo> {
                       ],
                     ),
                   ),
-                  Divider(
+                  const Divider(
                     color: Colors.black,
                     height: 10,
                     thickness: 2,
@@ -432,7 +415,7 @@ class _JogoState extends State<Jogo> {
     // insertsItemFromLoad();
     Comandos comandos = Comandos();
     // comandos.buscaLoad().then((value) => {print(value)});
-    if (series.length == 0) {
+    if (series.isEmpty) {
       comandos.buscaItensLoad().then((value) => setState(() {
             itens = value;
           }));
@@ -440,46 +423,44 @@ class _JogoState extends State<Jogo> {
     _constroiSeriesToLine();
     _constroiSeriesToPie();
 
-    return Container(
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                SfCartesianChart(
-                  primaryXAxis: CategoryAxis(
-                    title: AxisTitle(text: "Ranks"),
-                  ),
-                  primaryYAxis: CategoryAxis(
-                    title: AxisTitle(text: "Qtds"),
-                  ),
-                  // Chart title
-                  title: ChartTitle(text: 'Quant '),
-                  // Enable legend
-                  legend: Legend(isVisible: true),
-                  // Enable tooltip
-                  tooltipBehavior: TooltipBehavior(enable: true),
-                  series: series,
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            children: [
+              SfCartesianChart(
+                primaryXAxis: CategoryAxis(
+                  title: AxisTitle(text: "Ranks"),
                 ),
-                Expanded(
-                  child: SfCircularChart(
-                    title: ChartTitle(text: 'Itens por rank'),
-                    legend: Legend(isVisible: true),
-                    series: seriesPie,
-                  ),
-                )
-              ],
-            ),
+                primaryYAxis: CategoryAxis(
+                  title: AxisTitle(text: "Qtds"),
+                ),
+                // Chart title
+                title: ChartTitle(text: 'Quant '),
+                // Enable legend
+                legend: Legend(isVisible: true),
+                // Enable tooltip
+                tooltipBehavior: TooltipBehavior(enable: true),
+                series: series,
+              ),
+              Expanded(
+                child: SfCircularChart(
+                  title: ChartTitle(text: 'Itens por rank'),
+                  legend: Legend(isVisible: true),
+                  series: seriesPie,
+                ),
+              )
+            ],
           ),
-          // ListView.builder(
-          //     itemCount: _listMisao.length,
-          //     itemBuilder: (BuildContext context, int index) {
-          //       return Column(
-          //         children: [],
-          //       );
-          //     })
-        ],
-      ),
+        ),
+        // ListView.builder(
+        //     itemCount: _listMisao.length,
+        //     itemBuilder: (BuildContext context, int index) {
+        //       return Column(
+        //         children: [],
+        //       );
+        //     })
+      ],
     );
   }
 
@@ -487,9 +468,9 @@ class _JogoState extends State<Jogo> {
   List<PieSeries<Item, String>> seriesPie = <PieSeries<Item, String>>[];
 
   _constroiSeriesToLine() {
-    print(itens);
+    // print(itens);
     series = [];
-    itens.forEach((item) {
+    for (Item item in itens) {
       List<Item> itensValidados = [item];
 
       series.add(
@@ -498,18 +479,18 @@ class _JogoState extends State<Jogo> {
           xValueMapper: (Item item, int _) => item.raridade,
           dataSource: itensValidados,
           name: item.getNome,
-          markerSettings: MarkerSettings(
+          markerSettings: const MarkerSettings(
             isVisible: true,
             shape: DataMarkerType.circle,
             borderWidth: 1,
           ),
           animationDuration: 0,
-          dataLabelSettings: DataLabelSettings(
+          dataLabelSettings: const DataLabelSettings(
             isVisible: true,
           ),
         ),
       );
-    });
+    }
   }
 
   List<Item> itens = <Item>[];
@@ -517,13 +498,14 @@ class _JogoState extends State<Jogo> {
   _constroiSeriesToPie() {
     seriesPie = [];
     List<Item> itensValidados = [];
-    ranks.forEach((rank) {
+    for (var rank in ranks) {
       itensValidados.add(Item.item(raridade: rank));
-      itens.forEach((item) {
-        if (item.raridade == rank)
+      for (var item in itens) {
+        if (item.raridade == rank) {
           itensValidados.last.quantidade += item.quantidade;
-      });
-    });
+        }
+      }
+    }
     seriesPie.add(
       PieSeries<Item, String>(
         yValueMapper: (Item item, int _) => item.quantidade,
@@ -533,7 +515,7 @@ class _JogoState extends State<Jogo> {
         explodeIndex: 0,
         dataLabelMapper: (Item item, _) =>
             item.raridade + ":" + item.quantidade.toString(),
-        dataLabelSettings: DataLabelSettings(
+        dataLabelSettings: const DataLabelSettings(
           isVisible: true,
           showZeroValue: false,
         ),

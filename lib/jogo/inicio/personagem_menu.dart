@@ -1,28 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rpg_flutter/application.dart';
-import 'package:rpg_flutter/banco/comandos.dart';
-import 'package:rpg_flutter/dados/habilidades.dart';
-import 'package:rpg_flutter/objetos/habilidades.dart';
-import 'package:rpg_flutter/objetos/perso.dart';
+import 'package:rpg_andriod/application.dart';
+import 'package:rpg_andriod/banco/comandos.dart';
+import 'package:rpg_andriod/dados/habilidades.dart';
+import 'package:rpg_andriod/objetos/habilidades.dart';
+import 'package:rpg_andriod/objetos/perso.dart';
 
 class PersonagemMenu extends StatefulWidget {
-  final Perso _perso;
-  PersonagemMenu(this._perso) : super();
+  const PersonagemMenu({Key? key}) : super(key: key);
   @override
-  _PersonagemMenuState createState() => _PersonagemMenuState(_perso);
+  _PersonagemMenuState createState() => _PersonagemMenuState();
 }
 
 class _PersonagemMenuState extends State<PersonagemMenu> {
-  _PersonagemMenuState(this._perso) : super() {
+  _PersonagemMenuState() : super() {
+    _perso = Perso();
     _pontosExp = _perso.pontosExp;
     _pontosHab = _perso.pontosHab;
     _perso.clearExtraStatus();
   }
 
   int _selectPage = 0, _selectHab = 0;
-  late Perso _perso;
-  List<Habilidades> _listHabilidades = HabilidadesDados().getHabilidades();
+  late final Perso _perso;
+  final List<Habilidades> _listHabilidades =
+      HabilidadesDados().getHabilidades();
   late int _pontosExp, _pontosHab;
   @override
   Widget build(BuildContext context) {
@@ -89,13 +90,13 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                 Row(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(right: 10, left: 10),
+                      margin: const EdgeInsets.only(right: 10, left: 10),
                       child: Text(_perso.getNome),
                     ),
                     Expanded(
                       flex: 1,
                       child: Column(
-                        children: [
+                        children: const [
                           Text("Exp"),
                           Text("Vida"),
                         ],
@@ -120,24 +121,26 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                         children: [
                           Container(
                             // color: Colors.blue,
-                            padding: EdgeInsets.only(top: 2.5, bottom: 2.5),
-                            margin: EdgeInsets.only(right: 10),
+                            padding:
+                                const EdgeInsets.only(top: 2.5, bottom: 2.5),
+                            margin: const EdgeInsets.only(right: 10),
                             child: LinearProgressIndicator(
                               // valueColor: Colors.red,
                               minHeight: 10,
                               backgroundColor: Colors.black,
-                              valueColor: AlwaysStoppedAnimation(
+                              valueColor: const AlwaysStoppedAnimation(
                                   Colors.lightGreenAccent),
                               value: _perso.getExperiencia / _perso.getExpMax(),
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.only(top: 4),
-                            margin: EdgeInsets.only(right: 10),
+                            padding: const EdgeInsets.only(top: 4),
+                            margin: const EdgeInsets.only(right: 10),
                             child: LinearProgressIndicator(
                               backgroundColor: Colors.black,
                               minHeight: 10,
-                              valueColor: AlwaysStoppedAnimation(Colors.red),
+                              valueColor:
+                                  const AlwaysStoppedAnimation(Colors.red),
                               value: _perso.getVida / _perso.getVidaMax,
                             ),
                           )
@@ -146,7 +149,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                     ),
                   ],
                 ),
-                Divider(
+                const Divider(
                   height: 10,
                   color: Colors.black,
                   thickness: 1,
@@ -158,7 +161,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                     Expanded(
                       flex: 1,
                       child: Container(
-                        margin: EdgeInsets.only(right: 10, left: 10),
+                        margin: const EdgeInsets.only(right: 10, left: 10),
                         child: Text(
                           "Level: " + _perso.getLevel.toString(),
                         ),
@@ -167,7 +170,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                     Expanded(
                       flex: 2,
                       child: Container(
-                        margin: EdgeInsets.only(right: 10, left: 10),
+                        margin: const EdgeInsets.only(right: 10, left: 10),
                         child: Text(
                           "Classe: " + _perso.classe!,
                           textAlign: TextAlign.center,
@@ -177,7 +180,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                     Expanded(
                       flex: 1,
                       child: Container(
-                        margin: EdgeInsets.only(right: 10, left: 10),
+                        margin: const EdgeInsets.only(right: 10, left: 10),
                         child: Text(
                           "Pontos: " +
                               (_selectPage == 0 ? _pontosExp : _pontosHab)
@@ -188,7 +191,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                     ),
                   ],
                 ),
-                Divider(
+                const Divider(
                   height: 10,
                   color: Colors.black,
                   thickness: 1,
@@ -216,7 +219,8 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: EdgeInsets.only(bottom: 10, left: 2, top: 2),
+                      padding:
+                          const EdgeInsets.only(bottom: 10, left: 2, top: 2),
                       child: Row(
                           children: _pointsButtons(
                               "Atk: " + _perso.getAtk.toString(), () {
@@ -236,7 +240,8 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                       }, _perso.getExtraStatus!.getAtk.toString())),
                     ),
                     Container(
-                      padding: EdgeInsets.only(bottom: 10, left: 2, top: 2),
+                      padding:
+                          const EdgeInsets.only(bottom: 10, left: 2, top: 2),
                       child: Row(
                           children: _pointsButtons(
                               "Def: " + _perso.getDef.toString(), () {
@@ -256,7 +261,8 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                       }, _perso.getExtraStatus!.getDef.toString())),
                     ),
                     Container(
-                      padding: EdgeInsets.only(bottom: 10, left: 2, top: 2),
+                      padding:
+                          const EdgeInsets.only(bottom: 10, left: 2, top: 2),
                       child: Row(
                           children: _pointsButtons(
                               "Agi: " + _perso.getAgi.toString(), () {
@@ -276,7 +282,8 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                       }, _perso.getExtraStatus!.getAgi.toString())),
                     ),
                     Container(
-                      padding: EdgeInsets.only(bottom: 10, left: 2, top: 2),
+                      padding:
+                          const EdgeInsets.only(bottom: 10, left: 2, top: 2),
                       child: Row(
                         children: _pointsButtons(
                             "Int: " + _perso.getIntl.toString(), () {
@@ -305,7 +312,8 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: EdgeInsets.only(bottom: 10, left: 2, top: 2),
+                      padding:
+                          const EdgeInsets.only(bottom: 10, left: 2, top: 2),
                       child: Row(
                         children: _pointsButtons(
                             "AtkM: " + _perso.getAtkM.toString(), () {
@@ -326,7 +334,8 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(bottom: 10, left: 2, top: 2),
+                      padding:
+                          const EdgeInsets.only(bottom: 10, left: 2, top: 2),
                       child: Row(
                           children: _pointsButtons(
                               "DefM: " + _perso.getDefM.toString(), () {
@@ -346,7 +355,8 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                       }, _perso.getExtraStatus!.getDefM.toString())),
                     ),
                     Container(
-                      padding: EdgeInsets.only(bottom: 10, left: 2, top: 2),
+                      padding:
+                          const EdgeInsets.only(bottom: 10, left: 2, top: 2),
                       child: Row(
                         children: [
                           Text(
@@ -360,7 +370,8 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(bottom: 10, left: 2, top: 2),
+                      padding:
+                          const EdgeInsets.only(bottom: 10, left: 2, top: 2),
                       child: Row(
                         children: _pointsButtons(
                             "Vit: " + _perso.getVit.toString(), () {
@@ -394,7 +405,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
               _perso.pontosExp = _pontosExp;
               _perso.increment(_perso.getExtraStatus!);
               _perso.clearExtraStatus();
-              Comandos().atulizarPerso(_perso.toMap(), _perso.getId!);
+              Comandos().atulizarPerso(_perso.toMap(), _perso.getId);
               setState(() {});
             },
           ),
@@ -418,13 +429,13 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
       Expanded(
         flex: 4,
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
           child: SizedBox(
             width: 30,
             height: 25,
             child: ElevatedButton(
               onPressed: bntAdd,
-              child: Icon(Icons.add),
+              child: const Icon(Icons.add),
               style: ButtonStyle(
                 padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
               ),
@@ -443,13 +454,13 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
       Expanded(
         flex: 4,
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
           child: SizedBox(
             width: 30,
             height: 25,
             child: ElevatedButton(
               onPressed: bntRemove,
-              child: Icon(Icons.remove),
+              child: const Icon(Icons.remove),
               style: ButtonStyle(
                 padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
               ),
@@ -464,19 +475,19 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
           width: double.infinity,
           child: Text(
             _listHabilidades[_selectHab].getNome,
             textAlign: TextAlign.center,
           ),
         ),
-        Divider(
+        const Divider(
           height: 10,
           color: Colors.black,
           thickness: 1,
         ),
-        Container(
+        SizedBox(
           width: double.infinity,
           height: 50,
           child: SingleChildScrollView(
@@ -485,7 +496,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
             ),
           ),
         ),
-        Divider(
+        const Divider(
           height: 10,
           color: Colors.black,
           thickness: 1,
@@ -505,7 +516,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
               ];
               for (Habilidades hab in _perso.getHabilidades!) {
                 if (hab.getId == _listHabilidades[index].getId) {
-                  text.add(Expanded(
+                  text.add(const Expanded(
                     flex: 1,
                     child: Text(
                       "Adiquirida",
@@ -519,21 +530,19 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    child: InkWell(
-                      onTap: () {
-                        _selectHab = index;
-                        setState(() {});
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          children: text,
-                        ),
+                  InkWell(
+                    onTap: () {
+                      _selectHab = index;
+                      setState(() {});
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        children: text,
                       ),
                     ),
                   ),
-                  Divider(
+                  const Divider(
                     height: 10,
                     color: Colors.black,
                     thickness: 1,
@@ -553,7 +562,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                   if (hab.getId == _listHabilidades[_selectHab].getId) {
                     _alert("Habilidade",
                         text: "Você já possue essa habilidade.");
-                    return null;
+                    return;
                   }
                 }
 
@@ -567,7 +576,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                   barrierDismissible: false,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text("Aprender Habilidade"),
+                      title: const Text("Aprender Habilidade"),
                       content: Text("Você Deseja Aprender " +
                           _listHabilidades[_selectHab].getNome +
                           "por " +
@@ -575,7 +584,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                           " pontos."),
                       actions: [
                         TextButton(
-                          child: Text("Aprender"),
+                          child: const Text("Aprender"),
                           onPressed: () {
                             _perso.getHabilidades!
                                 .add(_listHabilidades[_selectHab]);
@@ -588,7 +597,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                           },
                         ),
                         TextButton(
-                          child: Text("Cancelar"),
+                          child: const Text("Cancelar"),
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
@@ -598,7 +607,7 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
                   },
                 );
               },
-              child: Text("Apreder"),
+              child: const Text("Apreder"),
             ),
           ),
         )
@@ -607,13 +616,11 @@ class _PersonagemMenuState extends State<PersonagemMenu> {
   }
 
   void _alert(String title,
-      {String text: "",
+      {String text = "",
       Widget? content,
       List<Widget>? actions,
-      bool barrierDismissible: true}) {
-    if (content == null) {
-      content = Text(text);
-    }
+      bool barrierDismissible = true}) {
+    content ??= Text(text);
 
     showDialog(
       context: context,

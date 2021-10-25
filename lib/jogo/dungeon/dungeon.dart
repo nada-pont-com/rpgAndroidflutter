@@ -2,32 +2,32 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rpg_flutter/application.dart';
-import 'package:rpg_flutter/dados/monstros.dart';
-import 'package:rpg_flutter/jogo/batalha/battle.dart';
-import 'package:rpg_flutter/objetos/dungeon.dart';
-import 'package:rpg_flutter/objetos/monstro.dart';
-import 'package:rpg_flutter/objetos/perso.dart';
+import 'package:rpg_andriod/application.dart';
+import 'package:rpg_andriod/dados/monstros.dart';
+import 'package:rpg_andriod/objetos/dungeon.dart';
+import 'package:rpg_andriod/objetos/load.dart';
+import 'package:rpg_andriod/objetos/monstro.dart';
+import 'package:rpg_andriod/objetos/perso.dart';
 
 class Dungeon extends StatefulWidget {
-  final DungeonTable _dungeon;
+  // final DungeonTable _dungeon = ;
 
-  Dungeon(this._dungeon) : super();
+  const Dungeon({Key? key}) : super(key: key);
 
   @override
-  _DungeonState createState() => _DungeonState(_dungeon);
+  _DungeonState createState() => _DungeonState();
 }
 
 class _DungeonState extends State<Dungeon> {
-  late DungeonTable _dungeon;
-  Random _gerador = Random();
+  final DungeonTable _dungeon = DungeonTable();
+  final Random _gerador = Random();
   late int _passos = 0;
-  late int _andar;
+  late int andar;
   late int _andarMax;
   late int _andarAtual;
   // String _nomeDungeon;
   late String _rank;
-  List<Perso> _dados = persos;
+  final List<Perso> _dados = Load.getInstance.persos;
   Monstro? _monstro;
   late BuildContext _context;
   bool descer = true;
@@ -38,20 +38,20 @@ class _DungeonState extends State<Dungeon> {
     "Frente": true,
   };
 
-  _DungeonState(this._dungeon) : super();
+  _DungeonState() : super();
 
   @override
   Widget build(BuildContext context) {
     _context = context;
-    _rank = _dungeon.getRank!;
-    _andarAtual = _andar = int.parse(_dungeon.getAndares!.split("-")[0]);
-    _andarMax = int.parse(_dungeon.getAndares!.split("-")[1]);
+    _rank = _dungeon.rank!;
+    _andarAtual = andar = int.parse(_dungeon.andares!.split("-")[0]);
+    _andarMax = int.parse(_dungeon.andares!.split("-")[1]);
     // _nomeDungeon = _dungeon.getNome;
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           appBar: AppBar(
-            title: Text("Dungeon"),
+            title: const Text("Dungeon"),
           ),
           body: _body(),
         ));
@@ -64,71 +64,69 @@ class _DungeonState extends State<Dungeon> {
   }
 
   Widget _body() {
-    return Container(
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: elevatedButtonOfList(
-                  "Esquerda",
-                  (caminhos["Esquerda"]! ? _caminhar : null),
-                  color: Colors.grey,
-                  textColor: Colors.black,
-                ),
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              flex: 2,
+              child: elevatedButtonOfList(
+                "Esquerda",
+                (caminhos["Esquerda"]! ? _caminhar : null),
+                color: Colors.grey,
+                textColor: Colors.black,
               ),
-              Expanded(
-                flex: 2,
-                child: elevatedButtonOfList(
-                  "Frente",
-                  (caminhos["Frente"]! ? _caminhar : null),
-                  color: Colors.grey,
-                  textColor: Colors.black,
-                ),
+            ),
+            Expanded(
+              flex: 2,
+              child: elevatedButtonOfList(
+                "Frente",
+                (caminhos["Frente"]! ? _caminhar : null),
+                color: Colors.grey,
+                textColor: Colors.black,
               ),
-              Expanded(
-                flex: 2,
-                child: elevatedButtonOfList(
-                  "Direita",
-                  (caminhos["Direita"]! ? _caminhar : null),
-                  color: Colors.grey,
-                  textColor: Colors.black,
-                ),
+            ),
+            Expanded(
+              flex: 2,
+              child: elevatedButtonOfList(
+                "Direita",
+                (caminhos["Direita"]! ? _caminhar : null),
+                color: Colors.grey,
+                textColor: Colors.black,
               ),
-              Expanded(
-                flex: 2,
-                child: elevatedButtonOfList(
-                  "Subir",
-                  () {
-                    Navigator.pop(context);
-                  },
-                  color: Colors.grey,
-                  textColor: Colors.black,
-                ),
+            ),
+            Expanded(
+              flex: 2,
+              child: elevatedButtonOfList(
+                "Subir",
+                () {
+                  Navigator.pop(context);
+                },
+                color: Colors.grey,
+                textColor: Colors.black,
               ),
-              Expanded(
-                flex: 2,
-                child: elevatedButtonOfList(
-                  "Descer",
-                  (descer ? _descer : null),
-                  color: Colors.grey,
-                  textColor: Colors.black,
-                ),
+            ),
+            Expanded(
+              flex: 2,
+              child: elevatedButtonOfList(
+                "Descer",
+                (descer ? _descer : null),
+                color: Colors.grey,
+                textColor: Colors.black,
               ),
-            ],
-          )
-        ],
-      ),
+            ),
+          ],
+        )
+      ],
     );
   }
 
   void _descer() {
     descer = true;
     _andarAtual++;
-    if (_andarAtual % 10 == 0)
+    if (_andarAtual % 10 == 0) {
       _boss();
-    else {
+    } else {
       _invocarMonstro(3);
       _alertMonstro();
     }
@@ -189,7 +187,7 @@ class _DungeonState extends State<Dungeon> {
       Perso dado = _dados[i];
       int vida = dado.getVidaReal;
       int reg = dado.getVidaMax ~/ 100;
-      print("Reg: " + reg.toString());
+      // print("Reg: " + reg.toString());
       dado.setVida = dado.getVidaMax == dado.getVida ? vida : reg + vida;
     }
     setState(() {});
@@ -240,27 +238,18 @@ class _DungeonState extends State<Dungeon> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Aviso"),
+          title: const Text("Aviso"),
           content: Text("Você encontrou um " + _monstro!.getNome),
           actions: [
             TextButton(
-              child: Text("Lutar"),
+              child: const Text("Lutar"),
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.push(
-                    _context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            Battle(_monstro!))).then((value) {
-                  if (!value) {
-                    Navigator.pop(_context);
-                  }
-                  return;
-                });
+                Navigator.pushNamed(_context, '/jogo/batalha');
               },
             ),
             TextButton(
-              child: Text("Fugir"),
+              child: const Text("Fugir"),
               onPressed: () {
                 int agiT = 0;
                 for (int i = 0; i < _dados.length; i++) {
@@ -276,16 +265,7 @@ class _DungeonState extends State<Dungeon> {
                 } else {
                   _alert("Alerta", text: "Falha ao tentar fugir");
                   Navigator.of(context).pop();
-                  Navigator.push(
-                      _context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              Battle(_monstro!))).then((value) {
-                    if (!value) {
-                      Navigator.pop(_context);
-                    }
-                    return;
-                  });
+                  Navigator.pushNamed(_context, '/jogo/batalha');
                 }
               },
             ),
@@ -296,7 +276,8 @@ class _DungeonState extends State<Dungeon> {
   }
 
   void _invocarMonstro(int tipo) {
-    _monstro = Monstros().constroiMonstro(_rank, tipo, _andarAtual, _andarMax);
+    _monstro = Monstros().constroiMonstro(_rank, tipo, _andarAtual, _andarMax)
+      ..setInstance();
   }
 
   void _boss() {
@@ -308,18 +289,9 @@ class _DungeonState extends State<Dungeon> {
           barrierDismissible: false,
           actions: [
             TextButton(
-              child: Text("Lutar"),
+              child: const Text("Lutar"),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            Battle(_monstro!))).then((value) {
-                  if (!value) {
-                    Navigator.pop(_context);
-                  }
-                  return null;
-                });
+                Navigator.pushNamed(context, '/jogo/batalha');
               },
             ),
           ]);
@@ -327,13 +299,11 @@ class _DungeonState extends State<Dungeon> {
   }
 
   _alert(String title,
-      {String text: "",
+      {String text = "",
       Widget? content,
       List<Widget>? actions,
-      bool barrierDismissible: true}) {
-    if (content == null) {
-      content = Text(text);
-    }
+      bool barrierDismissible = true}) {
+    content ??= Text(text);
 
     return showDialog(
       context: context,

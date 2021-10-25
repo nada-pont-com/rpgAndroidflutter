@@ -1,4 +1,4 @@
-import 'package:rpg_flutter/application.dart';
+import 'package:rpg_andriod/application.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class Banco {
@@ -9,35 +9,35 @@ abstract class Banco {
   int get dbversion;
 
   Future<Database> init() async {
-    if (this._db == null) {
+    if (_db == null) {
       String databasePach = await getDatabasesPath();
       String path = databasePach + dbname;
 
-      this._db = await openDatabase(path, version: dbversion,
+      _db = await openDatabase(path, version: dbversion,
           onCreate: (Database db, int version) async {
         //Cria as tabelas
-        tablesCriat.forEach((String sql) {
+        for (var sql in tablesCriat) {
           db.execute(sql);
-        });
+        }
       });
       // await _db.execute("DROP TABLE perso");
       // await _db.execute("DROP TABLE load;");
 
-      tablesCriat.forEach((String sql) {
+      for (var sql in tablesCriat) {
         _db!.execute(sql);
-      });
+      }
     }
-    return this._db!;
+    return _db!;
   }
 
   Future<Database> getDb() async {
-    return await this.init();
+    return await init();
   }
 
   void close() async {
-    if (this._db != null) {
-      await this._db!.close();
-      this._db = null;
+    if (_db != null) {
+      await _db!.close();
+      _db = null;
     }
   }
 }

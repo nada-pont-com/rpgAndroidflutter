@@ -1,12 +1,12 @@
 import 'dart:math';
 
-import 'package:rpg_flutter/application.dart';
-import 'package:rpg_flutter/banco/comandos.dart';
-import 'package:rpg_flutter/objetos/dungeon.dart';
+import 'package:rpg_andriod/application.dart';
+import 'package:rpg_andriod/banco/comandos.dart';
+import 'package:rpg_andriod/objetos/dungeon.dart';
 
 class DungeonsDados {
-  //TODO nomes novos de acordo com o rank; limitar monstros aos nomes; até 3 para o rank G, aumentar de acordo com o rank;
-  Map<String, Map<String, dynamic>> _dungeons = {
+  //T ODO nomes novos de acordo com o rank; limitar monstros aos nomes; até 3 para o rank G, aumentar de acordo com o rank;
+  final Map<String, Map<String, dynamic>> _dungeons = {
     "G": {
       "id": 0,
       "nomes": ["Floresta Norte", "Scarlet", "cubias", "Dragonideos", "Planice"]
@@ -18,7 +18,7 @@ class DungeonsDados {
   };
 
   List<String> _nome = [];
-  List<String> _andares = [
+  final List<String> _andares = [
     "25",
     "30",
     "40",
@@ -38,11 +38,7 @@ class DungeonsDados {
   static DungeonsDados? _this;
 
   factory DungeonsDados() {
-    // ignore: unnecessary_null_comparison
-    if (_this == null) {
-      _this = DungeonsDados.getInstance();
-    }
-    return _this!;
+    return _this ??= DungeonsDados.getInstance();
   }
 
   DungeonsDados.getInstance() : super();
@@ -77,8 +73,8 @@ class DungeonsDados {
         DungeonTable dungeon = DungeonTable();
 
         dungeon.setNome = _nome[name];
-        dungeon.setAndares = ("1-" + _andares[andar]);
-        dungeon.setRank = ranks[randRank];
+        dungeon.andares = ("1-" + _andares[andar]);
+        dungeon.rank = ranks[randRank];
         listaDeDungeons.add(dungeon);
 
         if (!missao) {
