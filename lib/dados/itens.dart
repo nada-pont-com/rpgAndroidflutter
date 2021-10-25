@@ -1,8 +1,8 @@
-import 'package:rpg_flutter/objetos/item.dart';
-import 'package:rpg_flutter/objetos/status.dart';
+import 'package:rpg_andriod/objetos/item.dart';
+import 'package:rpg_andriod/objetos/status.dart';
 
 class Itens {
-  List<Map<String, dynamic>> _itens = [
+  final List<Map<String, dynamic>> _itens = [
     {
       "id": 0,
       "nome": "Gosma",

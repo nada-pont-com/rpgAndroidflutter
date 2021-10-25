@@ -1,75 +1,61 @@
 import 'dart:math';
 
-import 'package:rpg_flutter/dados/dungeon_dados.dart';
-import 'package:rpg_flutter/dados/itens.dart';
-import 'package:rpg_flutter/dados/monstros.dart';
-import 'package:rpg_flutter/objetos/dungeon.dart';
-import 'package:rpg_flutter/objetos/item.dart';
-import 'package:rpg_flutter/objetos/monstro.dart';
-import 'package:rpg_flutter/objetos/objeto.dart';
+import 'package:rpg_andriod/dados/dungeon_dados.dart';
+import 'package:rpg_andriod/dados/itens.dart';
+import 'package:rpg_andriod/dados/monstros.dart';
+import 'package:rpg_andriod/objetos/dungeon.dart';
+import 'package:rpg_andriod/objetos/item.dart';
+import 'package:rpg_andriod/objetos/monstro.dart';
+import 'package:rpg_andriod/objetos/objeto.dart';
 
 class Missao extends Objeto {
   int? _tipo; //salv
   Item? _item; //id
-  Monstro? _monstro; //id
-  DungeonTable? _dungeon; //nome
-  int? _quant; //salv
+  Monstro? monstro; //id
+  DungeonTable? dungeon; //nome
+  int? quant; //salv
   int? _dificuldade;
   String? _rank; //salv
-  int? _exp;
+  // int? _exp;
 
+  // set tipo(int tipo) => _tipo = tipo;
+  // set item(Item item) => _item = item;
   int get tipo => _tipo!;
-
-  set tipo(int tipo) => this._tipo = tipo;
 
   Item get item => _item!;
 
-  set item(Item item) => this._item = item;
+  int? get dificuldade => _dificuldade;
 
-  Monstro? get monstro => _monstro;
-
-  set monstro(Monstro? monstro) => this._monstro = monstro;
-
-  DungeonTable? get dungeon => _dungeon;
-
-  set dungeon(DungeonTable? dungeon) => this._dungeon = dungeon;
-
-  int? get quant => _quant;
-
-  set quant(int? quant) => this._quant = quant;
-
-  get dificuldade => _dificuldade;
-
-  get rank => _rank;
+  String? get rank => _rank;
 
   void setDificuldadeERank() {
     switch (_tipo) {
       case 1:
-        _dificuldade = _quant! * _converte(_item!.raridade);
+        _dificuldade = quant! * _converte(_item!.raridade);
         _rank = _item!.raridade;
         nome = "Encontrar " + _item!.getNome;
         nome += "\nQuant:" +
-            _quant.toString() +
+            quant.toString() +
             "  Rank:" +
             _rank! +
             "  Dificuldade: " +
             _dificuldade.toString();
         break;
       case 2:
-        _dificuldade = _quant! * _converte(_monstro!.getRank);
-        _rank = _monstro!.getRank;
-        nome = "Matar " + _monstro!.getNome;
+        _dificuldade = quant! * _converte(monstro!.getRank);
+        _rank = monstro!.getRank;
+        nome = "Matar " + monstro!.getNome;
         nome += "\nQuant:" +
-            _quant.toString() +
+            quant.toString() +
             "  Rank:" +
             _rank! +
             "  Dificuldade: " +
             _dificuldade.toString();
         break;
       case 3:
-        _dificuldade = (_converte(_dungeon!.getRank!));
-        _rank = _dungeon!.getRank!;
-        nome = "Completar dungeon " + _dungeon!.getNome;
+        _dificuldade = (_converte(dungeon!.rank!));
+        _rank = dungeon!.rank!;
+        nome = "Completar dungeon " + dungeon!.getNome;
         nome += "\nRank:" +
             _rank.toString() +
             "  Dificuldade: " +
@@ -103,26 +89,26 @@ class Missao extends Objeto {
   void setDados(int itemId, int monstroId, String rank, String dungeonNome) {
     switch (_tipo) {
       case 1:
-        this._item = (Itens().geraItemById(itemId));
+        _item = (Itens().geraItemById(itemId));
         break;
       case 2:
-        _monstro!.setRank = (rank);
-        _monstro!.setNome =
+        monstro!.setRank = (rank);
+        monstro!.setNome =
             (Monstros().getNomeMonstroByIdRank(rank, monstroId));
         break;
       case 3:
-        _dungeon!.setNome = (dungeonNome);
-        _dungeon!.setRank = (rank);
+        dungeon!.setNome = (dungeonNome);
+        dungeon!.rank = (rank);
         break;
     }
   }
 
-  Random random = new Random();
+  Random random = Random();
 
   Missao geraMissao() {
     int tipo = random.nextInt(3) + 1;
     int quant = -1;
-    Missao missao = new Missao();
+    Missao missao = Missao();
     List<String> rankMissao = ["G", "F", "E", "D", "C", "B", "A", "S"];
     String rank;
     bool vali = true;
@@ -142,7 +128,7 @@ class Missao extends Objeto {
 
           if (item.raridade == (rank)) {
             quant = random.nextInt(10) + 1;
-            missao.item = (item);
+            missao._item = (item);
             vali = false;
           }
         } while (vali);
@@ -157,20 +143,21 @@ class Missao extends Objeto {
         int valor;
         DungeonsDados dungeonDados = DungeonsDados();
         List<String> dungeonNomes = dungeonDados.getNome(rank);
-        DungeonTable dungeonTable = new DungeonTable();
-        dungeonTable.setRank = (rank);
+        DungeonTable dungeonTable = DungeonTable();
+        dungeonTable.rank = (rank);
         valor = random.nextInt(dungeonNomes.length);
         dungeonTable.setNome = (dungeonNomes[valor]);
         missao.dungeon = (dungeonTable);
         break;
     }
-    missao.tipo = (tipo);
+    missao._tipo = (tipo);
     missao.quant = (quant);
     missao.setDificuldadeERank();
     // System.out.println("validando");
     return missao;
   }
 
+  @override
   String toString() {
     return nome;
   }

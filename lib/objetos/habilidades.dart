@@ -1,6 +1,6 @@
-// import 'package:rpg_flutter/dados/habilidades.dart';
-import 'package:rpg_flutter/objetos/objeto.dart';
-import 'package:rpg_flutter/objetos/status.dart';
+// import 'package:rpg_andriod/dados/habilidades.dart';
+import 'package:rpg_andriod/objetos/objeto.dart';
+import 'package:rpg_andriod/objetos/status.dart';
 
 class Habilidades extends Objeto {
   int? _tipo; //1-Ataque, 2-fortalecimento
@@ -11,25 +11,25 @@ class Habilidades extends Objeto {
   int? _pontos; //pontos necessarios para adquirir a habilidade;
   String _descricao = "";
   int? _custoMp; //custo de mp
-  int _level = 1; //custo de mp
+  int level = 1; //custo de mp
   Status? _extra; //tipo de fortalecimento;
 
   Habilidades(Map<String, dynamic> habilidade) {
-    this.id = habilidade["id"];
-    this.nome = habilidade["nome"];
-    this._tipo = habilidade["tipo"];
-    this._numberAtk = habilidade["numberAtks"];
-    this._valor = habilidade["valor"];
-    this._aumento = habilidade["aumento"];
-    this._nocalte = habilidade["nocalte"];
-    this._extra = habilidade["extra"];
-    this._pontos = habilidade["custo"];
-    this._custoMp = habilidade["mpCusto"];
-    this.descricao(habilidade["descricao"]);
+    id = habilidade["id"];
+    nome = habilidade["nome"];
+    _tipo = habilidade["tipo"];
+    _numberAtk = habilidade["numberAtks"];
+    _valor = habilidade["valor"];
+    _aumento = habilidade["aumento"];
+    _nocalte = habilidade["nocalte"];
+    _extra = habilidade["extra"];
+    _pontos = habilidade["custo"];
+    _custoMp = habilidade["mpCusto"];
+    descricao(habilidade["descricao"]);
   }
 
   void setTipo(int tipo) {
-    this._tipo = tipo;
+    _tipo = tipo;
   }
 
   int? get getTipo {
@@ -37,7 +37,7 @@ class Habilidades extends Objeto {
   }
 
   void setNumberAtk(int numberAtk) {
-    this._numberAtk = numberAtk;
+    _numberAtk = numberAtk;
   }
 
   int? getNumberAtk() {
@@ -45,7 +45,7 @@ class Habilidades extends Objeto {
   }
 
   void setValor(int valor) {
-    this._valor = valor;
+    _valor = valor;
   }
 
   int? getValor() {
@@ -53,7 +53,7 @@ class Habilidades extends Objeto {
   }
 
   void setAumento(int aumento) {
-    this._aumento = aumento;
+    _aumento = aumento;
   }
 
   int? getAumento() {
@@ -61,7 +61,7 @@ class Habilidades extends Objeto {
   }
 
   void setNocalte(int nocalte) {
-    this._nocalte = nocalte;
+    _nocalte = nocalte;
   }
 
   int? getNocalte() {
@@ -69,7 +69,7 @@ class Habilidades extends Objeto {
   }
 
   void setExtra(Status extra) {
-    this._extra = extra;
+    _extra = extra;
   }
 
   Status? getExtra() {
@@ -77,7 +77,7 @@ class Habilidades extends Objeto {
   }
 
   void setPontos(int pontos) {
-    this._pontos = pontos;
+    _pontos = pontos;
   }
 
   int? getPontos() {
@@ -89,18 +89,15 @@ class Habilidades extends Objeto {
   }
 
   void setCusto(int custoMp) {
-    this._custoMp = custoMp;
+    _custoMp = custoMp;
   }
 
   int? get getCusto {
     return _custoMp;
   }
 
-  int get level => _level;
-  set level(int level) => this._level = level;
-
   void descricao(String descricao) {
-    this._descricao = descricao +
+    _descricao = descricao +
         "\nValor: " +
         _valor.toString() +
         "%\n Aumento por level " +
@@ -120,33 +117,34 @@ class Habilidades extends Objeto {
       if (_extra != null) {
         extraClone.extra(_valor!.toDouble(), null, _extra, type: 2);
       }
-      this._descricao = this._descricao + "\nEfeito:" + extraClone.toString();
+      _descricao = _descricao + "\nEfeito:" + extraClone.toString();
     }
   }
 
   Map<String, dynamic> toMap() {
     return {
-      "id": this.id,
-      "nome": this.nome,
-      "tipo": this._tipo,
-      "numberAtks": this._numberAtk,
-      "valor": this._valor,
-      "aumento": this._aumento,
-      "nocalte": this._nocalte,
-      // "extra": this._extra,
-      "custo": this._pontos,
-      "descricao": this._descricao,
-      "mpCusto": this._custoMp,
+      "id": id,
+      "nome": nome,
+      "tipo": _tipo,
+      "numberAtks": _numberAtk,
+      "valor": _valor,
+      "aumento": _aumento,
+      "nocalte": _nocalte,
+      // "extra": _extra,
+      "custo": _pontos,
+      "descricao": _descricao,
+      "mpCusto": _custoMp,
     };
   }
 
   Map<String, dynamic> toMapToBanco() {
     return {
-      "id": this.id,
-      "level": this._level,
+      "id": id,
+      "level": level,
     };
   }
 
+  @override
   String toString() {
     return nome;
   }

@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:rpg_flutter/application.dart';
-import 'package:rpg_flutter/banco/comandos.dart';
-import 'package:rpg_flutter/dados/classes_dados.dart';
-import 'package:rpg_flutter/jogo/inicio/jogo.dart';
-import 'package:rpg_flutter/objetos/load.dart';
-import 'package:rpg_flutter/objetos/perso.dart';
+import 'package:rpg_andriod/banco/comandos.dart';
+import 'package:rpg_andriod/dados/classes_dados.dart';
+import 'package:rpg_andriod/jogo/inicio/jogo.dart';
+import 'package:rpg_andriod/objetos/load.dart';
+import 'package:rpg_andriod/objetos/perso.dart';
 
-class NovoLoad extends StatefulWidget {
+class NovoJogo extends StatefulWidget {
+  const NovoJogo({Key? key}) : super(key: key);
+
   @override
-  _NovoLoadState createState() => _NovoLoadState();
+  _NovoJogoState createState() => _NovoJogoState();
 }
 
-class _NovoLoadState extends State<NovoLoad> {
-  TextEditingController _nomeSave = TextEditingController(text: "");
-  TextEditingController _nomePerso = TextEditingController();
+class _NovoJogoState extends State<NovoJogo> {
+  final TextEditingController _nomeSave = TextEditingController(text: "");
+  final TextEditingController _nomePerso = TextEditingController();
 
   late BuildContext _context;
 
-  Load _load = Load();
+  final Load _load = Load();
   Perso _newPerso = Perso();
-  ClassesDados _classesDados = new ClassesDados();
+  final ClassesDados _classesDados = ClassesDados();
 
   Comandos comandos = Comandos();
 
@@ -28,14 +29,14 @@ class _NovoLoadState extends State<NovoLoad> {
   int referencia = 0;
   @override
   Widget build(BuildContext context) {
-    print("chegou aqui");
+    // print("chegou aqui");
     _context = context;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Teste',
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Novo Jogo"),
+          title: const Text("Novo Jogo"),
         ),
         body: _body(),
       ),
@@ -44,36 +45,33 @@ class _NovoLoadState extends State<NovoLoad> {
 
   Widget _body() {
     List<Widget> conteudo = _conteudo();
-    return Container(
-      child: Center(
-        child: Container(
-          width: 220,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: conteudo,
-          ),
+    return Center(
+      child: SizedBox(
+        width: 220,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: conteudo,
         ),
       ),
     );
   }
 
   List<Widget> _conteudo() {
-    if (referencia == 0)
+    if (referencia == 0) {
       return _nome();
-    else if (referencia == 1)
+    } else if (referencia == 1) {
       return _classe();
-    else
+    } else {
       return _perso();
+    }
   }
 
   List<Widget> _nome() {
     return [
-      Container(
-        child: Text(
-          "Nome do Save",
-          style: TextStyle(
-            fontSize: 25,
-          ),
+      const Text(
+        "Nome do Save",
+        style: TextStyle(
+          fontSize: 25,
         ),
       ),
       _textoField(_nomeSave, "Nome do Save", () {}),
@@ -103,18 +101,16 @@ class _NovoLoadState extends State<NovoLoad> {
 
   List<Widget> _classe() {
     return [
-      Container(
-        child: Text(
-          "Nome do Save",
-          style: TextStyle(
-            fontSize: 25,
-          ),
+      const Text(
+        "Nome do Save",
+        style: TextStyle(
+          fontSize: 25,
         ),
       ),
-      Container(
+      SizedBox(
         height: 150,
         child: ListView.builder(
-          itemCount: this._classesDados.size(),
+          itemCount: _classesDados.size(),
           itemBuilder: (BuildContext context, int index) {
             return Container(
               decoration: BoxDecoration(
@@ -123,10 +119,10 @@ class _NovoLoadState extends State<NovoLoad> {
                     color: Colors.black,
                     width: 1,
                   )),
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               width: 80,
               child: ListTile(
-                title: Text(this._classesDados.getClasse(index)),
+                title: Text(_classesDados.getClasse(index)),
                 leading: Radio<int>(
                   value: index,
                   groupValue: refClasse,
@@ -167,12 +163,10 @@ class _NovoLoadState extends State<NovoLoad> {
   List<Widget> _perso() {
     _newPerso.toMap();
     return [
-      Container(
-        child: Text(
-          "Nome do Personagem",
-          style: TextStyle(
-            fontSize: 25,
-          ),
+      const Text(
+        "Nome do Personagem",
+        style: TextStyle(
+          fontSize: 25,
         ),
       ),
       _textoField(_nomePerso, "Insira o nome", () {
@@ -188,12 +182,12 @@ class _NovoLoadState extends State<NovoLoad> {
               if (_validaNome(txt)) {
                 _newPerso.setNome = txt;
                 comandos.buscaLoad().then((value) {
-                  print("aqui3");
+                  // print("aqui3");
                   bool valida = _validador(_nomeSave.text, value);
-                  print("aqui4");
+                  // print("aqui4");
 
                   if (valida) {
-                    print(_load.toMap());
+                    // print(_load.toMap());
                     comandos.inserirLoad(_load.toMap());
                     _newPerso.loadId = _load.getId;
                     _newPerso.setVida = 100;
@@ -201,15 +195,14 @@ class _NovoLoadState extends State<NovoLoad> {
                     _newPerso.setMp = 10;
                     _newPerso.setMpMax = 10;
                     comandos.inserirPerso(_newPerso.toMap());
-                    loadId = _load.getId!;
-                    persos = <Perso>[];
+                    // loadId = _load.getId;
+
+                    List<Perso> persos = <Perso>[];
                     persos.add(_newPerso);
-                    load = _load;
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => Jogo()),
-                    ).then((value) => Navigator.pop(_context));
+                    Load.setInstance(
+                        id: _load.getId, nome: _load.getNome, persos: persos);
+
+                    Navigator.pushNamed(context, '/jogo');
                   }
                 });
               }
@@ -240,13 +233,13 @@ class _NovoLoadState extends State<NovoLoad> {
   Expanded _elevatedButtonOfList(
     String text,
     void Function() onPress, {
-    Color color: Colors.blue,
-    Color textColor: Colors.white,
+    Color color = Colors.blue,
+    Color textColor = Colors.white,
   }) =>
       Expanded(
         flex: 5,
         child: Container(
-          margin: EdgeInsets.all(5),
+          margin: const EdgeInsets.all(5),
           child: ElevatedButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(color),
@@ -259,13 +252,11 @@ class _NovoLoadState extends State<NovoLoad> {
       );
 
   _alert(String title,
-      {String text: "",
+      {String text = "",
       Widget? content,
       List<Widget>? actions,
-      bool barrierDismissible: true}) {
-    if (content == null) {
-      content = Text(text);
-    }
+      bool barrierDismissible = true}) {
+    content ??= Text(text);
 
     return showDialog(
       context: context,
@@ -281,7 +272,7 @@ class _NovoLoadState extends State<NovoLoad> {
   }
 
   _validaNome(String txt) {
-    if (txt.length > 0) {
+    if (txt.isNotEmpty) {
       return true;
     }
 
@@ -315,13 +306,13 @@ class _NovoLoadState extends State<NovoLoad> {
                 }*/
       List<Widget> action = [
         TextButton(
-          child: Text("Deletar"),
+          child: const Text("Deletar"),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         TextButton(
-          child: Text("Cancelar"),
+          child: const Text("Cancelar"),
           onPressed: () {
             Navigator.of(context).pop();
             Navigator.of(context).pop();
@@ -336,9 +327,9 @@ class _NovoLoadState extends State<NovoLoad> {
       if (loads.length == 2) {
         cont2 = 6;
         for (int i = 0; i < loads.length; i++) {
-          cont2 = cont2 - loads[i].getId!;
+          cont2 = cont2 - loads[i].getId;
         }
-      } else if (loads.length != 0) {
+      } else if (loads.isNotEmpty) {
         if (loads[0].getId == 1) {
           cont2++;
         }

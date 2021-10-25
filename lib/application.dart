@@ -2,19 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rpg_flutter/banco/comandos.dart';
-import 'package:rpg_flutter/dados/itens.dart';
-import 'package:rpg_flutter/objetos/item.dart';
-import 'package:rpg_flutter/objetos/load.dart';
-import 'package:rpg_flutter/objetos/perso.dart';
+import 'package:rpg_andriod/banco/comandos.dart';
+import 'package:rpg_andriod/dados/itens.dart';
+import 'package:rpg_andriod/objetos/item.dart';
 
 int dbVersion = 1;
-
-int loadId = 1;
-
-late List<Perso> persos;
-
-Load? load;
 
 List<String> ranks = ["G", "F", "E", "D", "C", "B", "A", "S"];
 
@@ -25,31 +17,28 @@ bool validaRank(String rankMax, String rankValidar) {
 
     if (ranks[i] == rankMax) rank = i;
   }
-
   return false;
 }
 
 dynamic convertRank({String? rankS, int? rankInt}) {
-  if (rankS == null) return ranks[rankInt == null ? 0 : rankInt];
+  if (rankS == null) return ranks[rankInt ?? 0];
   for (var i = 0; i < ranks.length; i++) {
     if (ranks[i] == rankS) return i;
   }
 }
 
 Widget elevatedButtonOfList(String text, void Function()? onPress,
-    {Color color: Colors.blue, Color textColor: Colors.white, Widget? texto}) {
-  if (texto == null) {
-    texto = Text(text);
-  }
+    {Color color = Colors.blue, Color textColor = Colors.white, Widget? texto}) {
+  texto ??= Text(text);
   return Container(
-    margin: EdgeInsets.all(5),
+    margin: const EdgeInsets.all(5),
     child: ElevatedButton(
         // padding: EdgeInsets.all(0),
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
           textStyle: MaterialStateProperty.all<TextStyle>(
-              TextStyle(color: Colors.white)),
-          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(0)),
+              const TextStyle(color: Colors.white)),
+          padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(0)),
         ),
         // color: color,
         // textColor: textColor,

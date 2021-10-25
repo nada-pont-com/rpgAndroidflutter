@@ -1,13 +1,14 @@
 import 'dart:math';
 
-import 'package:rpg_flutter/application.dart';
-import 'package:rpg_flutter/dados/itens.dart';
-import 'package:rpg_flutter/objetos/habilidades.dart';
-import 'package:rpg_flutter/objetos/monstro.dart';
-import 'package:rpg_flutter/objetos/status.dart';
+import 'package:rpg_andriod/application.dart';
+import 'package:rpg_andriod/dados/itens.dart';
+import 'package:rpg_andriod/objetos/habilidades.dart';
+import 'package:rpg_andriod/objetos/load.dart';
+import 'package:rpg_andriod/objetos/monstro.dart';
+import 'package:rpg_andriod/objetos/status.dart';
 
 class Monstros {
-  Map<String, List<Map<String, dynamic>>> _monstros = {
+  final Map<String, List<Map<String, dynamic>>> _monstros = {
     "G": [
       {
         "nome": "Slime",
@@ -165,7 +166,7 @@ class Monstros {
     int rand = random.nextInt(_monstros[rank2]!.length);
     int level = _monstros[rank2]![rand]['level'];
 
-    if (level > persos[0].getLevel) {
+    if (level > Load.getInstance.persos[0].getLevel) {
       return getMonstro(rank, andar, andarMax);
     }
 
@@ -173,8 +174,9 @@ class Monstros {
   }
 
   Map? getMonstroByIdRank(int? id, String rank) {
-    if (_monstros[rank] != null && id != null && _monstros[rank]!.length < id)
+    if (_monstros[rank] != null && id != null && _monstros[rank]!.length < id) {
       return _monstros[rank]![id];
+    }
     return null;
   }
 
@@ -185,7 +187,7 @@ class Monstros {
 
     Map? monstroMap = id != null ? getMonstroByIdRank(id, rank) : null;
 
-    if (monstroMap == null) monstroMap = getMonstro(rank, andar, andarMax);
+    monstroMap ??= getMonstro(rank, andar, andarMax);
 
     rank = monstroMap["rank"];
     Status statusBase = monstroMap["status"];
@@ -197,7 +199,7 @@ class Monstros {
     int def = statusBase.getDef;
     int defM = statusBase.getDefM;
     int level = (((random.nextInt(1) == 0) ? -1 : 1) * (random.nextInt(2))) +
-        persos[0].getLevel;
+        Load.getInstance.persos[0].getLevel;
 
     // double modLevel = ((level) - 1) / 10;
 
@@ -209,7 +211,7 @@ class Monstros {
         mod3 = 2;
         break;
       case 3: // boss
-        print("boss");
+        // print("boss");
         mod3 = (random.nextInt(4) + 4).toDouble(); // 4x a 7x
         double valorMin = 1;
         double valorMax = 3.5;
@@ -224,15 +226,15 @@ class Monstros {
           valorF = valorF / valor;
         }
         mod3 = mod3 / valorF;
-        print(mod3);
-        print(andar);
+        // print(mod3);
+        // print(andar);
         break;
     }
     status *= mod3;
 
     double ex = (monstroMap["exp"] * status + monstroMap["exp"]);
 
-    return Monstro(
+    return Monstro.geraMostro(
       rank,
       (vida + vida * status).toInt(),
       (mp + mp * status / 2).toInt(),
@@ -254,7 +256,7 @@ class Monstros {
   }
 
   double _mod() {
-    Random random = new Random();
+    Random random = Random();
     double mod = random.nextDouble() + random.nextInt(1); //{1.5,0.5,1,2};
     if (mod < 0.4) {
       return _mod();

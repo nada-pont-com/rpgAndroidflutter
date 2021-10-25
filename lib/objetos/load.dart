@@ -1,16 +1,30 @@
-import 'package:rpg_flutter/objetos/item.dart';
-import 'package:rpg_flutter/objetos/objeto.dart';
+import 'package:rpg_andriod/objetos/item.dart';
+import 'package:rpg_andriod/objetos/objeto.dart';
+import 'package:rpg_andriod/objetos/perso.dart';
 
 class Load extends Objeto {
-  late List<Item> _itens;
+  final List<Item> _itens = [];
+  List<Perso> persos = [];
 
-  Load({int id: 0, String nome: ""}) {
-    this.id = id;
-    this.nome = nome;
-    _itens = <Item>[];
+  static Load? _this;
+
+  Load.setInstance(
+      {int id = 0, String nome = "", this.persos = const <Perso>[]}) {
+    populate(id, nome);
+    _this = this;
   }
 
-  List<Item>? get itens => _itens;
+  Load({int id = 0, String nome = ""}) {
+    populate(id, nome);
+  }
+
+  static Load get getInstance => _this ?? Load();
+  static bool get isActive => _this == null;
+  static void resetLoad() {
+    _this = null;
+  }
+
+  List<Item> get itens => _itens;
   // set itens(List<Item> itens) => _itens = itens;
 
   void atualizaItens(List<Item> itens) {
@@ -56,7 +70,7 @@ class Load extends Objeto {
     int retorn = size();
     if (id != null) {
       for (int i = 0; i < size(); i++) {
-        if (_itens[i].getId == (itens != null ? item.getId : id)) {
+        if (_itens[i].getId == item.getId) {
           _itens.removeAt(i);
           break;
         }
@@ -80,5 +94,14 @@ class Load extends Objeto {
         "ouro": 0,
       };
 
-  String toString() => super.toString();
+  void populate(int id, String nome) {
+    this.id = id;
+    this.nome = nome;
+  }
+
+  void populateByLoad(Load load) {
+    id = load.id;
+    nome = load.nome;
+    persos = load.persos;
+  }
 }

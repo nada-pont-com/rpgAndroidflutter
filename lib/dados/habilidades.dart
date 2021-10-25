@@ -1,8 +1,8 @@
-import 'package:rpg_flutter/objetos/habilidades.dart';
-import 'package:rpg_flutter/objetos/status.dart';
+import 'package:rpg_andriod/objetos/habilidades.dart';
+import 'package:rpg_andriod/objetos/status.dart';
 
 class HabilidadesDados {
-  List<Map<String, dynamic>> _habilidades = [
+  final List<Map<String, dynamic>> _habilidades = [
     {
       "nome": "Ataque Forte",
       "nomeKey": "ATK_FORTE",
@@ -71,7 +71,7 @@ class HabilidadesDados {
     for (Map<String, dynamic> habilidade in _habilidades) {
       listHabilidades.add(Habilidades(habilidade));
     }
-    print(listHabilidades);
+    // print(listHabilidades);
     return listHabilidades;
   }
 }

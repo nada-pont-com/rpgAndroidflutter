@@ -1,10 +1,21 @@
-import 'package:rpg_flutter/objetos/habilidades.dart';
-import 'package:rpg_flutter/objetos/ser_vivo.dart';
+import 'package:rpg_andriod/objetos/habilidades.dart';
+import 'package:rpg_andriod/objetos/ser_vivo.dart';
 
 class Monstro extends SerVivo {
   List<dynamic>? _itens;
 
-  Monstro(
+  static Monstro? _this;
+  factory Monstro() {
+    return _this ?? Monstro._getInstance();
+  }
+
+  static bool get isActive => _this == null;
+  static void resetMonstro() => _this = null;
+
+  Monstro._getInstance();
+  void setInstance() => _this = this;
+
+  Monstro.geraMostro(
       String rank,
       int vida,
       int mp,
@@ -30,8 +41,8 @@ class Monstro extends SerVivo {
           defM: defM,
         ) {
     this.rank = rank;
-    this.vida = this.vidaMax = vida;
-    this.mpMax = this.mp = mp;
+    this.vida = vidaMax = vida;
+    mpMax = this.mp = mp;
     this.atk = atk;
     this.def = def;
     this.agi = agi;
@@ -39,8 +50,8 @@ class Monstro extends SerVivo {
     this.defM = defM;
     this.level = level;
     this.nome = nome;
-    this.experiencia = ex;
-    this._itens = item;
+    experiencia = ex;
+    _itens = item;
     this.habilidades = habilidades;
   }
 

@@ -1,16 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:rpg_flutter/objetos/item.dart';
-import 'package:rpg_flutter/objetos/missao.dart';
+// import 'package:rpg_andriod/objetos/item.dart';
+// import 'package:rpg_andriod/objetos/missao.dart';
 
 class Guilda extends StatefulWidget {
+  const Guilda({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _Guilda();
 }
 
 class _Guilda extends State<Guilda> {
   int _aba = 0;
-  List<Missao> _listMisao = <Missao>[];
+  // final List<Missao> _listMisao = <Missao>[];
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class _Guilda extends State<Guilda> {
         appBar: AppBar(),
         body: _body(),
         bottomNavigationBar: BottomNavigationBar(
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: "Recepção",
@@ -58,23 +60,21 @@ class _Guilda extends State<Guilda> {
   }
 
   Widget _recepcao() {
-    return Container(
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              children: [],
-            ),
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            children: const [],
           ),
-          // ListView.builder(
-          //     itemCount: _listMisao.length,
-          //     itemBuilder: (BuildContext context, int index) {
-          //       return Column(
-          //         children: [],
-          //       );
-          //     })
-        ],
-      ),
+        ),
+        // ListView.builder(
+        //     itemCount: _listMisao.length,
+        //     itemBuilder: (BuildContext context, int index) {
+        //       return Column(
+        //         children: [],
+        //       );
+        //     })
+      ],
     );
   }
 

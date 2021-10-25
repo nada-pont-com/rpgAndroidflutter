@@ -29,18 +29,18 @@ class Status {
   Status? extraStatus;
 
   Status(
-      {this.vida: 0,
+      {this.vida = 0,
       // this.vidaAparente: 0,
-      this.vidaMax: 0,
-      this.mp: 0,
-      this.mpMax: 0,
-      this.atk: 0,
-      this.def: 0,
-      this.agi: 0,
-      this.atkM: 0,
-      this.defM: 0,
-      this.intl: 0,
-      this.vit: 0});
+      this.vidaMax = 0,
+      this.mp = 0,
+      this.mpMax = 0,
+      this.atk = 0,
+      this.def = 0,
+      this.agi = 0,
+      this.atkM = 0,
+      this.defM = 0,
+      this.intl = 0,
+      this.vit = 0});
 
   Status.map(Map<String, dynamic> status) {
     vida = status["vida"];
@@ -79,9 +79,7 @@ class Status {
 
   void extra(double valor, Status? base, Status? status, {int type = 1}) {
     Map<String, dynamic> extra = status!.toMap();
-    if (base == null) {
-      base = Status();
-    }
+    base ??= Status();
     if (type == 1) {
       valor *= 0.01;
     }
@@ -172,7 +170,7 @@ class Status {
   set setNocalteado(int nocalteado) => this.nocalteado = nocalteado;
 
   Status? get getExtraStatus => extraStatus;
-  void clearExtraStatus() => this.extraStatus!.cloneByStatus(Status());
+  void clearExtraStatus() => extraStatus!.cloneByStatus(Status());
 
   Map<String, dynamic> toMap() {
     return {
