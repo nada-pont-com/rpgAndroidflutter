@@ -1,0 +1,24 @@
+tabelas
+
+ - jogador
+  - id
+  - nome
+  - nivel
+  - exp
+  - classe
+ 
+
+ - Status
+  - id
+  - jogador_id
+  - atk
+  - def
+  - agi
+  - res
+  - hp
+
+ - Estatisticas
+  - id
+  - jogador_id
+  - tipo - (mortes, monstros mt, qt hab, qt atk, qt exp)
+  - qt
