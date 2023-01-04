@@ -1,7 +1,7 @@
-import 'package:rpg_flutter/core/objs/base.dart';
+import 'package:rpg_flutter/core/objs/item.dart';
 import 'package:rpg_flutter/core/objs/status.dart';
 
-abstract class Arma extends Base {
+abstract class Arma extends Item {
   Arma(this.status,
       {required this.distancia,
       required this.tipo,

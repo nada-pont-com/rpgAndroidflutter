@@ -1,3 +1,4 @@
+import 'package:rpg_flutter/core/data/arma/arco.dart';
 import 'package:rpg_flutter/core/objs/classe.dart';
 import 'package:rpg_flutter/core/objs/status.dart';
 
@@ -11,5 +12,7 @@ class Arqueiro extends Classe {
     res: 0,
   );
 
-  Arqueiro() : super(base);
+  static List<Type> tipoArmasBase = [Arco];
+
+  Arqueiro() : super(base, tipoArmasBase);
 }

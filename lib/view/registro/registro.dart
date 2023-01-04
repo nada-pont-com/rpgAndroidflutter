@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rpg_flutter/view/registro/classe.dart';
 import 'package:rpg_flutter/view/registro/infos.dart';
 
 class Registro extends StatefulWidget {
@@ -7,7 +8,7 @@ class Registro extends StatefulWidget {
 }
 
 class _RegistroState extends State<Registro> {
-  int passo = 0;
+  int passo = 1;
 
   TextEditingController controller = TextEditingController();
 
@@ -19,23 +20,33 @@ class _RegistroState extends State<Registro> {
   }
 
   body() {
+    Widget? vw = [nome(), classe()][passo];
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Center(
-        child: Column(
-          children: [
-            Infos(
-              controller: controller,
-            ),
-            ElevatedButton(
-              child: Text('continuar'),
-              onPressed: () {
+      child: Column(
+        children: [
+          Expanded(child: vw ?? Text('Erro')),
+          ElevatedButton(
+            child: Text('continuar'),
+            onPressed: () {
+              setState(() {
                 passo++;
-              },
-            )
-          ],
-        ),
+              });
+            },
+          )
+        ],
       ),
     );
+  }
+
+  nome() {
+    return Infos(
+      controller: controller,
+    );
+  }
+
+  classe() {
+    return ClasseVw();
   }
 }

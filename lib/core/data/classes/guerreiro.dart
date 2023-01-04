@@ -1,3 +1,5 @@
+import 'package:rpg_flutter/core/data/arma/espada.dart';
+import 'package:rpg_flutter/core/data/arma/lanca.dart';
 import 'package:rpg_flutter/core/objs/classe.dart';
 import 'package:rpg_flutter/core/objs/status.dart';
 
@@ -11,5 +13,7 @@ class Guerreiro extends Classe {
     res: 1,
   );
 
-  Guerreiro() : super(base);
+  static List<Type> tipoArmasBase = [Espada, Lanca];
+
+  Guerreiro() : super(base, tipoArmasBase);
 }

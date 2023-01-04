@@ -31,6 +31,15 @@ interações
   - existencia vs existencia
  - 
 
+armas:
+  tipo
+    - espada
+    - lança
+    - arco
+    - faca
+
+
+
 dados
  - mortes
  - monstros derrotados
