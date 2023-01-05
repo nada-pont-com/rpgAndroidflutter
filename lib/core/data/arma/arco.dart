@@ -1,13 +1,21 @@
 import 'package:rpg_flutter/core/objs/arma.dart';
 import 'package:rpg_flutter/core/objs/status.dart';
 
-class Arco extends Arma {
-  Arco({required Status status, required String nome, required int id})
-      : super(
-          status,
-          distancia: 'longe',
-          tipo: 'arco',
-          nome: nome,
-          id: id,
-        );
+class Arco implements Arma {
+  Arco({required this.status, required this.nome, required this.id});
+
+  @override
+  String distancia = 'longe';
+
+  @override
+  int id;
+
+  @override
+  String nome;
+
+  @override
+  Status status;
+
+  @override
+  String tipo = 'arco';
 }

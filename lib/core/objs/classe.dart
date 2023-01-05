@@ -1,8 +1,8 @@
+import 'package:rpg_flutter/core/objs/item.dart';
 import 'package:rpg_flutter/core/objs/status.dart';
 
 abstract class Classe {
-  Classe(this.status, this.tipoArmas);
-
-  Status status;
-  List<Type> tipoArmas;
+  late Status status;
+  late List<Type> tipoArmas;
+  late List<Item> itensBase;
 }

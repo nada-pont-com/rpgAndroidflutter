@@ -1,9 +1,11 @@
 import 'package:rpg_flutter/core/data/arma/arco.dart';
 import 'package:rpg_flutter/core/objs/classe.dart';
+import 'package:rpg_flutter/core/objs/item.dart';
 import 'package:rpg_flutter/core/objs/status.dart';
 
-class Arqueiro extends Classe {
-  static Status base = Status(
+class Arqueiro implements Classe {
+  @override
+  Status status = Status(
     hp: 60,
     atk: 6,
     def: 2,
@@ -12,7 +14,9 @@ class Arqueiro extends Classe {
     res: 0,
   );
 
-  static List<Type> tipoArmasBase = [Arco];
+  @override
+  List<Type> tipoArmas = [Arco];
 
-  Arqueiro() : super(base, tipoArmasBase);
+  @override
+  List<Item> itensBase = [];
 }

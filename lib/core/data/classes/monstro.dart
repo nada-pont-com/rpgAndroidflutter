@@ -7,20 +7,20 @@ import 'package:rpg_flutter/core/objs/classe.dart';
 import 'package:rpg_flutter/core/objs/item.dart';
 import 'package:rpg_flutter/core/objs/status.dart';
 
-class Aventureiro implements Classe {
+class MonstroClass implements Classe {
   @override
   Status status = Status(
-    hp: 70,
-    atk: 5,
-    def: 3,
-    agi: 5,
-    sp: 6,
-    res: 2,
+    hp: 20,
+    atk: 1,
+    def: 1,
+    agi: 1,
+    sp: 1,
+    res: 1,
   );
 
   @override
   List<Type> tipoArmas = [Espada, Faca, Lanca, Arco];
 
   @override
-  List<Item> itensBase = [Armas().getArma(3)];
+  List<Item> itensBase = [];
 }
