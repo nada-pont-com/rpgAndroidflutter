@@ -20,10 +20,11 @@ class _ClasseVwState extends State<ClasseVw> {
       return Stack(
         children: [
           // conteudo
-          Expanded(
-            child: SizedBox(
-              width: boxConstraints.maxWidth,
+          SizedBox(
+            width: boxConstraints.maxWidth,
+            child: Center(
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text('data'),
                   Text(classes[index].runtimeType.toString()),
