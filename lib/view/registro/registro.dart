@@ -19,8 +19,10 @@ class _RegistroState extends State<Registro> {
     );
   }
 
+  late List<Widget?> vws = [nome(), classe()];
+
   body() {
-    Widget? vw = [nome(), classe()][passo];
+    Widget? vw = vws[passo];
 
     return Padding(
       padding: const EdgeInsets.all(8.0),

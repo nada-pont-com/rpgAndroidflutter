@@ -1,5 +1,4 @@
 import 'package:rpg_flutter/core/data/arma/arco.dart';
-import 'package:rpg_flutter/core/data/arma/armas.dart';
 import 'package:rpg_flutter/core/data/arma/espada.dart';
 import 'package:rpg_flutter/core/data/arma/faca.dart';
 import 'package:rpg_flutter/core/data/arma/lanca.dart';

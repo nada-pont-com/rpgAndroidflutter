@@ -16,6 +16,8 @@ class _ClasseVwState extends State<ClasseVw> {
 
   @override
   Widget build(BuildContext context) {
+    Classe classe = classes[index];
+
     return LayoutBuilder(builder: (context, boxConstraints) {
       return Stack(
         children: [
@@ -28,7 +30,40 @@ class _ClasseVwState extends State<ClasseVw> {
                 children: [
                   Text('data'),
                   Text(classes[index].runtimeType.toString()),
-                  Text('attr'),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        width: 50,
+                        child: Text('Atk ${classe.status.atk}'),
+                      ),
+                      SizedBox(
+                        width: 50,
+                        child: Text('Def ${classe.status.def}'),
+                      ),
+                      SizedBox(
+                        width: 50,
+                        child: Text('Agi ${classe.status.agi}'),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        width: 50,
+                        child: Text('HP ${classe.status.hp}'),
+                      ),
+                      SizedBox(
+                        width: 50,
+                        child: Text('SP ${classe.status.sp}'),
+                      ),
+                      SizedBox(
+                        width: 50,
+                        child: Text('Res ${classe.status.res}'),
+                      ),
+                    ],
+                  ),
                   Text('Hab'),
                 ],
               ),

@@ -25,7 +25,7 @@ abstract class Servivo {
 
   List<Efeito> efeitos = [];
 
-  bool get vivo => _status.hp > 0;
+  bool get vivo => getHp > 0;
 
   double get getHp => _status.hp + _classe.status.hp;
   double get getHpMax => _status.hpMax + _classe.status.hp;
@@ -78,7 +78,8 @@ abstract class Servivo {
   int get getSpMax => _status.spMax;
 
   set addHp(double hp) => _status.hp = min(_status.hp + hp, getHpMax);
-  set removeHp(double hp) => _status.hp = max(_status.hp - hp, getHpMax);
+  set removeHp(double hp) =>
+      _status.hp = max(_status.hp - hp, -_classe.status.hp);
 
   set efeito(Efeito efeito) {
     if (efeito.interacao == IntecationEfects.instantanio) {
