@@ -7,9 +7,9 @@ rpg simples
 
 # Plano
 
-- [ ] Tela inicial `27/01/24`
-  - [ ] Logo no centro e texto em baixo "Click para iniciar"
-  - [ ] Verificar se é primeira vez
+- [x] Tela inicial `27/01/24`
+  - [x] Logo no centro e texto em baixo "Click para iniciar"
+  - [ ] Verificar se é primeira vez `Precisa dos dados`
 
 - [ ] Tela de Criação `03/02/24`
   - [ ] Nome

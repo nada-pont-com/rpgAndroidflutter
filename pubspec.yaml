@@ -35,3 +35,6 @@ flutter_icons:
 flutter:
 
   uses-material-design: true
+  
+  assets:
+    - assets/sig-512.png

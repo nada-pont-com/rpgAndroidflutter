@@ -10,16 +10,26 @@ class Home extends StatelessWidget {
 
   body(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ElevatedButton(
-            child: Text('Entrar'),
-            onPressed: () {
-              Navigator.pushNamed(context, '/registro');
-            },
+      child: GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, '/registro');
+        },
+        child: ColoredBox(
+          color: Colors.white,
+          child: Column(
+            children: [
+              Expanded(
+                child: Center(
+                  child: Image.asset("assets/sig-512.png", width: 150),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Click para iniciar'),
+              )
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
