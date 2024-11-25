@@ -7,6 +7,7 @@ class Main extends StatelessWidget {
     return MaterialApp(
       routes: Routers.routers,
       initialRoute: '/',
+      debugShowCheckedModeBanner: false,
     );
   }
 }

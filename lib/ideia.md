@@ -12,25 +12,32 @@ rpg simples
   - [ ] Verificar se é primeira vez `Precisa dos dados`
 
 - [ ] Tela de Criação `03/02/24`
-  - [ ] Nome
-    - [ ] Campo input
-  - [ ] Classe
-    - [ ] Modal com passa para o lado mostrando o que tem na classe
+  - [x] Nome
+    - [x] Campo input
+  - [x] Classe
+    - [x] Modal com passa para o lado mostrando o que tem na classe
   - [ ] Acessorio `Extra`
     - [ ] Modal com o nome do acessorio e informação `Extra`
+  - [x] Botão de Avançar
 
 - [ ] Tela do jogo
-  - [ ] Aba 1 `2 horas`
+  - [ ] Aba unica `2 horas`
     - [ ] Personagem
       - [ ] Nome, lv, classe
       - [ ] Vida
-  - [ ] Aba 2 `1 horas`
+    - [ ] Botões com
+      - [ ] Guild
+      - [ ] Dungeons
+      - [ ] Inventario `Extra`
+      - [ ] Equipamento `Extra`
+  - [ ] Dungeon `1 horas`
     - [ ] Listar as Dungeons
       - [ ]  Quando clica abar as info e se quer entrar
       - [ ]  Sem clicar tem a dificuldade `Extra`
       - [ ]  Nivel e Andar mais fundo
-  - [ ] Aba 3 `1 horas`
-    - [ ] Guilda
+  - [ ] Guilda `1 horas`
+    - [ ] Mostrar Rank
+    - [ ] Em breve
 
 - [ ] Dungeon
   - [ ] `Extra`, mapa

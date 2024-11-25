@@ -8,7 +8,7 @@ class Registro extends StatefulWidget {
 }
 
 class _RegistroState extends State<Registro> {
-  int passo = 1;
+  // int passo = 0;
 
   TextEditingController controller = TextEditingController();
 
@@ -19,24 +19,23 @@ class _RegistroState extends State<Registro> {
     );
   }
 
-  late List<Widget?> vws = [nome(), classe()];
+  // late List<Widget?> vws = [nome(), classe()];
 
   body() {
-    Widget? vw = vws[passo];
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          Expanded(child: vw ?? Text('Erro')),
-          ElevatedButton(
-            child: Text('continuar'),
-            onPressed: () {
-              setState(() {
-                passo++;
-              });
-            },
-          )
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                nome(),
+                classe(),
+              ],
+            ),
+          ),
+          avancar(),
         ],
       ),
     );
@@ -50,5 +49,12 @@ class _RegistroState extends State<Registro> {
 
   classe() {
     return ClasseVw();
+  }
+
+  avancar() {
+    return ElevatedButton(
+      onPressed: () => print("Ação"),
+      child: Text("Avançar"),
+    );
   }
 }

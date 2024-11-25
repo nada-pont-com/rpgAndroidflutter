@@ -10,11 +10,14 @@ class Infos extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        TextField(
-          controller: controller,
-          keyboardType: TextInputType.name,
-          decoration: InputDecoration(
-            labelText: 'Nome',
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(
+            controller: controller,
+            keyboardType: TextInputType.name,
+            decoration: InputDecoration(
+              labelText: 'Nome',
+            ),
           ),
         )
       ],
